@@ -3,7 +3,7 @@
 Landing page giới thiệu dịch vụ **Website / Web App / Mobile App / Zalo Mini App** cho hộ kinh doanh & SME.
 Phong cách: editorial-tech / Neo-Swiss + soft brutalism + creative coding. Tiếng Việt, chuẩn SEO, tối ưu lead qua **Zalo**.
 
-**Live:** https://leky90.github.io/ldktech-solutions/
+**Live:** https://ldktech.com/
 
 ## Tech stack
 
@@ -15,7 +15,7 @@ Phong cách: editorial-tech / Neo-Swiss + soft brutalism + creative coding. Ti�
 ## Lệnh
 
 ```bash
-pnpm dev        # dev server (mở http://localhost:5173/ldktech-solutions/)
+pnpm dev        # dev server (mở http://localhost:5173/)
 pnpm test       # vitest — kiểm tra prerender + tính toàn vẹn nội dung
 pnpm build      # build + prerender + tạo 404.html
 pnpm preview    # xem thử bản build
@@ -35,13 +35,16 @@ Toàn bộ copy + cấu hình nằm ở **`src/content/site.ts`**:
 
 SEO meta (title/description/OG/canonical/JSON-LD) nằm tĩnh trong **`index.html`**.
 
-## Chuyển sang tên miền riêng (khi có)
+## Tên miền
 
-1. `vite.config.ts`: đổi `base: '/ldktech-solutions/'` → `'/'`
-2. `src/content/site.ts`: đổi `siteUrl`
-3. `index.html`: thay các URL `https://leky90.github.io/ldktech-solutions/` (canonical, og:url, og:image, JSON-LD)
-4. `public/robots.txt` + `public/sitemap.xml`: thay URL
-5. Thêm file `public/CNAME` chứa tên miền, trỏ DNS và khai báo trong Settings → Pages
+Đã chạy trên **ldktech.com** (Cloudflare DNS → GitHub Pages):
+- Cloudflare: `ldktech.com` và `www` CNAME → `leky90.github.io`, **DNS only** (bắt buộc để GitHub cấp SSL)
+- GitHub Pages: custom domain `ldktech.com` (Settings → Pages), `public/CNAME`
+- URL cũ `leky90.github.io/ldktech-solutions/*` tự 301 về domain mới
+
+**Rollback DNS (nếu cần quay lại site cũ):** đổi 2 record trên về Cloudflare Tunnel như cũ —
+apex → `a8e6adb2-09e5-460b-9b2e-c0a277b4d2ee.cfargotunnel.com` (Proxied),
+www → `fe284192-c712-4932-aa4a-40390b843568.cfargotunnel.com` (Proxied).
 
 ## Cấu trúc (multi-page)
 

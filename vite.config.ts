@@ -5,9 +5,8 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // Project page trên GitHub Pages: https://ldky90.github.io/ldktech-solutions/
-  // Nếu chuyển sang custom domain: đổi base thành '/'
-  base: '/ldktech-solutions/',
+  // Custom domain https://ldktech.com/ (GitHub Pages + Cloudflare DNS)
+  base: '/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

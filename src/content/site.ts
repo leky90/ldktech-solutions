@@ -78,7 +78,7 @@ export const SITE = {
   tagline: 'Thiết kế Website, App & Zalo Mini App cho hộ kinh doanh và SME',
 
   // ── URL & liên hệ (1 chỗ duy nhất) ──
-  siteUrl: 'https://leky90.github.io/ldktech-solutions/',
+  siteUrl: 'https://ldktech.com/',
   zaloUrl: 'https://zalo.me/0969436154',
   phone: '0969 436 154',
   phoneHref: 'tel:+84969436154',
