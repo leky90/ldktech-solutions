@@ -27,8 +27,8 @@ Toàn bộ copy + cấu hình nằm ở **`src/content/site.ts`**:
 
 | Việc cần làm | Sửa ở đâu |
 |---|---|
-| **Số Zalo / SĐT / email thật** | `zaloUrl`, `phone`, `phoneHref`, `email` |
-| **Kích hoạt form lead** | Lấy key miễn phí tại [web3forms.com](https://web3forms.com) (điền email nhận lead) → dán vào `web3formsKey`. Chưa có key thì form tự ẩn, chỉ hiện nút Zalo/gọi |
+| Số Zalo / SĐT / email | `zaloUrl`, `phone`, `phoneHref`, `email` |
+| **Kích hoạt form lead** | Điền URL API tự host vào `leadApiUrl`. Form POST JSON `{source, name, phone, message}`; trả 2xx = thành công. Để trống thì form tự ẩn, chỉ hiện nút Zalo/gọi |
 | Giá các gói | `pricing[]`, `services[].from` |
 | Số liệu trust (30+ dự án…) | `hero.trust` |
 | FAQ | `faqs[]` — **lưu ý**: sửa FAQ thì sửa cả JSON-LD FAQPage trong `index.html` cho khớp |

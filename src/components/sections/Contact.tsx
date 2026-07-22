@@ -13,8 +13,8 @@ export function Contact() {
   const [status, setStatus] = useState<FormStatus>('idle')
   const successRef = useRef<HTMLParagraphElement>(null)
   const { contact } = SITE
-  // Chưa cấu hình Web3Forms key -> ẩn form, chỉ hiện kênh Zalo/gọi (không bao giờ dead-end)
-  const formReady = SITE.web3formsKey !== 'YOUR_ACCESS_KEY_HERE'
+  // Chưa cấu hình API nhận lead -> ẩn form, chỉ hiện kênh Zalo/gọi (không bao giờ dead-end)
+  const formReady = SITE.leadApiUrl !== ''
 
   // Thành công thì form unmount -> phải chủ động chuyển focus sang thông báo
   useEffect(() => {
@@ -37,19 +37,18 @@ export function Contact() {
     if (data.get('botcheck')) return // honeypot — bot tự điền thì bỏ qua
     setStatus('sending')
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
+      // API tự host — xem README, mục "Kích hoạt form lead"
+      const res = await fetch(SITE.leadApiUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: SITE.web3formsKey,
-          subject: 'Lead mới từ landing page LDK Tech',
+          source: 'landing-ldktech',
           name: data.get('name'),
           phone: data.get('phone'),
           message: data.get('message'),
         }),
       })
-      const json = (await res.json()) as { success: boolean }
-      if (json.success) {
+      if (res.ok) {
         setStatus('success')
         form.reset()
       } else {

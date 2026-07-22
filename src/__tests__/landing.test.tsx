@@ -60,8 +60,10 @@ describe('content/site.ts — tính toàn vẹn nội dung', () => {
   })
 
   it('config liên hệ tập trung một chỗ', () => {
-    expect(SITE.zaloUrl).toMatch(/^https:\/\/zalo\.me\//)
-    expect(SITE.phone).toBeTruthy()
+    expect(SITE.zaloUrl).toBe('https://zalo.me/0969436154')
+    expect(SITE.phoneHref).toBe('tel:+84969436154')
     expect(SITE.siteUrl).toMatch(/^https:\/\//)
+    // Form gửi về API tự host (không dùng Web3Forms); để trống -> form ẩn, chỉ hiện Zalo/gọi
+    expect(typeof SITE.leadApiUrl).toBe('string')
   })
 })

@@ -39,15 +39,15 @@ export const SITE = {
   brand: 'LDK Tech',
   tagline: 'Thiết kế Website, App & Zalo Mini App cho hộ kinh doanh và SME',
 
-  // ── URL & liên hệ — THAY BẰNG THÔNG TIN THẬT (1 chỗ duy nhất) ──
+  // ── URL & liên hệ (1 chỗ duy nhất) ──
   siteUrl: 'https://leky90.github.io/ldktech-solutions/',
-  zaloUrl: 'https://zalo.me/0900000000',
-  phone: '0900 000 000',
-  phoneHref: 'tel:+84900000000',
+  zaloUrl: 'https://zalo.me/0969436154',
+  phone: '0969 436 154',
+  phoneHref: 'tel:+84969436154',
   email: 'hello@ldktech.vn',
-  // Lấy key miễn phí tại https://web3forms.com (nhập email nhận lead).
-  // Chưa thay key -> form tự chuyển sang panel "Nhắn Zalo / Gọi ngay".
-  web3formsKey: 'YOUR_ACCESS_KEY_HERE',
+  // URL API nhận lead (tự host, sẽ code sau). Để trống '' -> form ẩn,
+  // section liên hệ chỉ hiện kênh Zalo/gọi — không bao giờ dead-end.
+  leadApiUrl: '',
 
   nav: [
     { label: 'Dịch vụ', href: '#dich-vu' },
