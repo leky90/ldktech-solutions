@@ -43,15 +43,23 @@ SEO meta (title/description/OG/canonical/JSON-LD) nằm tĩnh trong **`index.htm
 4. `public/robots.txt` + `public/sitemap.xml`: thay URL
 5. Thêm file `public/CNAME` chứa tên miền, trỏ DNS và khai báo trong Settings → Pages
 
-## Cấu trúc
+## Cấu trúc (multi-page)
+
+8 trang tĩnh, mỗi trang có title/canonical/OG riêng: `/`, `/dich-vu/` + 4 trang dịch vụ
+(bảng giá + FAQ riêng từng dịch vụ), `/du-an/`, `/bang-gia/`. Sitemap generate tự động từ manifest.
 
 ```
-index.html                  # SEO head tĩnh: meta, OG, JSON-LD (ProfessionalService + FAQPage)
-scripts/prerender.mjs       # render App -> HTML tĩnh sau khi build
+index.html                  # SEO head template: meta, OG, JSON-LD Organization
+scripts/prerender.mjs       # loop routes -> dist/<path>/index.html + sitemap.xml
 src/
-  content/site.ts           # TOÀN BỘ nội dung + config
-  components/sections/      # Header, Hero, Marquee, Services, WhyUs, Process, Pricing, Faq, Contact, Footer
-  components/shared/        # Logo, CtaLink, SectionHeading, Reveal, HeroCanvas, StickyMobileCta, FloatingZalo
+  content/site.ts           # TOÀN BỘ nội dung + config (servicePages = 4 trang dịch vụ)
+  content/routes.ts         # manifest route: path + title + description (nguồn duy nhất)
+  pages/                    # Home, ServicesIndex, ServicePage, ProjectsPage, PricingPage
+  components/Layout.tsx     # Header/Footer/CTA bọc Outlet + title per route
+  components/sections/      # các section trang chủ
+  components/shared/        # Logo, CtaLink, TierCard, ProjectCard, PageHero, JsonLd…
   components/ui/            # shadcn/ui
-public/                     # favicon, og-image, robots.txt, sitemap.xml
+public/                     # favicon, og-image, robots.txt
 ```
+
+**Thêm trang mới**: thêm entry vào `routes.ts` + `<Route>` trong `App.tsx` — prerender và sitemap tự theo.

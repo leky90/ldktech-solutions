@@ -1,86 +1,80 @@
-# Kế hoạch: Landing page LDK Tech Solutions
+# Kế hoạch: Mở rộng one-page → multi-page (SEO + lead sâu hơn)
+
+> Kế hoạch trước (dựng landing one-page) đã hoàn thành & deploy — xem git history của file này.
 
 ## Context
 
-Xây landing page một trang (tiếng Việt) giới thiệu dịch vụ xây dựng **Website / Web App / Mobile App / Zalo Mini App** cho **hộ kinh doanh cá nhân và SME**. Mục tiêu: chuẩn SEO, UX rõ ràng, tối ưu lead & chốt sale. Thư mục dự án hiện trống (greenfield).
+Site hiện tại là one-page: mọi keyword phải cạnh tranh trên 1 URL duy nhất, không có trang chuyên sâu cho từng dịch vụ, bảng giá gộp 3 gói chung. Mở rộng multi-page để: mỗi dịch vụ có trang riêng + **bảng giá riêng** + FAQ riêng (JSON-LD riêng), trang dự án riêng, sitemap nhiều URL — giữ nguyên stack Vite + React static trên GitHub Pages.
 
-- **Phong cách**: editorial-tech / Neo-Swiss hiện đại + soft brutalism (viền đậm, hard shadow lệch, badge sticker) + creative coding (canvas generative, marquee, mono labels, section đánh số 01–04).
-- **Màu**: nền trắng chủ đạo; Primary Purple `#6F3CC3`, Dark Purple `#4B2A84`, Golden Yellow `#F4B400`, Soft Gold `#FFD166`, Midnight Ink `#211A3B` (text), White `#FFFFFF`. Logo chữ K trong vòng tròn → vẽ lại bằng inline SVG (dùng làm logo header + favicon).
-- **Stack**: React + Vite + TypeScript, Tailwind CSS v4 (`@tailwindcss/vite`), shadcn/ui (button, accordion, input, textarea, sheet), alias `@/*`. Static, deploy GitHub Pages qua GitHub Actions.
+## Chốt naming (theo tư vấn đã trả lời user)
 
-## Quyết định kỹ thuật chính
+- Nav chính giữ **"Dịch vụ"** (khớp search intent tệp hộ kinh doanh/SME). Layer **"Giải pháp theo ngành"** (spa, F&B, bán lẻ…) để Phase 2 — đây mới là chỗ dùng chữ "Giải pháp".
+- Listing giữ **"Dự án"**; trang chi tiết có số liệu kết quả + permission của khách → nâng thành **case study** ("Câu chuyện khách hàng"). KHÔNG dùng "User stories" (thuật ngữ Agile, không phải marketing).
+- **"Mẫu tham khảo"** (gallery tự dựng theo ngành) → Phase 3.
 
-| Vấn đề | Quyết định | Lý do |
-|---|---|---|
-| SEO/prerender cho Vite SPA | **`vite-prerender-plugin`** — export `prerender()` từ `main.tsx` dùng `renderToString`, client `hydrateRoot`. Meta/OG/JSON-LD viết tĩnh 100% trong `index.html` (belt & suspenders) | Mình tự own render call nên an toàn với React 19; `vite-react-ssg` còn ghi "Support react19" trong roadmap, `react-snap` đã chết. Fallback: nếu prerender kẹt với code browser-only thì vẫn còn full meta tĩnh |
-| Fonts (bắt buộc hỗ trợ dấu tiếng Việt) | **Space Grotesk** (display) + **Be Vietnam Pro** (body) + **IBM Plex Mono** (labels/số), self-host qua `@fontsource` | Cả 3 đều có subset `vietnamese` (đã verify). Guardrail: heading `leading` ≥ 1.15, không `overflow:hidden` trên container heading để không cắt dấu (ậ, ệ, ổ) |
-| Lead form không backend | **Web3Forms** (250 sub/tháng free, key public-safe, honeypot `botcheck`). Ship với placeholder key; nếu key chưa thay → form tự chuyển sang panel "Nhắn Zalo / Gọi ngay" | Không bao giờ dead-end; mailto-only bị loại vì đa số điện thoại SME VN không cấu hình mail client |
-| Animation | **Không** dùng framer-motion/`motion`. Canvas thuần + CSS keyframes + IntersectionObserver | Đối tượng dùng Android tầm trung/4G; giữ JS < ~120 kb gzip |
-| Conversion chính | **Chat Zalo** (`zalo.me/…`) là primary CTA; form là secondary; `tel:` là tertiary | Zalo là kênh mặc định của hộ kinh doanh/SME VN — friction thấp nhất |
+## Kiến trúc kỹ thuật
 
-## Wireframe & luồng conversion (thứ tự section)
+- **react-router v7**: client `BrowserRouter` với `basename` từ `import.meta.env.BASE_URL`; prerender dùng `StaticRouter` per route.
+- **Routes manifest** `src/content/routes.ts`: `{ path, title, description }` cho từng trang — single source of truth cho (a) prerender loop, (b) sitemap generator, (c) rewrite canonical/OG per page.
+- **`scripts/prerender.mjs` mở rộng**: loop qua manifest → render từng route → thay `<title>`, meta description, canonical, `og:url/title/description` trong template → ghi `dist/<path>/index.html`. Đồng thời **generate `dist/sitemap.xml`** từ manifest (xóa `public/sitemap.xml` tĩnh). GH Pages serve folder thật → deep link ra HTML thật; `404.html` vẫn copy root.
+- **Layout** (`src/components/Layout.tsx`): Header + Footer + StickyMobileCta + FloatingZalo bọc `<Outlet/>`. Nav items thành route links (active state); các anchor nội bộ home giữ nguyên.
+- **JSON-LD FAQPage per trang dịch vụ**: render `<script type="application/ld+json">` trong page component từ data `site.ts` (Google đọc được trong body; prerender xuất tĩnh) → hết cảnh duplicate FAQ ở 2 nơi. `Organization` giữ trong `index.html` head. Gỡ FAQPage tĩnh khỏi `index.html` (FAQ chung của home render từ component).
 
-1. **Header** — sticky, logo K + anchor nav (Dịch vụ / Quy trình / Bảng giá / FAQ) + nút "Nhận báo giá"; mobile dùng Sheet.
-2. **Hero** — H1 value prop lớn kiểu editorial, sub, CTA đôi ("Chat Zalo ngay" primary vàng + "Xem bảng giá" secondary), trust line; nền canvas dot-grid generative (tím/vàng, pointer repulsion, tắt khi `prefers-reduced-motion`).
-3. **Marquee strip** — ticker CSS-only: dịch vụ/tech stack.
-4. **Dịch vụ (01–04)** — 4 card lớn: Website / Web App / Mobile App / Zalo Mini App; mỗi card: mô tả, "phù hợp với", giá "từ…", mini-CTA.
-5. **Vì sao chọn LDK** — grid Neo-Swiss đánh số: giá minh bạch, bàn giao nhanh, hỗ trợ 1-1, bảo hành, chuẩn SEO/tốc độ.
-6. **Quy trình** — 4 bước: Tư vấn → Báo giá → Thiết kế & phát triển → Bàn giao & bảo hành (xây trust với SME ngại agency).
-7. **Bảng giá tham khảo** — 3 gói "từ X triệu" + CTA "Nhận báo giá chi tiết" (minh bạch giá = yếu tố chốt của tệp này).
-8. **FAQ** — accordion 5–6 câu, khớp với FAQPage JSON-LD.
-9. **Liên hệ / Lead form** — form Web3Forms + khối Zalo + `tel:` cạnh nhau, headline chốt sale.
-10. **Footer** — thông tin liên hệ, mini sitemap.
+## Trang & nội dung — Phase 1 (làm ngay)
 
-Xuyên suốt: CTA lặp ở header, hero, sau services, pricing, cuối trang. **Mobile < 768px**: sticky bottom bar 2 nút ("Chat Zalo" vàng + "Gọi ngay"), tự ẩn khi section Liên hệ đang trong viewport. Desktop: bubble Zalo nổi góc phải dưới.
+| Route | Nội dung |
+|---|---|
+| `/` | Home rút gọn: Hero (giữ), Marquee, Services tóm tắt (card → link trang chi tiết), 3 dự án nổi bật + link `/du-an/`, Process, Pricing teaser → `/bang-gia/`, FAQ chung, Contact |
+| `/dich-vu/` | Tổng quan 4 dịch vụ |
+| `/dich-vu/thiet-ke-website/` | Trang dịch vụ đầy đủ (template chung) |
+| `/dich-vu/zalo-mini-app/` | — trang SEO chủ lực, keyword đang lên |
+| `/dich-vu/web-app/` | |
+| `/dich-vu/mobile-app/` | |
+| `/du-an/` | 6 dự án + review khách (chuyển từ section) |
+| `/bang-gia/` | Bảng so sánh giá 4 dịch vụ + link từng trang |
 
-## Cấu trúc file
+**Template trang dịch vụ**: hero riêng → pain points ("Bạn có đang…") → tính năng → **bảng giá riêng 3 mức** → quy trình rút gọn → FAQ riêng 4–5 câu (+ JSON-LD) → dự án liên quan → CTA Zalo.
 
-```
-index.html                     # lang=vi, title/description, OG/Twitter, canonical, JSON-LD (ProfessionalService + FAQPage)
-src/
-  main.tsx                     # hydrateRoot + export async prerender()
-  App.tsx                      # ghép các section theo thứ tự
-  index.css                    # @import "tailwindcss"; @theme tokens màu/font; shadcn vars
-  content/site.ts              # TOÀN BỘ copy tiếng Việt + config: SITE_URL, ZALO_URL, PHONE, form key, services[], steps[], pricing[], faqs[]
-  components/
-    ui/                        # shadcn: button, accordion, input, textarea, sheet
-    sections/                  # Header, Hero, Marquee, Services, WhyUs, Process, Pricing, Faq, Contact, Footer (mỗi file 1 component)
-    shared/                    # Logo.tsx (SVG K), SectionHeading.tsx, HeroCanvas.tsx, StickyMobileCta.tsx, FloatingZalo.tsx
-  lib/utils.ts, lib/useReveal.ts
-public/                        # robots.txt, sitemap.xml, og-image, favicon.svg
-.github/workflows/deploy.yml
-```
+**Bảng giá riêng per dịch vụ** (từ khảo sát thị trường đã làm ở turn trước):
 
-Design tokens đặt trong `@theme` của `index.css` (Tailwind v4 CSS-first): `--color-primary #6F3CC3`, `--color-primary-deep #4B2A84`, `--color-gold #F4B400`, `--color-gold-soft #FFD166`, `--color-ink #211A3B` + `--font-display/sans/mono`; map shadcn semantic vars lên palette. Copy hoàn toàn data-driven từ `site.ts`.
+- Website: Landing page **5tr** / Web giới thiệu **8tr** / Web bán hàng **từ 15tr**
+- Zalo Mini App: Hiện diện + thành viên **15tr** / Bán hàng + đặt lịch **25tr** / Tích hợp CRM–ZNS **từ 35tr**
+- Web App: MVP **từ 25tr** / Hệ quản lý đầy đủ **từ 45tr** / Theo yêu cầu
+- Mobile App: MVP **từ 40tr** / Bản đầy đủ **từ 70tr** / Theo yêu cầu
+
+**Data model**: mở rộng `src/content/site.ts` với `servicePages[]` (slug, seoTitle, seoDesc, hero, painPoints[], features[], tiers[], faqs[], relatedProjects[]) — tái dùng interfaces `PricingTier`, `Faq`, pattern data-driven hiện có. Tái dùng components: `SectionHeading`, `CtaLink`, `Reveal`, card patterns từ `Services.tsx`/`Pricing.tsx`/`Portfolio.tsx`.
+
+## Phase 2 (sau khi P1 live — cần input thêm từ user)
+
+- `/du-an/<slug>/` — 6 trang chi tiết dự án; nâng FoodMap/Treehouse thành case study khi có số liệu & permission khách.
+- `/giai-phap/<nganh>/` — landing ngành: `spa-lam-dep`, `quan-an-cafe`, `cua-hang-ban-le` (long-tail SEO, pattern digibird đã validate).
+
+## Phase 3
+
+- `/mau-tham-khao/` — gallery 6–12 mẫu giao diện TỰ DỰNG theo ngành, mỗi mẫu 1 demo sống. Khác biệt vs digibird (họ đẩy no-code platform).
+
+## Tests (TDD — viết RED trước)
+
+- Manifest: mọi route có title/description duy nhất, title ≤ 60 chars, description ≤ 160 chars.
+- Prerender từng route: đúng 1 `<h1>`, chứa canonical đúng của route đó.
+- Trang dịch vụ: có bảng giá riêng (≥3 tiers), FAQ ≥ 3, có JSON-LD FAQPage.
+- Sitemap: đủ 8 URL khớp manifest.
+- Giữ toàn bộ test hiện có (jargon guard, live region, social proof…).
 
 ## Các bước thực hiện
 
-1. Scaffold `pnpm create vite@latest` (react-ts) vào thư mục tạm → merge vào root (giữ `.claude/`, `docs/`) → `pnpm install`, set `packageManager`.
-2. Cài Tailwind v4 + `@tailwindcss/vite`; viết `@theme` tokens; set `base: '/ldktech-solutions/'`, alias `@/*` ở `vite.config.ts` + cả 2 tsconfig.
-3. Cài @fontsource (space-grotesk variable, be-vietnam-pro 400/500/700, ibm-plex-mono 400/500), import trong `main.tsx`.
-4. `pnpm dlx shadcn@latest init` + add button, accordion, input, textarea, sheet; map màu.
-5. Viết `index.html` head đầy đủ SEO + favicon SVG logo K.
-6. Viết `src/content/site.ts` — toàn bộ copy tiếng Việt thật (không lorem) + placeholder liên hệ.
-7. Shared components: Logo, SectionHeading, useReveal, StickyMobileCta, FloatingZalo.
-8. Header + Hero (HeroCanvas + reduced-motion fallback) → check 3 breakpoint.
-9. Marquee, Services, WhyUs → check responsive.
-10. Process, Pricing, FAQ → check responsive.
-11. Contact (form Web3Forms + honeypot + fallback panel) + Footer.
-12. Thêm `vite-prerender-plugin`, verify `dist/index.html` có nội dung render sẵn.
-13. `robots.txt`, `sitemap.xml`, og-image; postbuild copy `404.html`.
-14. `git init` + tạo **repo public `ldky90/ldktech-solutions`** qua `gh` + workflow `deploy.yml` (pnpm → build → actions/deploy-pages) + bật Pages source = GitHub Actions → push → verify site live.
-15. Chạy checklist verification + viết README handoff.
+1. Viết test RED: routes manifest + multi-page prerender + service page content.
+2. `pnpm add react-router` (v7); tạo `src/content/routes.ts`, `src/components/Layout.tsx`; tách `App.tsx` → `src/pages/Home.tsx` + router config.
+3. Mở rộng `scripts/prerender.mjs`: loop routes, rewrite head per route, generate sitemap; xóa `public/sitemap.xml`; cập nhật build script nếu cần.
+4. Viết content `servicePages` trong `site.ts` (4 dịch vụ: copy bán hàng + giá riêng + FAQ riêng).
+5. `src/pages/ServicePage.tsx` (template) + `ServicesIndex.tsx` + `PricingPage.tsx` + `ProjectsPage.tsx`.
+6. Home rút gọn + Header nav route links (active state) + Footer links.
+7. FAQPage JSON-LD per page; gỡ FAQPage khỏi `index.html`.
+8. `pnpm build` → verify dist: folder mỗi route, canonical riêng, sitemap 8 URL.
+9. Visual pass 375/768/1280 các trang mới; commit theo behaviour; push; verify live.
 
 ## Verification
 
-- Dev server (browser pane): pass visual ở **375 / 768 / 1280**; dấu tiếng Việt không bị cắt; sticky CTA + Sheet nav hoạt động.
-- `pnpm build` → `dist/index.html` có nội dung section render sẵn, meta/OG/canonical/JSON-LD nguyên vẹn, có `404.html`; `pnpm preview` smoke test với base path.
-- Perf/a11y: LCP là H1 text (không hero image), JS < ~120 kb gzip, tap target ≥ 44px, contrast đạt (chữ ink trên nền vàng, không dùng chữ vàng trên nền trắng), `prefers-reduced-motion` được tôn trọng, 1 H1 duy nhất.
-- Sau deploy: mở URL GH Pages thật, check meta bằng view-source.
-
-## Giả định & placeholder (bạn sửa sau, không chặn tiến độ)
-
-- Repo: **public** `ldky90/ldktech-solutions` → URL `https://ldky90.github.io/ldktech-solutions/` (GH Pages free yêu cầu repo public). Nếu sau này có custom domain: đổi `base: '/'`, `SITE_URL`, thêm `public/CNAME` — đã centralize nên chỉ ~4 dòng.
-- Zalo/SĐT/email: dùng placeholder trong `site.ts`, thay 1 chỗ.
-- Web3Forms key: placeholder; kích hoạt bằng cách lấy key free tại web3forms.com (nhập email nhận lead) rồi dán vào `site.ts`.
-- Giá các gói: tôi sẽ đặt mức tham khảo hợp lý thị trường VN (ví dụ landing page từ 3–5tr, website từ 8tr, mini app từ 15tr…) — bạn chỉnh lại theo giá thật.
+- `pnpm test` xanh toàn bộ (test cũ + mới).
+- `dist/` có folder từng route với `index.html` chứa nội dung render sẵn + canonical/OG đúng URL riêng; `dist/sitemap.xml` đủ 8 URL.
+- Sau deploy: curl từng URL live (200 + đúng title), check 2 route bằng view-source; ghi chú user nên submit sitemap trong Google Search Console.
