@@ -77,7 +77,7 @@ export function Footer() {
 
         <div className="mt-10 flex flex-col gap-2 border-t border-paper/20 pt-6 font-mono text-xs text-paper/50 sm:flex-row sm:items-center sm:justify-between">
           <p>{SITE.footer.copyright}</p>
-          <p>~ built with React + Vite ✦ chuẩn SEO ✦ tải nhanh ~</p>
+          <p>~ thiết kế & phát triển tại Việt Nam ✦ chuẩn SEO ✦ tải nhanh ~</p>
         </div>
       </div>
     </footer>

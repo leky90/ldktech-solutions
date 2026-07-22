@@ -74,7 +74,7 @@ export const SITE = {
     'Giá minh bạch',
     'Bàn giao đúng hẹn',
     'Bảo hành 6 tháng',
-    'React · TypeScript',
+    'Công nghệ hiện đại',
   ],
 
   services: [
@@ -99,7 +99,7 @@ export const SITE = {
       title: 'Mobile App iOS & Android',
       desc: 'App cài trên điện thoại khách hàng — đặt lịch, tích điểm, nhận thông báo khuyến mãi. Một mã nguồn, chạy cả hai hệ.',
       fit: 'Thương hiệu muốn giữ chân khách quen: chuỗi F&B, phòng gym, salon.',
-      features: ['React Native / Expo', 'Đặt lịch & tích điểm', 'Thông báo đẩy khuyến mãi', 'Đưa lên App Store & Google Play'],
+      features: ['Một app chạy cả iPhone & Android', 'Đặt lịch & tích điểm', 'Thông báo đẩy khuyến mãi', 'Đưa lên App Store & Google Play'],
       from: 'từ 25 triệu',
     },
     {
@@ -117,7 +117,7 @@ export const SITE = {
     { title: 'Giá chốt trước, không phát sinh', desc: 'Báo giá chi tiết từng hạng mục trước khi ký. Chỉ đổi khi bạn chủ động thêm yêu cầu — và phần thêm cũng báo giá trước.' },
     { title: 'Bàn giao đúng hẹn', desc: 'Tiến độ công khai theo tuần, cập nhật qua Zalo. Trễ hẹn do lỗi của LDK: giảm phí theo cam kết trong hợp đồng.' },
     { title: 'Nói tiếng người kinh doanh', desc: 'Không thuật ngữ khó hiểu. Tư vấn theo mục tiêu ra đơn của bạn, không vẽ vời tính năng thừa để tăng giá.' },
-    { title: 'Chuẩn SEO & tốc độ', desc: 'Lighthouse 90+, khách Google thấy bạn trước đối thủ. Web nhanh trên cả điện thoại sóng yếu.' },
+    { title: 'Chuẩn SEO & tốc độ', desc: 'Web đạt chuẩn tốc độ của Google — khách tìm là thấy bạn trước đối thủ, mở nhanh cả trên điện thoại sóng yếu.' },
     { title: 'Bảo hành & đồng hành', desc: '6 tháng bảo hành lỗi miễn phí. Gói chăm sóc dài hạn: cập nhật nội dung, sao lưu, nâng cấp khi cần.' },
     { title: 'Bạn sở hữu 100%', desc: 'Mã nguồn, tên miền, dữ liệu đều đứng tên bạn. Không bị "giữ chân" bởi bất kỳ nền tảng nào.' },
   ],
