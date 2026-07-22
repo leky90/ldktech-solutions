@@ -6,11 +6,14 @@ import {
 } from '@/components/ui/accordion'
 import { SectionHeading } from '@/components/shared/SectionHeading'
 import { Reveal } from '@/components/shared/Reveal'
+import { JsonLd } from '@/components/shared/JsonLd'
 import { SITE } from '@/content/site'
+import { faqPageJsonLd } from '@/lib/jsonld'
 
 export function Faq() {
   return (
     <section id="faq" className="scroll-mt-20 border-t-2 border-ink py-16 md:py-24">
+      <JsonLd data={faqPageJsonLd(SITE.faqs)} />
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">

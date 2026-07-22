@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import { LogoMark } from '@/components/shared/Logo'
 import { SITE } from '@/content/site'
 
@@ -30,16 +31,26 @@ export function Footer() {
               Khám phá
             </p>
             <ul className="mt-4 flex flex-col gap-2.5 text-sm">
-              {SITE.nav.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
+              {SITE.servicePages.map((page) => (
+                <li key={page.slug}>
+                  <Link
+                    to={`/dich-vu/${page.slug}/`}
                     className="text-paper/80 decoration-gold decoration-2 underline-offset-4 hover:underline"
                   >
-                    {item.label}
-                  </a>
+                    {page.nav}
+                  </Link>
                 </li>
               ))}
+              <li>
+                <Link to="/du-an/" className="text-paper/80 decoration-gold decoration-2 underline-offset-4 hover:underline">
+                  Dự án đã làm
+                </Link>
+              </li>
+              <li>
+                <Link to="/bang-gia/" className="text-paper/80 decoration-gold decoration-2 underline-offset-4 hover:underline">
+                  Bảng giá
+                </Link>
+              </li>
             </ul>
           </nav>
 

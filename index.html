@@ -90,63 +90,7 @@
       }
     </script>
 
-    <!-- JSON-LD: FAQPage (khớp nội dung FAQ trong src/content/site.ts — sửa 1 nơi thì sửa cả 2) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Tôi không rành công nghệ, làm việc thế nào?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Bạn chỉ cần kể về việc kinh doanh của mình — mọi thứ kỹ thuật LDK lo. Trao đổi hoàn toàn qua Zalo bằng ngôn ngữ dễ hiểu, có bản demo xem trực tiếp trên điện thoại của bạn trước khi chốt."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Chi phí tính thế nào, có phát sinh không?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Báo giá chi tiết từng hạng mục trước khi bắt đầu. Giá chỉ thay đổi khi bạn chủ động thêm yêu cầu mới, và phần thêm cũng được báo giá trước khi làm. Không có chi phí ẩn."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Bao lâu thì xong?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Landing page: 7–10 ngày. Website đầy đủ: 2–4 tuần. Zalo Mini App: 3–5 tuần. Web App / Mobile App: tùy phạm vi, có mốc thời gian cụ thể trong báo giá. Tiến độ cập nhật qua Zalo mỗi tuần."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Zalo Mini App khác gì app thường?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Zalo Mini App chạy ngay bên trong Zalo nên khách không cần tải hay cài gì thêm — mở Zalo là dùng được. Chi phí thấp hơn app native đáng kể và tận dụng được tệp khách Zalo sẵn có, rất phù hợp với hộ kinh doanh và SME."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Sau khi bàn giao có được hỗ trợ không?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Có. Mọi sản phẩm được bảo hành lỗi miễn phí 6 tháng. Nếu cần, có thêm gói chăm sóc dài hạn: cập nhật nội dung, sao lưu định kỳ, nâng cấp tính năng — chi phí công khai từ đầu."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Tôi đã có website cũ hoặc fanpage, có tận dụng được không?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Được. LDK đánh giá miễn phí hiện trạng, giữ lại những phần đang hoạt động tốt và chỉ nâng cấp phần cần thiết — tiết kiệm chi phí thay vì đập đi làm lại toàn bộ."
-            }
-          }
-        ]
-      }
-    </script>
+    <!-- FAQPage JSON-LD render theo từng trang trong page component (src/lib/jsonld.ts) -->
   </head>
   <body>
     <div id="root"></div>

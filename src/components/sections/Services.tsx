@@ -1,4 +1,5 @@
 import { Check } from 'lucide-react'
+import { Link } from 'react-router'
 import { SectionHeading } from '@/components/shared/SectionHeading'
 import { Reveal } from '@/components/shared/Reveal'
 import { SITE } from '@/content/site'
@@ -63,12 +64,12 @@ export function Services() {
                   <span className="pt-2 font-display text-lg font-black uppercase tracking-tight">
                     {service.from}
                   </span>
-                  <a
-                    href="#lien-he"
+                  <Link
+                    to={`/dich-vu/${service.slug}/`}
                     className="pt-2 font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
                   >
-                    Nhận tư vấn →
-                  </a>
+                    Chi tiết & bảng giá →
+                  </Link>
                 </div>
               </article>
             </Reveal>

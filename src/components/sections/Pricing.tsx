@@ -1,4 +1,5 @@
 import { Check } from 'lucide-react'
+import { Link } from 'react-router'
 import { SectionHeading } from '@/components/shared/SectionHeading'
 import { Reveal } from '@/components/shared/Reveal'
 import { CtaLink } from '@/components/shared/CtaLink'
@@ -87,6 +88,14 @@ export function Pricing() {
 
         <p className="mx-auto mt-8 max-w-2xl text-center font-mono text-xs leading-relaxed text-muted-foreground">
           {SITE.pricingNote}
+        </p>
+        <p className="mt-4 text-center">
+          <Link
+            to="/bang-gia/"
+            className="font-mono text-sm font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
+          >
+            Xem bảng giá chi tiết từng dịch vụ →
+          </Link>
         </p>
       </div>
     </section>
