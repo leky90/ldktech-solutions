@@ -7,7 +7,7 @@ export function Process() {
     <section id="quy-trinh" className="scroll-mt-20 py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <SectionHeading
-          index="03"
+          index="04"
           label="Quy trình"
           title="Bốn bước, không bước nào mập mờ"
           sub="Bạn luôn biết đang ở đâu, tốn bao nhiêu, và bao giờ xong."

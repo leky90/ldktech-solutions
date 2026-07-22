@@ -15,7 +15,7 @@ export function Faq() {
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <SectionHeading
-              index="05"
+              index="06"
               label="Câu hỏi thường gặp"
               title="Hỏi thẳng, đáp thật"
               sub="Chưa thấy câu bạn định hỏi? Nhắn Zalo — trả lời trong 2 giờ làm việc."

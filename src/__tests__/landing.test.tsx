@@ -13,7 +13,7 @@ describe('prerender — HTML tĩnh cho SEO', () => {
     expect(html.match(/<h1/g)?.length).toBe(1)
 
     // Anchor các section chính phải tồn tại (khớp nav)
-    for (const id of ['dich-vu', 'quy-trinh', 'bang-gia', 'faq', 'lien-he']) {
+    for (const id of ['dich-vu', 'du-an', 'quy-trinh', 'bang-gia', 'faq', 'lien-he']) {
       expect(html, `thiếu section #${id}`).toContain(`id="${id}"`)
     }
 
@@ -57,6 +57,11 @@ describe('content/site.ts — tính toàn vẹn nội dung', () => {
     expect(SITE.services).toHaveLength(4)
     expect(SITE.faqs.length).toBeGreaterThanOrEqual(5)
     expect(SITE.pricing.length).toBeGreaterThanOrEqual(3)
+  })
+
+  it('social proof từ dự án thật (portfolio + review khách)', () => {
+    expect(SITE.portfolio.length).toBeGreaterThanOrEqual(4)
+    expect(SITE.testimonials.length).toBeGreaterThanOrEqual(2)
   })
 
   it('config liên hệ tập trung một chỗ', () => {

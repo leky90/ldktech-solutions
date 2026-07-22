@@ -66,7 +66,7 @@ export function Contact() {
           {/* Cột trái: headline + kênh liên hệ trực tiếp */}
           <div className="lg:col-span-6">
             <p className="font-mono text-xs font-medium uppercase tracking-[0.25em] text-gold">
-              [06] — Liên hệ
+              [07] — Liên hệ
             </p>
             <h2 className="mt-4 font-display text-3xl font-black uppercase leading-[1.15] tracking-tight font-expanded md:text-5xl">
               {contact.heading}

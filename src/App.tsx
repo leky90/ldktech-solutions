@@ -2,6 +2,7 @@ import { Header } from '@/components/sections/Header'
 import { Hero } from '@/components/sections/Hero'
 import { Marquee } from '@/components/sections/Marquee'
 import { Services } from '@/components/sections/Services'
+import { Portfolio } from '@/components/sections/Portfolio'
 import { WhyUs } from '@/components/sections/WhyUs'
 import { Process } from '@/components/sections/Process'
 import { Pricing } from '@/components/sections/Pricing'
@@ -19,6 +20,7 @@ function App() {
         <Hero />
         <Marquee />
         <Services />
+        <Portfolio />
         <WhyUs />
         <Process />
         <Pricing />

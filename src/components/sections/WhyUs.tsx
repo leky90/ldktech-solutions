@@ -4,10 +4,10 @@ import { SITE } from '@/content/site'
 
 export function WhyUs() {
   return (
-    <section className="border-y-2 border-ink bg-secondary py-16 md:py-24">
+    <section className="border-t-2 border-ink py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <SectionHeading
-          index="02"
+          index="03"
           label="Vì sao chọn LDK"
           title="Làm thật, giá thật, đồng hành thật"
           sub="Sáu cam kết viết thẳng vào hợp đồng — không phải lời quảng cáo."

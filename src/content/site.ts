@@ -34,6 +34,19 @@ export interface Faq {
   a: string
 }
 
+export interface Project {
+  name: string
+  tag: string
+  desc: string
+  stack: string
+}
+
+export interface Testimonial {
+  quote: string
+  author: string
+  context: string
+}
+
 export const SITE = {
   name: 'LDK Tech Solutions',
   brand: 'LDK Tech',
@@ -51,6 +64,7 @@ export const SITE = {
 
   nav: [
     { label: 'Dịch vụ', href: '#dich-vu' },
+    { label: 'Dự án', href: '#du-an' },
     { label: 'Quy trình', href: '#quy-trinh' },
     { label: 'Bảng giá', href: '#bang-gia' },
     { label: 'FAQ', href: '#faq' },
@@ -63,7 +77,8 @@ export const SITE = {
     sub: 'Giá chốt trước khi làm. Bàn giao đúng hẹn. Trao đổi 100% qua Zalo bằng ngôn ngữ dễ hiểu. LDK Tech đồng hành cùng hộ kinh doanh & SME từ ý tưởng đến khi ra đơn hàng đầu tiên — và sau đó nữa.',
     ctaPrimary: 'Chat Zalo ngay',
     ctaSecondary: 'Xem bảng giá',
-    trust: ['30+ dự án đã bàn giao', 'Phản hồi Zalo dưới 2 giờ', 'Bảo hành 6 tháng'],
+    // Số liệu thật từ hồ sơ Freelancer.com (@Leky90, từ 2012) + vLance (60 dự án)
+    trust: ['180+ dự án từ 2012', '4.9/5★ · 125+ đánh giá trên Freelancer.com', '99% đúng hẹn · 100% đúng ngân sách'],
   },
 
   marquee: [
@@ -84,7 +99,7 @@ export const SITE = {
       desc: 'Website chuẩn SEO, tải nhanh, tự quản lý nội dung. Khách Google là thấy, xem là tin, gọi là chốt.',
       fit: 'Quán ăn, spa, cửa hàng, dịch vụ địa phương, công ty cần "mặt tiền online".',
       features: ['Thiết kế theo thương hiệu riêng', 'Chuẩn SEO + Google Maps', 'Tối ưu mobile & tốc độ', 'Hướng dẫn tự cập nhật nội dung'],
-      from: 'từ 4 triệu',
+      from: 'từ 5 triệu',
     },
     {
       num: '02',
@@ -92,7 +107,7 @@ export const SITE = {
       desc: 'Phần mềm chạy trên trình duyệt, đo ni đóng giày cho quy trình của bạn: đơn hàng, kho, khách hàng, báo cáo.',
       fit: 'SME muốn bỏ Excel, chuỗi cửa hàng, xưởng sản xuất nhỏ.',
       features: ['Thiết kế theo quy trình thật', 'Phân quyền nhân viên', 'Báo cáo trực quan', 'Chạy mọi thiết bị, không cần cài'],
-      from: 'từ 15 triệu',
+      from: 'từ 25 triệu',
     },
     {
       num: '03',
@@ -100,7 +115,7 @@ export const SITE = {
       desc: 'App cài trên điện thoại khách hàng — đặt lịch, tích điểm, nhận thông báo khuyến mãi. Một mã nguồn, chạy cả hai hệ.',
       fit: 'Thương hiệu muốn giữ chân khách quen: chuỗi F&B, phòng gym, salon.',
       features: ['Một app chạy cả iPhone & Android', 'Đặt lịch & tích điểm', 'Thông báo đẩy khuyến mãi', 'Đưa lên App Store & Google Play'],
-      from: 'từ 25 triệu',
+      from: 'từ 40 triệu',
     },
     {
       num: '04',
@@ -108,10 +123,69 @@ export const SITE = {
       desc: 'App chạy ngay trong Zalo — khách không cần cài gì thêm. Đặt hàng, đặt lịch, thẻ thành viên, ưu đãi: mở Zalo là xong.',
       fit: 'Hộ kinh doanh & SME có tệp khách Zalo — tức là gần như mọi khách hàng Việt.',
       features: ['Không cần cài đặt, mở là dùng', 'Chi phí thấp hơn app thường', 'Gắn với Zalo OA & tin nhắn ZNS', 'Đặt hàng / đặt lịch / thành viên'],
-      from: 'từ 12 triệu',
+      from: 'từ 15 triệu',
       badge: 'Đáng đầu tư nhất',
     },
   ] satisfies Service[],
+
+  // Dự án thật từ portfolio Freelancer.com / vLance / LinkedIn
+  portfolio: [
+    {
+      name: 'FoodMap',
+      tag: 'Sàn TMĐT nông sản',
+      desc: 'Sàn thương mại điện tử kết nối nông sản Việt từ nông trại đến người mua — danh mục ngàn sản phẩm, đặt hàng và thanh toán online.',
+      stack: 'React · Web App',
+    },
+    {
+      name: 'Native',
+      tag: 'Du lịch & trải nghiệm',
+      desc: 'Nền tảng đặt tour và trải nghiệm du lịch: tìm kiếm, đặt chỗ, thanh toán — tối ưu cho khách dùng điện thoại.',
+      stack: 'React · Website + Web App',
+    },
+    {
+      name: 'Build-to-Rent',
+      tag: 'Bất động sản',
+      desc: 'Web app quản lý cho thuê bất động sản: danh sách căn hộ, đặt lịch xem nhà, trang quản trị cho chủ đầu tư.',
+      stack: 'React · Node.js · Web App',
+    },
+    {
+      name: 'Controllermodz',
+      tag: 'E-commerce (Anh)',
+      desc: 'Cửa hàng online bán tay cầm game custom cho thị trường Anh — cấu hình sản phẩm theo ý khách ngay trên web.',
+      stack: 'Magento · Website bán hàng',
+    },
+    {
+      name: 'Ciga.fr',
+      tag: 'E-commerce (Pháp)',
+      desc: 'Storefront thương mại điện tử cho thị trường Pháp: giỏ hàng, thanh toán, quản lý đơn — vận hành ổn định nhiều năm.',
+      stack: 'PrestaShop · Website bán hàng',
+    },
+    {
+      name: 'Treehouse',
+      tag: 'Fintech (Singapore)',
+      desc: 'Nền tảng tài chính số hoá tài sản — dẫn dắt đội 8 kỹ sư xây toàn bộ giao diện: dashboard realtime, dữ liệu on-chain.',
+      stack: 'React · Web App · Fintech',
+    },
+  ] satisfies Project[],
+
+  // Trích nguyên văn review công khai của khách trên vLance.vn
+  testimonials: [
+    {
+      quote: 'Hiện tại đây là người tôi hay hợp tác nhất mỗi khi có dự án gì về lập trình web.',
+      author: 'Đỗ Hồng Nam',
+      context: 'Khách thuê lặp lại nhiều dự án · vLance',
+    },
+    {
+      quote: 'Kỳ có thể giải quyết được những bài toán tưởng chừng như không thể. Good jobs.',
+      author: 'Vietnam Smart BPO',
+      context: 'Dự án website doanh nghiệp · vLance',
+    },
+    {
+      quote: 'Một người ít nói, nhưng chắc chắn và trung thực. Hoàn thành công việc được giao đúng hẹn.',
+      author: 'Phan Tuấn Phúc',
+      context: 'Plugin PDF viewer cho web · vLance',
+    },
+  ] satisfies Testimonial[],
 
   whyUs: [
     { title: 'Giá chốt trước, không phát sinh', desc: 'Báo giá chi tiết từng hạng mục trước khi ký. Chỉ đổi khi bạn chủ động thêm yêu cầu — và phần thêm cũng báo giá trước.' },
@@ -132,7 +206,7 @@ export const SITE = {
   pricing: [
     {
       name: 'Khởi đầu',
-      price: 'từ 4 triệu',
+      price: 'từ 5 triệu',
       priceNote: 'trọn gói',
       desc: 'Landing page hoặc website giới thiệu 1–5 trang. Mặt tiền online đầu tiên cho việc kinh doanh của bạn.',
       features: ['Thiết kế theo thương hiệu', 'Chuẩn SEO cơ bản', 'Form liên hệ + nút Zalo', 'Hướng dẫn hosting tiết kiệm', 'Bàn giao 7–10 ngày'],
@@ -140,7 +214,7 @@ export const SITE = {
     },
     {
       name: 'Tăng trưởng',
-      price: 'từ 12 triệu',
+      price: 'từ 15 triệu',
       priceNote: 'trọn gói',
       desc: 'Website đầy đủ hoặc Zalo Mini App: bán hàng, đặt lịch, quản lý nội dung — bắt đầu ra đơn từ kênh online.',
       features: ['Mọi thứ ở gói Khởi đầu', 'Bán hàng / đặt lịch online', 'Kết nối Zalo OA & thanh toán', 'Đào tạo sử dụng 1-1', 'Bàn giao 3–5 tuần'],

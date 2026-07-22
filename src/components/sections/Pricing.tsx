@@ -10,7 +10,7 @@ export function Pricing() {
     <section id="bang-gia" className="scroll-mt-20 border-t-2 border-ink bg-blueprint py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <SectionHeading
-          index="04"
+          index="05"
           label="Bảng giá tham khảo"
           title="Giá rõ ràng ngay từ đầu"
           sub="Không cần gọi điện mới biết giá. Đây là mức tham khảo — con số chính xác chốt trước khi bắt đầu, và không đổi giữa chừng."
