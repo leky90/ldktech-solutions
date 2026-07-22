@@ -1,18 +1,19 @@
 import { describe, expect, it } from 'vitest'
 import { prerender } from '../prerender-entry'
 import { SITE } from '../content/site'
+import { ROUTES } from '../content/routes'
 
 // Spec: docs/plans/idempotent-zooming-mango.md
-// Trang phải prerender ra HTML tĩnh đầy đủ cho SEO + đủ các điểm conversion.
+// Multi-page: mỗi route prerender ra HTML tĩnh riêng, meta riêng, sitemap từ manifest.
 
-describe('prerender — HTML tĩnh cho SEO', () => {
+describe('prerender — HTML tĩnh cho SEO (trang chủ)', () => {
   it('render đủ các section conversion-critical', async () => {
-    const { html } = await prerender()
+    const { html } = await prerender('/')
 
     // Đúng 1 thẻ H1 (chuẩn SEO)
     expect(html.match(/<h1/g)?.length).toBe(1)
 
-    // Anchor các section chính phải tồn tại (khớp nav)
+    // Anchor các section chính trên trang chủ
     for (const id of ['dich-vu', 'du-an', 'quy-trinh', 'bang-gia', 'faq', 'lien-he']) {
       expect(html, `thiếu section #${id}`).toContain(`id="${id}"`)
     }
@@ -23,16 +24,57 @@ describe('prerender — HTML tĩnh cho SEO', () => {
   })
 })
 
+describe('multi-page — routes manifest & từng trang', () => {
+  it('manifest đủ 8 route, title/description hợp chuẩn SEO và duy nhất', () => {
+    expect(ROUTES.length).toBeGreaterThanOrEqual(8)
+    const paths = ROUTES.map((r) => r.path)
+    const titles = ROUTES.map((r) => r.title)
+    expect(new Set(paths).size).toBe(paths.length)
+    expect(new Set(titles).size).toBe(titles.length)
+    for (const route of ROUTES) {
+      expect(route.path, `path ${route.path} phải có / ở 2 đầu`).toMatch(/^\/([a-z0-9-]+\/)*$/)
+      expect(route.title.length, `title quá dài: ${route.title}`).toBeLessThanOrEqual(60)
+      expect(route.description.length, `description quá dài: ${route.path}`).toBeLessThanOrEqual(160)
+      expect(route.description.length, `description quá ngắn: ${route.path}`).toBeGreaterThanOrEqual(50)
+    }
+  })
+
+  it('4 trang dịch vụ: giá riêng ≥3 mức, FAQ riêng ≥3 câu', () => {
+    expect(SITE.servicePages).toHaveLength(4)
+    for (const page of SITE.servicePages) {
+      expect(page.tiers.length, page.slug).toBeGreaterThanOrEqual(3)
+      expect(page.faqs.length, page.slug).toBeGreaterThanOrEqual(3)
+      expect(page.painPoints.length, page.slug).toBeGreaterThanOrEqual(3)
+    }
+  })
+
+  it('trang dịch vụ prerender: 1 h1 + bảng giá riêng + JSON-LD FAQPage', async () => {
+    const { html } = await prerender('/dich-vu/zalo-mini-app/')
+    expect(html.match(/<h1/g)?.length).toBe(1)
+    expect(html).toContain('FAQPage')
+    expect(html).toContain('triệu')
+    expect(html).toContain('zalo.me')
+  })
+
+  it('trang dự án prerender có portfolio + review', async () => {
+    const { html } = await prerender('/du-an/')
+    expect(html).toContain('FoodMap')
+    expect(html).toContain('Đỗ Hồng Nam')
+  })
+})
+
 describe('audit fixes — a11y + copy + schema', () => {
   it('form có live region role="status" luôn mount (WCAG 4.1.3)', async () => {
-    const { html } = await prerender()
+    const { html } = await prerender('/')
     expect(html).toContain('role="status"')
   })
 
   it('copy không lộ jargon kỹ thuật (trang hứa "không thuật ngữ khó hiểu")', async () => {
-    const { html } = await prerender()
-    for (const jargon of ['Lighthouse', 'React Native', 'TypeScript', 'React + Vite']) {
-      expect(html, `còn jargon "${jargon}"`).not.toContain(jargon)
+    for (const path of ['/', '/dich-vu/zalo-mini-app/', '/bang-gia/']) {
+      const { html } = await prerender(path)
+      for (const jargon of ['Lighthouse', 'React Native', 'TypeScript', 'React + Vite']) {
+        expect(html, `còn jargon "${jargon}" ở ${path}`).not.toContain(jargon)
+      }
     }
   })
 
@@ -41,12 +83,12 @@ describe('audit fixes — a11y + copy + schema', () => {
     const { resolve } = await import('node:path')
     const indexHtml = readFileSync(resolve(import.meta.dirname, '../../index.html'), 'utf-8')
     const blocks = [...indexHtml.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
-    expect(blocks.length).toBe(2)
+    // FAQPage đã chuyển vào từng page component — head chỉ còn Organization
+    expect(blocks.length).toBe(1)
     for (const [, raw] of blocks) {
       const data = JSON.parse(raw) as { '@type': string; address?: unknown }
-      // ProfessionalService/LocalBusiness bắt buộc address — nếu không có address thì không được dùng type đó
       if (!data.address) {
-        expect(['Organization', 'FAQPage']).toContain(data['@type'])
+        expect(['Organization']).toContain(data['@type'])
       }
     }
   })

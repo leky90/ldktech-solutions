@@ -1,36 +1,24 @@
-import { Header } from '@/components/sections/Header'
-import { Hero } from '@/components/sections/Hero'
-import { Marquee } from '@/components/sections/Marquee'
-import { Services } from '@/components/sections/Services'
-import { Portfolio } from '@/components/sections/Portfolio'
-import { WhyUs } from '@/components/sections/WhyUs'
-import { Process } from '@/components/sections/Process'
-import { Pricing } from '@/components/sections/Pricing'
-import { Faq } from '@/components/sections/Faq'
-import { Contact } from '@/components/sections/Contact'
-import { Footer } from '@/components/sections/Footer'
-import { StickyMobileCta } from '@/components/shared/StickyMobileCta'
-import { FloatingZalo } from '@/components/shared/FloatingZalo'
+import { Route, Routes } from 'react-router'
+import { Layout } from '@/components/Layout'
+import { Home } from '@/pages/Home'
+import { ServicesIndex } from '@/pages/ServicesIndex'
+import { ServicePage } from '@/pages/ServicePage'
+import { ProjectsPage } from '@/pages/ProjectsPage'
+import { PricingPage } from '@/pages/PricingPage'
 
 function App() {
   return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <Marquee />
-        <Services />
-        <Portfolio />
-        <WhyUs />
-        <Process />
-        <Pricing />
-        <Faq />
-        <Contact />
-      </main>
-      <Footer />
-      <StickyMobileCta />
-      <FloatingZalo />
-    </>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="dich-vu" element={<ServicesIndex />} />
+        <Route path="dich-vu/:slug" element={<ServicePage />} />
+        <Route path="du-an" element={<ProjectsPage />} />
+        <Route path="bang-gia" element={<PricingPage />} />
+        {/* Path lạ (qua 404.html fallback) -> về trang chủ */}
+        <Route path="*" element={<Home />} />
+      </Route>
+    </Routes>
   )
 }
 
