@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Mail, MessageCircle, Phone } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -7,11 +7,28 @@ import { SITE } from '@/content/site'
 
 type FormStatus = 'idle' | 'sending' | 'success' | 'error'
 
+const ERROR_TEXT = 'Gửi chưa được — bạn nhắn Zalo hoặc gọi trực tiếp giúp LDK nhé.'
+
 export function Contact() {
   const [status, setStatus] = useState<FormStatus>('idle')
+  const successRef = useRef<HTMLParagraphElement>(null)
   const { contact } = SITE
   // Chưa cấu hình Web3Forms key -> ẩn form, chỉ hiện kênh Zalo/gọi (không bao giờ dead-end)
   const formReady = SITE.web3formsKey !== 'YOUR_ACCESS_KEY_HERE'
+
+  // Thành công thì form unmount -> phải chủ động chuyển focus sang thông báo
+  useEffect(() => {
+    if (status === 'success') successRef.current?.focus()
+  }, [status])
+
+  const statusText =
+    status === 'sending'
+      ? 'Đang gửi…'
+      : status === 'success'
+        ? contact.success
+        : status === 'error'
+          ? ERROR_TEXT
+          : ''
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -84,9 +101,18 @@ export function Contact() {
                 {contact.formTitle}
               </h3>
 
+              {/* Live region luôn mount để screen reader nghe được trạng thái gửi form (WCAG 4.1.3) */}
+              <p role="status" aria-live="polite" className="sr-only">
+                {statusText}
+              </p>
+
               {formReady ? (
                 status === 'success' ? (
-                  <p className="mt-5 rounded-md border-2 border-ink bg-gold-soft/60 p-4 text-sm leading-relaxed">
+                  <p
+                    ref={successRef}
+                    tabIndex={-1}
+                    className="mt-5 rounded-md border-2 border-ink bg-gold-soft/60 p-4 text-sm leading-relaxed"
+                  >
                     ✅ {contact.success}
                   </p>
                 ) : (
@@ -124,11 +150,7 @@ export function Contact() {
                     >
                       {status === 'sending' ? 'Đang gửi…' : contact.fields.submit}
                     </button>
-                    {status === 'error' ? (
-                      <p className="text-sm text-destructive">
-                        Gửi chưa được — bạn nhắn Zalo hoặc gọi trực tiếp giúp LDK nhé.
-                      </p>
-                    ) : null}
+                    {status === 'error' ? <p className="text-sm text-destructive">{ERROR_TEXT}</p> : null}
                   </form>
                 )
               ) : (

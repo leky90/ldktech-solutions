@@ -98,7 +98,8 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    /* outline full opacity — ring/50 chỉ đạt 2.34:1 trên nền trắng, fail WCAG 3:1 */
+    @apply border-border outline-ring;
   }
   html {
     @apply font-sans scroll-smooth;

@@ -19,7 +19,8 @@ export function CtaLink({ variant = 'gold', className, children, ...props }: Cta
   return (
     <a
       className={cn(
-        'inline-flex h-12 items-center justify-center gap-2 rounded-md border-2 border-ink px-6 text-sm font-bold uppercase tracking-wider shadow-brutal-sm transition-[transform,box-shadow,background-color] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal active:translate-x-0 active:translate-y-0 active:shadow-brutal-sm',
+        // ring-inset để focus indicator nằm trên nền nút -> nhìn rõ ở cả section sáng lẫn tối
+        'inline-flex h-12 items-center justify-center gap-2 rounded-md border-2 border-ink px-6 text-sm font-bold uppercase tracking-wider shadow-brutal-sm transition-[transform,box-shadow,background-color] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-brand active:translate-x-0 active:translate-y-0 active:shadow-brutal-sm',
         variantClass[variant],
         className,
       )}
