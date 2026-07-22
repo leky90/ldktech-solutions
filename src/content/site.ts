@@ -51,6 +51,13 @@ export interface ServiceTier {
   highlight?: boolean
 }
 
+export interface SampleTemplate {
+  /** ngành / nhóm khách */
+  tag: string
+  name: string
+  desc: string
+}
+
 export interface ServicePageData {
   slug: string
   nav: string
@@ -60,6 +67,8 @@ export interface ServicePageData {
   intro: string
   painPoints: string[]
   features: { title: string; desc: string }[]
+  /** các mẫu thị trường hay đặt làm — demo sẽ dựng sau (Phase 3) */
+  samples: SampleTemplate[]
   tiers: ServiceTier[]
   faqs: Faq[]
   /** tên các dự án trong portfolio[] liên quan tới dịch vụ này */
@@ -284,6 +293,16 @@ export const SITE = {
         { title: 'Nút Zalo & form nhận khách', desc: 'Khách bấm một nút là nhắn Zalo hoặc để lại số — không mất lead nào.' },
         { title: 'Google Maps & đánh giá', desc: 'Gắn bản đồ, giờ mở cửa, review — đủ thông tin để khách quyết định ghé.' },
       ],
+      samples: [
+        { tag: 'F&B', name: 'Website nhà hàng, quán cà phê', desc: 'Menu đẹp, đặt bàn, chỉ đường Google Maps — khách xem là muốn ghé.' },
+        { tag: 'Làm đẹp', name: 'Website spa, salon, thẩm mỹ', desc: 'Bảng giá dịch vụ, hình ảnh trước–sau, nút đặt lịch qua Zalo.' },
+        { tag: 'Bán lẻ', name: 'Website thời trang, mỹ phẩm', desc: 'Catalog sản phẩm, giỏ hàng, chương trình khuyến mãi theo mùa.' },
+        { tag: 'Bất động sản', name: 'Website môi giới & dự án', desc: 'Danh sách nhà đất có bộ lọc, trang chi tiết dự án, form nhận tư vấn.' },
+        { tag: 'Doanh nghiệp', name: 'Website công ty & hồ sơ năng lực', desc: 'Dịch vụ, dự án đã làm, đội ngũ — đủ uy tín để đấu thầu, ký hợp đồng.' },
+        { tag: 'Quảng cáo', name: 'Landing page sản phẩm, chiến dịch', desc: 'Một trang tối ưu chuyển đổi để chạy quảng cáo Facebook, Google.' },
+        { tag: 'Du lịch', name: 'Website tour & khách sạn', desc: 'Danh sách tour, lịch trống, đặt chỗ và thanh toán giữ chỗ.' },
+        { tag: 'Giáo dục', name: 'Website trung tâm, khoá học', desc: 'Chương trình học, lịch khai giảng, form đăng ký giữ chỗ.' },
+      ],
       tiers: [
         {
           name: 'Landing page',
@@ -333,6 +352,15 @@ export const SITE = {
         { title: 'Gửi tin ZNS', desc: 'Xác nhận đơn, nhắc lịch hẹn, báo khuyến mãi qua tin nhắn Zalo chính thức.' },
         { title: 'Gắn với Zalo OA', desc: 'Mini App + OA + ZNS thành một hệ chăm sóc khách hoàn chỉnh trên Zalo.' },
         { title: 'Thanh toán trong app', desc: 'Khách trả tiền ngay trong Zalo — chốt đơn không rời màn hình.' },
+      ],
+      samples: [
+        { tag: 'Làm đẹp', name: 'Đặt lịch spa, salon, nail', desc: 'Chọn dịch vụ, chọn giờ, nhắc hẹn tự động qua ZNS — giảm hẳn khách quên lịch.' },
+        { tag: 'F&B', name: 'Gọi món QR tại bàn & giao tận nơi', desc: 'Quét QR xem menu, gọi món, thanh toán — dùng luôn cho đặt giao về nhà.' },
+        { tag: 'Bán lẻ', name: 'Thẻ thành viên & tích điểm', desc: 'Tích điểm tự động sau mỗi đơn, đổi ưu đãi ngay trong Zalo — giữ chân khách quen.' },
+        { tag: 'Thực phẩm', name: 'Đặt hàng thực phẩm, nông sản', desc: 'Đơn giao hằng ngày cho cửa hàng thực phẩm sạch, đặc sản vùng miền.' },
+        { tag: 'Giáo dục', name: 'Mini app trung tâm & lớp học', desc: 'Lịch học, thông báo nghỉ – học bù, học phí — phụ huynh xem ngay trong Zalo.' },
+        { tag: 'Thể thao', name: 'Đặt sân, đặt phòng tập', desc: 'Xem khung giờ trống, giữ chỗ, thanh toán — hợp sân cầu lông, pickleball, gym.' },
+        { tag: 'Sự kiện', name: 'Đăng ký sự kiện & check-in vé', desc: 'Đăng ký, nhận vé QR, check-in tại cửa — gọn cho workshop, hội thảo, minishow.' },
       ],
       tiers: [
         {
@@ -384,6 +412,15 @@ export const SITE = {
         { title: 'Nhập liệu một lần', desc: 'Đơn tạo một nơi, kho trừ tự động, công nợ tự cập nhật — hết cảnh nhập 3 chỗ.' },
         { title: 'Lớn cùng doanh nghiệp', desc: 'Bắt đầu từ MVP gọn, thêm module khi cần — trả tiền theo giai đoạn, không ôm rủi ro.' },
       ],
+      samples: [
+        { tag: 'Bán hàng', name: 'Quản lý bán hàng & tồn kho', desc: 'Tạo đơn, trừ kho tự động, lãi lỗ theo ngày — thay hẳn file Excel.' },
+        { tag: 'Làm đẹp', name: 'Quản lý spa & lịch hẹn', desc: 'Lịch kỹ thuật viên, liệu trình của từng khách, hoa hồng nhân viên.' },
+        { tag: 'Bất động sản', name: 'Quản lý cho thuê căn hộ, phòng trọ', desc: 'Hợp đồng, chốt điện nước, nhắc thu tiền hằng tháng.' },
+        { tag: 'Kinh doanh', name: 'Quản lý khách hàng & báo giá', desc: 'Lịch sử chăm sóc từng khách, tạo báo giá đẹp, nhắc lịch gọi lại.' },
+        { tag: 'Sản xuất', name: 'Quản lý đơn xưởng & đội thi công', desc: 'Tiến độ từng đơn, phân việc, ảnh nghiệm thu — chủ xem được từ xa.' },
+        { tag: 'Phân phối', name: 'Cổng đặt hàng cho đại lý', desc: 'Đại lý tự đặt theo bảng giá riêng, công nợ rõ ràng từng bên.' },
+        { tag: 'Vận hành', name: 'Bảng số liệu kinh doanh', desc: 'Gom doanh thu mọi kênh (cửa hàng, online, sàn) về một màn hình.' },
+      ],
       tiers: [
         {
           name: 'MVP',
@@ -433,6 +470,14 @@ export const SITE = {
         { title: 'Lên cả hai chợ ứng dụng', desc: 'LDK lo trọn thủ tục App Store và Google Play — bạn chỉ cần duyệt bản cuối.' },
         { title: 'Đồng bộ với web & quản lý', desc: 'App, web, phần mềm quản lý dùng chung dữ liệu — khách và đơn không lệch nhau.' },
         { title: 'Cập nhật dài hạn', desc: 'iOS/Android đổi mỗi năm — gói đồng hành giữ app luôn chạy mượt và đúng chuẩn chợ.' },
+      ],
+      samples: [
+        { tag: 'F&B', name: 'App tích điểm chuỗi đồ uống', desc: 'Tích điểm, đổi voucher, thông báo món mới — khách nhớ tới bạn mỗi ngày.' },
+        { tag: 'Làm đẹp', name: 'App đặt lịch spa & phòng tập', desc: 'Đặt lịch một chạm, nhắc buổi tập – liệu trình, gói thành viên.' },
+        { tag: 'Bán lẻ', name: 'App mua sắm của thương hiệu', desc: 'Catalog, flash sale, thông báo đẩy khuyến mãi — kênh bán không mất phí sàn.' },
+        { tag: 'Giáo dục', name: 'App học viên của trung tâm', desc: 'Bài học, điểm danh, kết quả — phụ huynh theo dõi sát tiến bộ của con.' },
+        { tag: 'Nội bộ', name: 'App nhân viên & chấm công', desc: 'Chấm công định vị, giao việc, duyệt nghỉ phép — hợp chuỗi nhiều chi nhánh.' },
+        { tag: 'Cộng đồng', name: 'App câu lạc bộ & hội nhóm', desc: 'Sự kiện, danh sách thành viên, thông báo — cho CLB thể thao, hội doanh nhân.' },
       ],
       tiers: [
         {

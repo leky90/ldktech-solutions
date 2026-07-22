@@ -56,6 +56,15 @@ describe('multi-page — routes manifest & từng trang', () => {
     expect(html).toContain('zalo.me')
   })
 
+  it('mỗi trang dịch vụ có ≥6 mẫu thị trường hay đặt, render trên trang', async () => {
+    for (const page of SITE.servicePages) {
+      expect(page.samples.length, page.slug).toBeGreaterThanOrEqual(6)
+    }
+    const { html } = await prerender('/dich-vu/thiet-ke-website/')
+    expect(html).toContain('hay được đặt')
+    expect(html).toContain('Website nhà hàng')
+  })
+
   it('trang dự án prerender có portfolio + review', async () => {
     const { html } = await prerender('/du-an/')
     expect(html).toContain('FoodMap')

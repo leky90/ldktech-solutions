@@ -93,6 +93,45 @@ export function ServicePage() {
         </div>
       </section>
 
+      {/* Mẫu thị trường hay đặt — demo sẽ dựng dần (Phase 3) */}
+      <section className="border-t-2 border-ink py-14 md:py-20">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <h2 className="max-w-3xl font-display text-2xl font-black uppercase leading-[1.15] tracking-tight font-expanded md:text-3xl">
+            Mẫu {page.nav} hay được đặt
+          </h2>
+          <p className="mt-4 max-w-2xl text-muted-foreground">
+            Chọn mẫu gần với việc kinh doanh của bạn — LDK làm y hệt hoặc chỉnh theo thương hiệu
+            riêng. Bản demo từng mẫu đang được dựng; nhắn Zalo để xem trước và nhận báo giá theo
+            mẫu.
+          </p>
+          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {page.samples.map((sample, i) => (
+              <Reveal key={sample.name} delay={(i % 3) * 70} className="h-full">
+                <article className="flex h-full flex-col rounded-lg border-2 border-ink bg-paper p-5 shadow-brutal-sm transition-transform hover:-translate-y-1">
+                  <span className="self-start rounded-md border-2 border-ink bg-gold-soft px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em]">
+                    {sample.tag}
+                  </span>
+                  <h3 className="mt-3 font-display text-lg font-black uppercase leading-[1.2] tracking-tight font-expanded">
+                    {sample.name}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                    {sample.desc}
+                  </p>
+                  <a
+                    href={SITE.zaloUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 border-t border-border pt-3 font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
+                  >
+                    Đặt mẫu này →
+                  </a>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Bảng giá riêng */}
       <section id="gia" className="scroll-mt-20 border-t-2 border-ink bg-blueprint py-14 md:py-20">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
