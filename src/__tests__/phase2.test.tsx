@@ -145,6 +145,17 @@ describe('phase 3 — gallery mẫu + demo sống', () => {
   })
 })
 
+describe('header — logo điều hướng', () => {
+  it('logo trỏ về trang chủ "/" thay vì anchor #top (trang con phải về được home)', async () => {
+    for (const path of ['/du-an/', '/dich-vu/zalo-mini-app/']) {
+      const { html } = await prerender(path)
+      expect(html, path).not.toContain('href="#top"')
+      // Link logo về trang chủ vẫn tồn tại trong header
+      expect(html, path).toContain('aria-label="LDK Tech Solutions — về trang chủ"')
+    }
+  })
+})
+
 describe('trang quy trình /quy-trinh/ — scroll world', () => {
   it('processPage: 5 chặng đủ copy, manifest có route', () => {
     expect(SITE.processPage.sections).toHaveLength(5)

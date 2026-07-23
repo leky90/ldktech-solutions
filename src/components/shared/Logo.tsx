@@ -1,3 +1,4 @@
+import { Link, useLocation } from 'react-router'
 import { cn } from '@/lib/utils'
 
 interface LogoProps {
@@ -19,11 +20,16 @@ export function LogoMark({ className }: LogoProps) {
 }
 
 export function Logo({ className }: LogoProps) {
+  const { pathname } = useLocation()
   return (
-    <a
-      href="#top"
+    <Link
+      to="/"
+      onClick={() => {
+        // Đang ở trang chủ thì Link không đổi route -> chủ động cuộn lên đầu
+        if (pathname === '/') window.scrollTo({ top: 0, behavior: 'smooth' })
+      }}
       className={cn('flex items-center gap-2.5', className)}
-      aria-label="LDK Tech Solutions — về đầu trang"
+      aria-label="LDK Tech Solutions — về trang chủ"
     >
       <span className="grid size-9 shrink-0 place-items-center rounded-lg border-2 border-ink bg-gold text-paper shadow-brutal-sm">
         <LogoMark className="size-6" />
@@ -36,6 +42,6 @@ export function Logo({ className }: LogoProps) {
           solutions
         </span>
       </span>
-    </a>
+    </Link>
   )
 }
