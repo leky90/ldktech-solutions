@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import type { Project } from '@/content/site'
 
 /** Card một dự án — dùng ở Portfolio (home), trang Dự án và "dự án liên quan" trên trang dịch vụ */
@@ -11,8 +12,14 @@ export function ProjectCard({ project }: { project: Project }) {
         {project.name}
       </h3>
       <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{project.desc}</p>
-      <p className="mt-4 border-t border-border pt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-brand">
-        {project.stack}
+      <p className="mt-4 flex items-baseline justify-between gap-3 border-t border-border pt-3">
+        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-brand">{project.stack}</span>
+        <Link
+          to={`/du-an/${project.slug}/`}
+          className="shrink-0 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
+        >
+          Chi tiết →
+        </Link>
       </p>
     </article>
   )
