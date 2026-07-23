@@ -6,8 +6,9 @@ import { StickyMobileCta } from '@/components/shared/StickyMobileCta'
 import { FloatingZalo } from '@/components/shared/FloatingZalo'
 import { ROUTES } from '@/content/routes'
 
-/** Khi đổi trang client-side: cuộn đúng chỗ + cập nhật title/description theo manifest */
-function RouteEffects() {
+/** Khi đổi trang client-side: cuộn đúng chỗ + cập nhật title/description theo manifest.
+ *  Export để DemoScreen (shell riêng, ngoài Layout) dùng lại. */
+export function RouteEffects() {
   const { pathname, hash } = useLocation()
 
   useEffect(() => {

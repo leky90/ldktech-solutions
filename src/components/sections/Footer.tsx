@@ -44,8 +44,18 @@ export function Footer() {
                 </li>
               ))}
               <li>
+                <Link to="/giai-phap/" className="text-paper/80 decoration-gold decoration-2 underline-offset-4 hover:underline">
+                  Giải pháp theo ngành
+                </Link>
+              </li>
+              <li>
                 <Link to="/du-an/" className="text-paper/80 decoration-gold decoration-2 underline-offset-4 hover:underline">
                   Dự án đã làm
+                </Link>
+              </li>
+              <li>
+                <Link to="/mau-tham-khao/" className="text-paper/80 decoration-gold decoration-2 underline-offset-4 hover:underline">
+                  Mẫu tham khảo & demo
                 </Link>
               </li>
               <li>

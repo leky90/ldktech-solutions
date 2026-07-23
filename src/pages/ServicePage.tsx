@@ -119,14 +119,23 @@ export function ServicePage() {
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
                     {sample.desc}
                   </p>
-                  <a
-                    href={phone.zaloHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 border-t border-border pt-3 font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
-                  >
-                    Đặt mẫu này →
-                  </a>
+                  {sample.demo ? (
+                    <Link
+                      to={`/mau-tham-khao/${sample.demo}/`}
+                      className="mt-4 border-t border-border pt-3 font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
+                    >
+                      Bấm thử demo sống →
+                    </Link>
+                  ) : (
+                    <a
+                      href={phone.zaloHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 border-t border-border pt-3 font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
+                    >
+                      Đặt mẫu này →
+                    </a>
+                  )}
                 </article>
               </Reveal>
             ))}
