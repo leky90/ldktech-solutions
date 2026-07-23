@@ -27,11 +27,38 @@ export const ROUTES: RouteMeta[] = [
     description: page.seoDesc,
   })),
   {
+    path: '/giai-phap/',
+    title: 'Giải pháp theo ngành: spa, quán ăn, cửa hàng bán lẻ',
+    description:
+      'Bộ giải pháp trọn gói theo ngành: spa & làm đẹp, quán ăn & cà phê, cửa hàng bán lẻ — website, mini app và tự động hoá phối hợp để ra đơn và giữ khách quen.',
+  },
+  ...SITE.industryPages.map((page) => ({
+    path: `/giai-phap/${page.slug}/`,
+    title: page.seoTitle,
+    description: page.seoDesc,
+  })),
+  {
     path: '/du-an/',
     title: 'Dự án đã làm — 180+ sản phẩm từ 2012 | LDK Tech',
     description:
       'Dự án tiêu biểu đã bàn giao: sàn TMĐT nông sản, nền tảng du lịch, web app bất động sản, e-commerce Anh–Pháp, fintech Singapore. Review thật từ khách hàng.',
   },
+  ...SITE.projectDetails.map((detail) => ({
+    path: `/du-an/${detail.slug}/`,
+    title: detail.seoTitle,
+    description: detail.seoDesc,
+  })),
+  {
+    path: '/mau-tham-khao/',
+    title: 'Mẫu website, app & Zalo Mini App — có demo xem thử',
+    description:
+      'Thư viện mẫu website, web app, mobile app và Zalo Mini App theo từng ngành — kèm demo tương tác bấm thử trực tiếp. Chọn mẫu, LDK làm theo thương hiệu của bạn.',
+  },
+  ...SITE.demoPages.map((demo) => ({
+    path: `/mau-tham-khao/${demo.slug}/`,
+    title: demo.seoTitle,
+    description: demo.seoDesc,
+  })),
   {
     path: '/bang-gia/',
     title: 'Bảng giá thiết kế website, app, Zalo Mini App 2026',

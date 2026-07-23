@@ -41,6 +41,8 @@ export interface Project {
   tag: string
   desc: string
   stack: string
+  /** slug trang chi tiết trong projectDetails */
+  slug: string
 }
 
 export interface ServiceTier {
@@ -56,6 +58,8 @@ export interface SampleTemplate {
   tag: string
   name: string
   desc: string
+  /** slug demo sống trong demoPages — có thì card trỏ về demo thay vì Zalo */
+  demo?: string
 }
 
 export interface ServicePageData {
@@ -81,6 +85,63 @@ export interface Testimonial {
   context: string
 }
 
+// ── Phase 2+3 (docs/plans/idempotent-zooming-mango.md) ──
+
+export interface ProjectDetail {
+  slug: string
+  /** khớp portfolio[].name */
+  name: string
+  seoTitle: string
+  seoDesc: string
+  h1: string
+  summary: string
+  /** bối cảnh & bài toán — chỉ mô tả định tính, KHÔNG bịa số liệu kết quả */
+  context: string[]
+  /** phạm vi LDK đảm nhận */
+  scope: string[]
+  /** kết quả định tính có thể kiểm chứng qua chính sản phẩm */
+  outcome: string[]
+  /** slug các trang dịch vụ liên quan */
+  services: string[]
+}
+
+export interface IndustrySolution {
+  title: string
+  desc: string
+  serviceSlug: string
+  from: string
+}
+
+export interface IndustryPage {
+  slug: string
+  nav: string
+  seoTitle: string
+  seoDesc: string
+  h1: string
+  intro: string
+  painPoints: string[]
+  solutions: IndustrySolution[]
+  /** lộ trình đầu tư từ nhỏ đến lớn */
+  roadmap: { stage: string; desc: string }[]
+  faqs: Faq[]
+  /** tag mẫu liên quan trong servicePages[].samples */
+  sampleTags: string[]
+  demoSlug?: string
+}
+
+export interface DemoPage {
+  slug: string
+  kind: 'mini-app' | 'website' | 'web-app'
+  /** thương hiệu HƯ CẤU dùng trong demo — dữ liệu minh hoạ */
+  name: string
+  seoTitle: string
+  seoDesc: string
+  tagline: string
+  /** dịch vụ tương ứng để CTA trỏ đúng trang báo giá */
+  serviceSlug: string
+  from: string
+}
+
 export const SITE = {
   name: 'LDK Tech Solutions',
   brand: 'LDK Tech',
@@ -101,9 +162,10 @@ export const SITE = {
 
   nav: [
     { label: 'Dịch vụ', href: '/dich-vu/' },
+    { label: 'Giải pháp', href: '/giai-phap/' },
     { label: 'Dự án', href: '/du-an/' },
+    { label: 'Mẫu tham khảo', href: '/mau-tham-khao/' },
     { label: 'Bảng giá', href: '/bang-gia/' },
-    { label: 'FAQ', href: '/#faq' },
   ],
 
   hero: {
@@ -177,36 +239,42 @@ export const SITE = {
       tag: 'Sàn TMĐT nông sản',
       desc: 'Sàn thương mại điện tử kết nối nông sản Việt từ nông trại đến người mua — danh mục ngàn sản phẩm, đặt hàng và thanh toán online.',
       stack: 'React · Web App',
+      slug: 'foodmap',
     },
     {
       name: 'Native',
       tag: 'Du lịch & trải nghiệm',
       desc: 'Nền tảng đặt tour và trải nghiệm du lịch: tìm kiếm, đặt chỗ, thanh toán — tối ưu cho khách dùng điện thoại.',
       stack: 'React · Website + Web App',
+      slug: 'native',
     },
     {
       name: 'Build-to-Rent',
       tag: 'Bất động sản',
       desc: 'Web app quản lý cho thuê bất động sản: danh sách căn hộ, đặt lịch xem nhà, trang quản trị cho chủ đầu tư.',
       stack: 'React · Node.js · Web App',
+      slug: 'build-to-rent',
     },
     {
       name: 'Controllermodz',
       tag: 'E-commerce (Anh)',
       desc: 'Cửa hàng online bán tay cầm game custom cho thị trường Anh — cấu hình sản phẩm theo ý khách ngay trên web.',
       stack: 'Magento · Website bán hàng',
+      slug: 'controllermodz',
     },
     {
       name: 'Ciga.fr',
       tag: 'E-commerce (Pháp)',
       desc: 'Storefront thương mại điện tử cho thị trường Pháp: giỏ hàng, thanh toán, quản lý đơn — vận hành ổn định nhiều năm.',
       stack: 'PrestaShop · Website bán hàng',
+      slug: 'ciga-fr',
     },
     {
       name: 'Treehouse',
       tag: 'Fintech (Singapore)',
       desc: 'Nền tảng tài chính số hoá tài sản — phụ trách toàn bộ giao diện cùng đội ngũ 8 kỹ sư: dashboard realtime, dữ liệu on-chain.',
       stack: 'React · Web App · Fintech',
+      slug: 'treehouse',
     },
   ] satisfies Project[],
 
@@ -299,7 +367,7 @@ export const SITE = {
         { title: 'Google Maps & đánh giá', desc: 'Gắn bản đồ, giờ mở cửa, review — đủ thông tin để khách quyết định ghé.' },
       ],
       samples: [
-        { tag: 'F&B', name: 'Website nhà hàng, quán cà phê', desc: 'Menu đẹp, đặt bàn, chỉ đường Google Maps — khách xem là muốn ghé.' },
+        { tag: 'F&B', name: 'Website nhà hàng, quán cà phê', desc: 'Menu đẹp, đặt bàn, chỉ đường Google Maps — khách xem là muốn ghé.', demo: 'website-nha-hang' },
         { tag: 'Làm đẹp', name: 'Website spa, salon, thẩm mỹ', desc: 'Bảng giá dịch vụ, hình ảnh trước–sau, nút đặt lịch qua Zalo.' },
         { tag: 'Bán lẻ', name: 'Website thời trang, mỹ phẩm', desc: 'Catalog sản phẩm, giỏ hàng, chương trình khuyến mãi theo mùa.' },
         { tag: 'Bất động sản', name: 'Website môi giới & dự án', desc: 'Danh sách nhà đất có bộ lọc, trang chi tiết dự án, form nhận tư vấn.' },
@@ -359,8 +427,8 @@ export const SITE = {
         { title: 'Thanh toán trong app', desc: 'Khách trả tiền ngay trong Zalo — chốt đơn không rời màn hình.' },
       ],
       samples: [
-        { tag: 'Làm đẹp', name: 'Đặt lịch spa, salon, nail', desc: 'Chọn dịch vụ, chọn giờ, nhắc hẹn tự động qua ZNS — giảm hẳn khách quên lịch.' },
-        { tag: 'F&B', name: 'Gọi món QR tại bàn & giao tận nơi', desc: 'Quét QR xem menu, gọi món, thanh toán — dùng luôn cho đặt giao về nhà.' },
+        { tag: 'Làm đẹp', name: 'Đặt lịch spa, salon, nail', desc: 'Chọn dịch vụ, chọn giờ, nhắc hẹn tự động qua ZNS — giảm hẳn khách quên lịch.', demo: 'spa-dat-lich' },
+        { tag: 'F&B', name: 'Gọi món QR tại bàn & giao tận nơi', desc: 'Quét QR xem menu, gọi món, thanh toán — dùng luôn cho đặt giao về nhà.', demo: 'goi-mon-qr' },
         { tag: 'Bán lẻ', name: 'Thẻ thành viên & tích điểm', desc: 'Tích điểm tự động sau mỗi đơn, đổi ưu đãi ngay trong Zalo — giữ chân khách quen.' },
         { tag: 'Thực phẩm', name: 'Đặt hàng thực phẩm, nông sản', desc: 'Đơn giao hằng ngày cho cửa hàng thực phẩm sạch, đặc sản vùng miền.' },
         { tag: 'Giáo dục', name: 'Mini app trung tâm & lớp học', desc: 'Lịch học, thông báo nghỉ – học bù, học phí — phụ huynh xem ngay trong Zalo.' },
@@ -688,6 +756,369 @@ export const SITE = {
       relatedProjects: ['Ciga.fr', 'Controllermodz'],
     },
   ] satisfies ServicePageData[],
+
+  // ── Trang chi tiết dự án — nội dung ĐỊNH TÍNH, không bịa số liệu kết quả.
+  // Số liệu thật + permission khách sẽ nâng lên case study sau (hạng mục đang hoãn).
+  projectDetails: [
+    {
+      slug: 'foodmap',
+      name: 'FoodMap',
+      seoTitle: 'FoodMap — sàn TMĐT nông sản Việt | Dự án LDK Tech',
+      seoDesc:
+        'Câu chuyện xây dựng FoodMap — sàn thương mại điện tử nông sản: danh mục ngàn sản phẩm, đặt hàng và thanh toán online, tối ưu cho người mua trên điện thoại.',
+      h1: 'FoodMap — đưa nông sản Việt lên sàn online',
+      summary:
+        'Sàn thương mại điện tử kết nối nông sản từ nhà sản xuất đến người mua — một trong những dự án quy mô lớn và dài hơi nhất LDK từng tham gia.',
+      context: [
+        'Nông sản Việt chất lượng cao nhưng đường ra thị trường thường qua nhiều tầng trung gian. Đội ngũ FoodMap muốn một sàn chuyên biệt nơi người mua đặt trực tiếp từ nhà sản xuất — nghĩa là danh mục hàng ngàn sản phẩm, nhiều nhà bán cùng lúc, và luồng đơn hàng phức tạp hơn hẳn một web bán hàng đơn thương hiệu.',
+        'Thách thức lớn nhất: người mua chủ yếu dùng điện thoại, ở cả thành thị lẫn vùng có mạng chậm — giao diện phải nhẹ, nhanh và dễ dùng với người không rành công nghệ.',
+      ],
+      scope: [
+        'Phát triển giao diện sàn: danh mục ngàn sản phẩm, tìm kiếm và lọc theo vùng miền, trang gian hàng của từng nhà bán',
+        'Luồng giỏ hàng — đặt hàng — thanh toán online trọn vẹn trên điện thoại',
+        'Tối ưu tốc độ tải cho danh mục nhiều hình ảnh trên mạng di động',
+        'Làm việc trực tiếp trong đội ngũ phát triển của FoodMap theo nhịp phát hành liên tục',
+      ],
+      outcome: [
+        'Sàn vận hành thương mại thật với danh mục nông sản đa dạng từ nhiều nhà cung cấp',
+        'Trải nghiệm mua hàng mượt trên điện thoại — đúng thói quen của người mua Việt',
+        'Nền tảng đủ vững để đội ngũ FoodMap tiếp tục mở rộng tính năng về sau',
+      ],
+      services: ['web-app', 'thiet-ke-website'],
+    },
+    {
+      slug: 'native',
+      name: 'Native',
+      seoTitle: 'Native — nền tảng đặt tour du lịch | Dự án LDK Tech',
+      seoDesc:
+        'LDK phát triển nền tảng đặt tour và trải nghiệm du lịch Native: tìm kiếm, đặt chỗ, thanh toán online — giao diện mobile-first cho khách du lịch.',
+      h1: 'Native — đặt tour du lịch ngay trên điện thoại',
+      summary:
+        'Nền tảng đặt tour và trải nghiệm du lịch: khách tìm, chọn, giữ chỗ và thanh toán trong một mạch — không phải gọi điện qua lại.',
+      context: [
+        'Đặt tour kiểu cũ nhiều ma sát: khách nhắn tin hỏi lịch, chờ xác nhận chỗ, chuyển khoản rồi chụp màn hình. Native muốn cả hành trình đó diễn ra trực tuyến — xem lịch trống thật, giữ chỗ ngay, thanh toán xong là có xác nhận.',
+        'Khách du lịch thao tác chủ yếu trên điện thoại, thường ngay trước hoặc trong chuyến đi — tốc độ và sự rõ ràng của từng bước đặt chỗ quyết định họ có hoàn tất đơn hay không.',
+      ],
+      scope: [
+        'Xây dựng website giới thiệu và nền tảng đặt chỗ trên cùng một hệ thống',
+        'Luồng tìm kiếm tour, xem lịch trống, giữ chỗ và thanh toán online',
+        'Giao diện mobile-first cho khách thao tác một tay khi đang di chuyển',
+      ],
+      outcome: [
+        'Khách tự hoàn tất việc đặt tour không cần nhắn tin xác nhận thủ công',
+        'Một hệ thống phục vụ cả trang giới thiệu lẫn vận hành đặt chỗ — đỡ chi phí duy trì hai nơi',
+      ],
+      services: ['web-app', 'mobile-app'],
+    },
+    {
+      slug: 'build-to-rent',
+      name: 'Build-to-Rent',
+      seoTitle: 'Build-to-Rent — web app quản lý cho thuê nhà | LDK Tech',
+      seoDesc:
+        'Web app quản lý cho thuê bất động sản: danh sách căn hộ, đặt lịch xem nhà, trang quản trị chủ đầu tư — LDK đảm nhận cả giao diện lẫn hệ thống phía sau.',
+      h1: 'Build-to-Rent — quản lý cho thuê không cần sổ sách',
+      summary:
+        'Web app cho mô hình xây-để-cho-thuê: người thuê tìm căn hộ và đặt lịch xem nhà online, chủ đầu tư theo dõi toàn bộ danh mục trên một trang quản trị.',
+      context: [
+        'Quản lý hàng loạt căn hộ cho thuê bằng bảng tính rất nhanh vỡ trận: căn nào trống, lịch xem nhà lúc nào, hồ sơ người thuê ra sao — mỗi thứ một file. Chủ đầu tư cần một hệ thống duy nhất cho cả người thuê lẫn đội vận hành.',
+      ],
+      scope: [
+        'Website danh sách căn hộ với bộ lọc theo nhu cầu người thuê',
+        'Luồng đặt lịch xem nhà trực tuyến gắn với lịch của đội vận hành',
+        'Trang quản trị cho chủ đầu tư: tình trạng từng căn, lịch hẹn, hồ sơ quan tâm',
+        'Phát triển cả giao diện lẫn hệ thống phía sau (Node.js)',
+      ],
+      outcome: [
+        'Toàn bộ vòng cho thuê — từ tìm căn đến hẹn xem nhà — diễn ra trên một hệ thống',
+        'Đội vận hành và chủ đầu tư nhìn cùng một nguồn dữ liệu, hết cảnh lệch file',
+      ],
+      services: ['web-app'],
+    },
+    {
+      slug: 'controllermodz',
+      name: 'Controllermodz',
+      seoTitle: 'Controllermodz — web bán tay cầm game tại Anh | LDK Tech',
+      seoDesc:
+        'Cửa hàng online bán tay cầm game custom cho thị trường Anh: khách tự cấu hình sản phẩm theo ý ngay trên web trước khi đặt — LDK phát triển và tối ưu chuyển đổi.',
+      h1: 'Controllermodz — tay cầm game "độ" theo ý khách',
+      summary:
+        'E-commerce cho thị trường Anh với điểm khó riêng: mỗi sản phẩm là một bản phối màu – nút – cần khách tự chọn, thấy trước thành phẩm rồi mới đặt.',
+      context: [
+        'Bán tay cầm game custom khác hẳn bán hàng thường: giá trị nằm ở việc khách được tự thiết kế. Bài toán là một trình cấu hình sản phẩm trực quan — chọn tới đâu thấy hình và giá đổi tới đó — chạy mượt ngay trong trang bán hàng.',
+      ],
+      scope: [
+        'Phát triển cửa hàng trên nền Magento cho thị trường Anh',
+        'Trình cấu hình sản phẩm: khách phối màu, chọn linh kiện, thấy giá cập nhật trực tiếp',
+        'Tối ưu luồng từ trang sản phẩm đến thanh toán để tăng tỉ lệ chốt đơn',
+      ],
+      outcome: [
+        'Khách tự thiết kế sản phẩm và đặt hàng không cần trao đổi thủ công',
+        'Cửa hàng phục vụ khách quốc tế với quy trình đặt — thanh toán hoàn chỉnh',
+      ],
+      services: ['thiet-ke-website', 'cham-soc-website'],
+    },
+    {
+      slug: 'ciga-fr',
+      name: 'Ciga.fr',
+      seoTitle: 'Ciga.fr — website bán hàng thị trường Pháp | LDK Tech',
+      seoDesc:
+        'Storefront thương mại điện tử tiếng Pháp: giỏ hàng, thanh toán, quản lý đơn — LDK phát triển và duy trì vận hành ổn định trong nhiều năm liền.',
+      h1: 'Ciga.fr — cửa hàng online bền bỉ tại thị trường Pháp',
+      summary:
+        'Website bán hàng cho thị trường Pháp trên nền PrestaShop — minh chứng cho kiểu hợp tác LDK theo đuổi: làm xong không rời đi, mà đồng hành vận hành nhiều năm.',
+      context: [
+        'Một cửa hàng online sống được nhiều năm cần hơn là code tốt lúc bàn giao: cập nhật bảo mật đều đặn, xử lý sự cố nhanh, và nâng cấp dần theo nhu cầu bán hàng thực tế. Ciga.fr là dự án LDK đảm nhận trọn vòng đời như vậy.',
+      ],
+      scope: [
+        'Phát triển storefront PrestaShop: danh mục, giỏ hàng, thanh toán, quản lý đơn',
+        'Tuỳ biến giao diện và tính năng theo nhu cầu bán hàng từng giai đoạn',
+        'Bảo trì, cập nhật bảo mật và xử lý sự cố trong suốt quá trình vận hành',
+      ],
+      outcome: [
+        'Cửa hàng vận hành ổn định phục vụ khách Pháp trong nhiều năm liên tục',
+        'Chủ shop tập trung bán hàng — phần kỹ thuật có LDK trực dài hạn',
+      ],
+      services: ['thiet-ke-website', 'cham-soc-website'],
+    },
+    {
+      slug: 'treehouse',
+      name: 'Treehouse',
+      seoTitle: 'Treehouse — nền tảng fintech Singapore | Dự án LDK Tech',
+      seoDesc:
+        'Tham gia nền tảng tài chính số hoá tài sản tại Singapore: phụ trách toàn bộ giao diện trong đội ngũ 8 kỹ sư — dashboard dữ liệu cập nhật thời gian thực.',
+      h1: 'Treehouse — giao diện cho nền tảng tài chính số',
+      summary:
+        'Nền tảng fintech số hoá tài sản tại Singapore — LDK phụ trách toàn bộ phần giao diện, phối hợp hằng ngày cùng đội ngũ 8 kỹ sư quốc tế.',
+      context: [
+        'Sản phẩm tài chính đòi hỏi giao diện ở một chuẩn khác: số liệu cập nhật liên tục không được sai lệch, biểu đồ dày đặc vẫn phải đọc được, và mọi thay đổi đều qua quy trình kiểm duyệt chặt của đội ngũ quốc tế.',
+      ],
+      scope: [
+        'Phụ trách toàn bộ phần giao diện của nền tảng',
+        'Dashboard hiển thị dữ liệu tài sản cập nhật thời gian thực',
+        'Phối hợp quy trình phát triển chuẩn quốc tế: review chéo, kiểm thử, phát hành liên tục',
+      ],
+      outcome: [
+        'Giao diện đạt chuẩn vận hành của một sản phẩm tài chính đang phục vụ nhà đầu tư',
+        'Kinh nghiệm quy trình quốc tế được LDK áp dụng lại cho mọi dự án trong nước',
+      ],
+      services: ['web-app'],
+    },
+  ] satisfies ProjectDetail[],
+
+  // ── Landing giải pháp theo ngành — chữ "Giải pháp" dùng đúng chỗ đã chốt naming ──
+  industryPages: [
+    {
+      slug: 'spa-lam-dep',
+      nav: 'Spa & Làm đẹp',
+      seoTitle: 'Giải pháp cho spa, salon: đặt lịch online, giữ khách quen',
+      seoDesc:
+        'Bộ giải pháp cho spa, salon, nail: website chuẩn SEO, mini app đặt lịch trên Zalo, nhắc hẹn tự động, thẻ thành viên tích điểm. Bắt đầu chỉ từ 5 triệu.',
+      h1: 'Giải pháp số cho spa & làm đẹp',
+      intro:
+        'Khách của ngành làm đẹp đến từ hai nơi: tìm "spa gần đây" trên Google, và người quen giới thiệu qua Zalo. Bộ giải pháp này giúp bạn đón cả hai — rồi giữ họ quay lại đều bằng đặt lịch tiện và chăm sóc tự động.',
+      painPoints: [
+        'Khách nhắn đặt lịch lúc đang bận tay, quên trả lời là mất khách',
+        'Khách quên lịch hẹn — ghế trống mà không kịp lấp',
+        'Tìm "spa gần đây" trên Google thì chỉ thấy đối thủ',
+        'Khách làm một lần rồi thôi — không có gì kéo họ quay lại',
+      ],
+      solutions: [
+        {
+          title: 'Website spa chuẩn SEO',
+          desc: 'Bảng giá dịch vụ, hình ảnh không gian, đánh giá của khách — người tìm trên Google thấy bạn trước và đủ tin để đặt lịch.',
+          serviceSlug: 'thiet-ke-website',
+          from: 'từ 5 triệu',
+        },
+        {
+          title: 'Mini app đặt lịch trên Zalo',
+          desc: 'Khách chọn dịch vụ, chọn giờ ngay trong Zalo; hệ thống nhắc hẹn tự động qua ZNS — giảm hẳn khách quên lịch.',
+          serviceSlug: 'zalo-mini-app',
+          from: 'từ 15 triệu',
+        },
+        {
+          title: 'Chăm sóc khách tự động',
+          desc: 'Tích điểm, ưu đãi sinh nhật, nhắc liệu trình định kỳ — chạy tự động, khách quay lại đều mà bạn không phải nhớ.',
+          serviceSlug: 'tu-dong-hoa',
+          from: 'từ 5 triệu',
+        },
+      ],
+      roadmap: [
+        { stage: 'Bắt đầu', desc: 'Website + Google Maps để khách mới tìm thấy bạn — nền móng chỉ từ 5 triệu.' },
+        { stage: 'Tăng trưởng', desc: 'Thêm mini app đặt lịch + nhắc hẹn ZNS khi lượng khách đặt qua Zalo đã đều.' },
+        { stage: 'Giữ khách', desc: 'Bật thẻ thành viên và kịch bản chăm sóc tự động — biến khách vãng lai thành khách quen.' },
+      ],
+      faqs: [
+        {
+          q: 'Spa nhỏ 2–3 giường có cần làm không?',
+          a: 'Càng nhỏ càng cần khách tự đặt lịch — vì bạn không có lễ tân riêng để trực tin nhắn. Bắt đầu từ website 5 triệu là đủ để khách tìm thấy và nhắn Zalo cho bạn; mini app tính sau khi khách đông.',
+        },
+        {
+          q: 'Tôi đang dùng sổ giấy quản lý lịch hẹn, chuyển đổi có khó không?',
+          a: 'Không — hệ thống được thiết kế cho người quen dùng Zalo là chính: lịch hẹn mới báo thẳng về điện thoại của bạn, bạn xác nhận một chạm. Sổ giấy vẫn dùng song song được trong thời gian làm quen.',
+        },
+        {
+          q: 'Nhắc hẹn tự động qua ZNS tốn bao nhiêu?',
+          a: 'Phí ZNS trả trực tiếp cho Zalo theo từng tin (vài trăm đồng/tin). Một spa cỡ vừa thường tốn dưới 200 nghìn/tháng — rẻ hơn nhiều so với một ghế trống vì khách quên lịch.',
+        },
+        {
+          q: 'Mất bao lâu để chạy được cả bộ?',
+          a: 'Website: 2–3 tuần. Mini app đặt lịch: thêm 3–5 tuần. Bạn không cần làm tất cả cùng lúc — lộ trình chia giai đoạn để mỗi phần tự chứng minh hiệu quả trước khi đầu tư phần sau.',
+        },
+      ],
+      sampleTags: ['Làm đẹp'],
+      demoSlug: 'spa-dat-lich',
+    },
+    {
+      slug: 'quan-an-cafe',
+      nav: 'Quán ăn & Cà phê',
+      seoTitle: 'Giải pháp cho quán ăn, cà phê: gọi món QR, đặt bàn online',
+      seoDesc:
+        'Bộ giải pháp cho nhà hàng, quán ăn, quán cà phê: website có menu và đặt bàn, gọi món QR tại bàn, kênh đặt giao riêng không mất phí sàn. Từ 5 triệu.',
+      h1: 'Giải pháp số cho quán ăn & cà phê',
+      intro:
+        'Quán đông khách chưa chắc lời nhiều: phí sàn giao đồ ăn, nhân viên chạy không kịp order giờ cao điểm, khách mới không tìm thấy quán trên Google. Bộ giải pháp này xử từng chỗ rò rỉ đó.',
+      painPoints: [
+        'Giờ cao điểm nhân viên chạy không kịp ghi order, sai món mất khách',
+        'Khách gọi điện đặt bàn — quên ghi, trùng bàn, mất uy tín',
+        'Bán qua ứng dụng giao đồ ăn thì phí chiết khấu ăn gần hết lời',
+        'Menu in giấy — đổi giá, thêm món là in lại cả xấp',
+      ],
+      solutions: [
+        {
+          title: 'Website quán có menu & đặt bàn',
+          desc: 'Khách tìm "quán ngon gần đây" là thấy bạn: menu, hình món, giờ mở cửa, đặt bàn online và chỉ đường một chạm.',
+          serviceSlug: 'thiet-ke-website',
+          from: 'từ 5 triệu',
+        },
+        {
+          title: 'Gọi món QR tại bàn',
+          desc: 'Khách quét mã ở bàn, tự chọn món, order chạy thẳng xuống quầy — nhân viên chỉ việc bưng ra, giờ cao điểm không loạn.',
+          serviceSlug: 'zalo-mini-app',
+          from: 'từ 15 triệu',
+        },
+        {
+          title: 'Kênh đặt giao riêng + vận hành tự động',
+          desc: 'Nhận đơn giao tận nơi qua kênh của chính bạn — không mất phí chiết khấu; đơn và doanh thu tự tổng hợp mỗi ngày.',
+          serviceSlug: 'tu-dong-hoa',
+          from: 'từ 5 triệu',
+        },
+      ],
+      roadmap: [
+        { stage: 'Bắt đầu', desc: 'Website menu + Google Maps — khách mới tìm thấy quán, khách cũ xem menu trước khi đến.' },
+        { stage: 'Tăng trưởng', desc: 'Gọi món QR tại bàn khi quán đông — giảm sai sót, quay vòng bàn nhanh hơn.' },
+        { stage: 'Tối ưu lời', desc: 'Mở kênh đặt giao riêng cho khách quen — mỗi đơn không mất phí sàn là thêm phần lời giữ lại.' },
+      ],
+      faqs: [
+        {
+          q: 'Gọi món QR có làm mất "chất" phục vụ của quán không?',
+          a: 'QR thay phần ghi order, không thay con người — nhân viên vẫn chào khách, tư vấn món, bưng đồ. Khác biệt là hết cảnh đứng chờ ghi món giờ cao điểm và không còn sai order do nghe nhầm.',
+        },
+        {
+          q: 'Khách lớn tuổi không quen quét QR thì sao?',
+          a: 'Menu giấy và gọi nhân viên vẫn hoạt động bình thường — QR là thêm lựa chọn chứ không thay thế. Thực tế nhóm khách trẻ dùng QR trước, giải phóng nhân viên để chăm nhóm khách cần hỗ trợ.',
+        },
+        {
+          q: 'Tôi vẫn muốn bán trên các ứng dụng giao đồ ăn, có mâu thuẫn không?',
+          a: 'Không — cứ giữ các ứng dụng đó để tiếp cận khách mới. Kênh riêng dùng cho khách quen đặt lại: mã giảm nhẹ hơn phí sàn là cả bạn lẫn khách đều lợi hơn.',
+        },
+      ],
+      sampleTags: ['F&B'],
+      demoSlug: 'goi-mon-qr',
+    },
+    {
+      slug: 'cua-hang-ban-le',
+      nav: 'Cửa hàng bán lẻ',
+      seoTitle: 'Giải pháp cho cửa hàng bán lẻ: bán online, giữ khách quen',
+      seoDesc:
+        'Bộ giải pháp cho shop thời trang, mỹ phẩm, tạp hoá đặc sản: web bán hàng riêng, thẻ thành viên trên Zalo, gom đơn sàn về một chỗ. Bắt đầu từ 5 triệu.',
+      h1: 'Giải pháp số cho cửa hàng bán lẻ',
+      intro:
+        'Bán trên sàn thì bị so giá từng đồng và mất phí; bán qua Zalo thì chốt tay từng đơn. Bộ giải pháp này cho shop một kênh bán riêng đàng hoàng — và biến tệp khách đã mua thành khách quay lại.',
+      painPoints: [
+        'Phí sàn + chạy khuyến mãi liên tục — doanh thu cao mà lời mỏng',
+        'Khách quen nhắn Zalo đặt hàng, phải chốt tay từng đơn một',
+        'Tồn kho trên bảng tính lệch với kho thật, đối soát mỗi tuần một lần',
+        'Có cả nghìn khách đã mua nhưng không có cách nào mời họ quay lại',
+      ],
+      solutions: [
+        {
+          title: 'Web bán hàng của riêng shop',
+          desc: 'Catalog, giỏ hàng, thanh toán, kết nối vận chuyển — kênh bán đứng tên bạn, không phí chiết khấu, không bị so giá.',
+          serviceSlug: 'thiet-ke-website',
+          from: 'từ 15 triệu',
+        },
+        {
+          title: 'Thẻ thành viên trên Zalo',
+          desc: 'Khách mua là có điểm, đổi ưu đãi ngay trong Zalo; shop gửi ZNS khuyến mãi đúng tệp khách cũ — chi phí thấp hơn quảng cáo nhiều.',
+          serviceSlug: 'zalo-mini-app',
+          from: 'từ 15 triệu',
+        },
+        {
+          title: 'Gom đơn mọi kênh về một chỗ',
+          desc: 'Đơn từ sàn, web, Zalo đổ về một bảng — tự trừ kho, tự báo cáo doanh thu từng kênh mỗi tối.',
+          serviceSlug: 'tu-dong-hoa',
+          from: 'từ 5 triệu',
+        },
+      ],
+      roadmap: [
+        { stage: 'Bắt đầu', desc: 'Gom đơn sàn về một chỗ + tự động trừ kho — dẹp ngay việc tay tốn nhất, chỉ từ 5 triệu.' },
+        { stage: 'Kênh riêng', desc: 'Web bán hàng đứng tên shop — thoát dần phụ thuộc phí sàn.' },
+        { stage: 'Giữ khách', desc: 'Thẻ thành viên + ZNS ưu đãi cho khách cũ — mỗi khách mua lại là một đơn không mất phí tìm khách.' },
+      ],
+      faqs: [
+        {
+          q: 'Tôi đang dùng phần mềm bán hàng ở quầy, có phải bỏ không?',
+          a: 'Không — các phần mềm quầy phổ biến ở Việt Nam đều nối được: web và mini app đọc chung tồn kho, đơn online tự trừ vào cùng hệ thống. Buổi tư vấn miễn phí sẽ kiểm tra phần mềm bạn đang dùng.',
+        },
+        {
+          q: 'Web bán hàng riêng liệu có ai vào mua không?',
+          a: 'Web riêng không thay sàn ngay — nó bắt đầu từ tệp khách bạn đã có: khách Zalo, khách tại quầy, người theo dõi mạng xã hội. Mua trên web của bạn được tích điểm và giá tốt hơn là lý do họ chuyển kênh.',
+        },
+        {
+          q: 'Ngân sách dưới 10 triệu nên bắt đầu từ đâu?',
+          a: 'Từ chỗ đau nhất. Nếu mỗi ngày mất một giờ chép đơn sàn — làm luồng gom đơn (từ 5 triệu). Nếu khách hỏi mà không có chỗ xem hàng đàng hoàng — làm web giới thiệu trước (từ 5 triệu), nâng lên bán hàng sau.',
+        },
+      ],
+      sampleTags: ['Bán lẻ', 'TMĐT'],
+    },
+  ] satisfies IndustryPage[],
+
+  // ── Demo sống — thương hiệu HƯ CẤU, dữ liệu minh hoạ ──
+  demoPages: [
+    {
+      slug: 'spa-dat-lich',
+      kind: 'mini-app',
+      name: 'An Nhiên',
+      seoTitle: 'Demo mini app đặt lịch spa — bấm thử trực tiếp',
+      seoDesc:
+        'Bản demo tương tác mini app đặt lịch cho spa, salon: chọn dịch vụ, chọn giờ, xác nhận hẹn, thẻ thành viên tích điểm. Dữ liệu minh hoạ — bấm thử ngay.',
+      tagline: 'Mini app đặt lịch cho spa & salon',
+      serviceSlug: 'zalo-mini-app',
+      from: 'từ 15 triệu',
+    },
+    {
+      slug: 'website-nha-hang',
+      kind: 'website',
+      name: 'Bếp Quê',
+      seoTitle: 'Demo website nhà hàng — bấm thử trực tiếp',
+      seoDesc:
+        'Bản demo website nhà hàng, quán ăn: thực đơn theo nhóm món, đặt bàn online, thông tin chỉ đường. Dữ liệu minh hoạ — trải nghiệm thử đúng như khách của bạn.',
+      tagline: 'Website cho nhà hàng, quán ăn',
+      serviceSlug: 'thiet-ke-website',
+      from: 'từ 8 triệu',
+    },
+    {
+      slug: 'goi-mon-qr',
+      kind: 'web-app',
+      name: 'Hạt & Lá',
+      seoTitle: 'Demo gọi món QR tại bàn — bấm thử trực tiếp',
+      seoDesc:
+        'Bản demo gọi món quét QR tại bàn cho quán ăn, cà phê: xem menu, thêm món vào giỏ, gửi order, theo dõi trạng thái pha chế. Dữ liệu minh hoạ — bấm thử ngay.',
+      tagline: 'Gọi món QR cho quán ăn & cà phê',
+      serviceSlug: 'zalo-mini-app',
+      from: 'từ 15 triệu',
+    },
+  ] satisfies DemoPage[],
 
   faqs: [
     {
