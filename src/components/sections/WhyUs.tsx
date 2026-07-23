@@ -8,9 +8,9 @@ export function WhyUs() {
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <SectionHeading
           index="03"
-          label="Vì sao chọn LDK"
-          title="Làm thật, giá thật, đồng hành thật"
-          sub="Sáu cam kết viết thẳng vào hợp đồng — không phải lời quảng cáo."
+          label="Vì sao chọn LDK Tech"
+          title="Cam kết của một đối tác phần mềm lâu năm"
+          sub="Sáu cam kết được ghi thẳng vào hợp đồng — không phải lời quảng cáo."
         />
 
         <div className="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">

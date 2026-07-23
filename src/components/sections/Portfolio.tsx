@@ -30,7 +30,7 @@ export function Portfolio({
             index="02"
             label="Dự án đã làm"
             title="Làm thật, đã bàn giao — từ Việt Nam đến Singapore"
-            sub="Một phần dự án tiêu biểu từ hồ sơ Freelancer.com (4.9/5★ · 125+ đánh giá) và vLance. Khách hàng tại Việt Nam, Anh, Pháp, Singapore."
+            sub="Dự án tiêu biểu LDK Tech đã bàn giao cho khách hàng tại Việt Nam, Anh, Pháp và Singapore — từ website bán hàng đến nền tảng tài chính."
           />
         ) : null}
 

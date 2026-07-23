@@ -96,6 +96,17 @@ describe('audit fixes — a11y + copy + schema', () => {
     }
   })
 
+  it('định vị công ty — không nhắc nền tảng freelancer trên site', async () => {
+    // Số liệu từ hồ sơ freelancer chỉ dùng nội bộ; website là bộ mặt công ty
+    for (const path of ['/', '/du-an/', '/dich-vu/', '/bang-gia/']) {
+      const { html } = await prerender(path)
+      const lower = html.toLowerCase()
+      for (const banned of ['freelancer', 'vlance', 'upwork', 'studio']) {
+        expect(lower, `còn "${banned}" ở ${path}`).not.toContain(banned)
+      }
+    }
+  })
+
   it('JSON-LD trong index.html parse được và không dùng LocalBusiness thiếu address', async () => {
     const { readFileSync } = await import('node:fs')
     const { resolve } = await import('node:path')

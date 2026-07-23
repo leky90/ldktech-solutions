@@ -110,8 +110,8 @@ export const SITE = {
     sub: 'Giá chốt trước khi làm. Bàn giao đúng hẹn. Trao đổi 100% qua Zalo bằng ngôn ngữ dễ hiểu. LDK Tech đồng hành cùng hộ kinh doanh & SME từ ý tưởng đến khi ra đơn hàng đầu tiên — và sau đó nữa.',
     ctaPrimary: 'Chat Zalo ngay',
     ctaSecondary: 'Xem bảng giá',
-    // Số liệu thật từ hồ sơ Freelancer.com (@Leky90, từ 2012) + vLance (60 dự án)
-    trust: ['180+ dự án từ 2012', '4.9/5★ · 125+ đánh giá trên Freelancer.com', '99% đúng hẹn · 100% đúng ngân sách'],
+    // Số liệu năng lực có kiểm chứng nội bộ — KHÔNG nêu tên nền tảng freelancer trên website
+    trust: ['12+ năm phát triển phần mềm', '180+ dự án · khách hàng 4 quốc gia', '99% đúng hẹn · 100% đúng ngân sách'],
   },
 
   marquee: [
@@ -167,7 +167,7 @@ export const SITE = {
     },
   ] satisfies Service[],
 
-  // Dự án thật từ portfolio Freelancer.com / vLance / LinkedIn
+  // Dự án tiêu biểu đã bàn giao
   portfolio: [
     {
       name: 'FoodMap',
@@ -202,27 +202,27 @@ export const SITE = {
     {
       name: 'Treehouse',
       tag: 'Fintech (Singapore)',
-      desc: 'Nền tảng tài chính số hoá tài sản — dẫn dắt đội 8 kỹ sư xây toàn bộ giao diện: dashboard realtime, dữ liệu on-chain.',
+      desc: 'Nền tảng tài chính số hoá tài sản — phụ trách toàn bộ giao diện cùng đội ngũ 8 kỹ sư: dashboard realtime, dữ liệu on-chain.',
       stack: 'React · Web App · Fintech',
     },
   ] satisfies Project[],
 
-  // Trích nguyên văn review công khai của khách trên vLance.vn
+  // Nhận xét nguyên văn từ khách hàng (không nêu nền tảng nguồn trên website)
   testimonials: [
     {
-      quote: 'Hiện tại đây là người tôi hay hợp tác nhất mỗi khi có dự án gì về lập trình web.',
+      quote: 'Hiện tại đây là đối tác tôi hay hợp tác nhất mỗi khi có dự án gì về lập trình web.',
       author: 'Đỗ Hồng Nam',
-      context: 'Khách thuê lặp lại nhiều dự án · vLance',
+      context: 'Khách hàng hợp tác nhiều dự án',
     },
     {
-      quote: 'Kỳ có thể giải quyết được những bài toán tưởng chừng như không thể. Good jobs.',
+      quote: 'Có thể giải quyết được những bài toán tưởng chừng như không thể.',
       author: 'Vietnam Smart BPO',
-      context: 'Dự án website doanh nghiệp · vLance',
+      context: 'Dự án website doanh nghiệp',
     },
     {
-      quote: 'Một người ít nói, nhưng chắc chắn và trung thực. Hoàn thành công việc được giao đúng hẹn.',
+      quote: 'Chắc chắn và trung thực. Hoàn thành công việc được giao đúng hẹn.',
       author: 'Phan Tuấn Phúc',
-      context: 'Plugin PDF viewer cho web · vLance',
+      context: 'Dự án phần mềm quản lý tài liệu',
     },
   ] satisfies Testimonial[],
 
@@ -714,7 +714,7 @@ export const SITE = {
   ] satisfies Faq[],
 
   contact: {
-    heading: 'Kể LDK nghe bạn đang kinh doanh gì',
+    heading: 'Kể LDK Tech nghe bài toán của bạn',
     subheading: 'Nhận phương án + báo giá chi tiết trong 24 giờ. Miễn phí, không ràng buộc.',
     formTitle: 'Hoặc để lại lời nhắn',
     fields: {
@@ -728,7 +728,7 @@ export const SITE = {
   },
 
   footer: {
-    about: 'LDK Tech Solutions — studio thiết kế & phát triển sản phẩm số cho hộ kinh doanh và SME Việt Nam. Làm thật, giá thật, đồng hành thật.',
+    about: 'LDK Tech Solutions — đơn vị phát triển phần mềm cho hộ kinh doanh và doanh nghiệp SME Việt Nam: website, ứng dụng, trợ lý AI và tự động hoá vận hành. Đồng hành từ bản kế hoạch đầu tiên đến từng phiên bản nâng cấp.',
     // Năm cố định để HTML prerender và client khớp nhau (tránh hydration mismatch)
     copyright: '© 2026 LDK Tech Solutions.',
   },
