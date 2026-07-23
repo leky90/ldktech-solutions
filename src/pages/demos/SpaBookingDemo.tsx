@@ -96,6 +96,7 @@ export function SpaBookingDemo() {
                     <button
                       key={item.name}
                       type="button"
+                      aria-pressed={service === item.name}
                       onClick={() => setService(item.name)}
                       className={cn(
                         'flex items-center justify-between rounded-xl border-2 bg-white p-3 text-left text-sm',
@@ -114,6 +115,7 @@ export function SpaBookingDemo() {
                     <button
                       key={item}
                       type="button"
+                      aria-pressed={day === item}
                       onClick={() => setDay(item)}
                       className={cn(
                         'rounded-full px-4 py-2 text-xs font-semibold',
@@ -131,6 +133,7 @@ export function SpaBookingDemo() {
                     <button
                       key={item}
                       type="button"
+                      aria-pressed={slot === item}
                       onClick={() => setSlot(item)}
                       className={cn(
                         'rounded-xl py-2.5 text-sm font-semibold',
@@ -190,6 +193,7 @@ export function SpaBookingDemo() {
           <button
             key={item.key}
             type="button"
+            aria-current={tab === item.key ? 'true' : undefined}
             onClick={() => setTab(item.key)}
             className={cn('flex flex-col items-center gap-1 py-2.5', tab === item.key && 'text-emerald-700')}
           >

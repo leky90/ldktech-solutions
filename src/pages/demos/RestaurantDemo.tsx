@@ -82,6 +82,7 @@ export function RestaurantDemo() {
             <button
               key={item}
               type="button"
+              aria-pressed={category === item}
               onClick={() => setCategory(item)}
               className={cn(
                 'rounded-full px-4 py-1.5 text-xs font-bold',
@@ -126,6 +127,7 @@ export function RestaurantDemo() {
             <input
               required
               placeholder="Tên của bạn"
+              aria-label="Tên của bạn"
               autoComplete="off"
               className="rounded-xl border border-amber-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-amber-500"
             />
@@ -133,6 +135,7 @@ export function RestaurantDemo() {
               required
               type="tel"
               placeholder="Số điện thoại"
+              aria-label="Số điện thoại"
               autoComplete="off"
               className="rounded-xl border border-amber-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-amber-500"
             />
@@ -166,13 +169,13 @@ export function RestaurantDemo() {
           <p className="flex items-center gap-2">
             <Phone className="size-4 text-amber-700" aria-hidden="true" /> Mở cửa 10:00 – 21:30, cả tuần
           </p>
-          <div className="mt-2 grid h-28 place-items-center rounded-xl bg-stone-100 text-xs text-stone-400">
+          <div className="mt-2 grid h-28 place-items-center rounded-xl bg-stone-100 text-xs text-stone-500">
             [ Bản đồ Google Maps hiển thị ở website thật ]
           </div>
         </div>
       </div>
 
-      <p className="border-t border-amber-100 py-4 text-center text-[11px] text-stone-400">
+      <p className="border-t border-amber-100 py-4 text-center text-[11px] text-stone-500">
         Bếp Quê — thương hiệu hư cấu, dữ liệu minh hoạ cho bản demo của LDK Tech
       </p>
     </div>

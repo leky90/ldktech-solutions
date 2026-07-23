@@ -60,6 +60,7 @@ export function QrOrderDemo() {
                 <button
                   key={item}
                   type="button"
+                  aria-pressed={category === item}
                   onClick={() => setCategory(item)}
                   className={cn(
                     'rounded-full px-3.5 py-1.5 text-xs font-bold',
@@ -150,6 +151,7 @@ export function QrOrderDemo() {
             </div>
             <input
               placeholder="Ghi chú cho quầy (ít đá, ít ngọt…)"
+              aria-label="Ghi chú cho quầy"
               autoComplete="off"
               className="mt-3 w-full rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-stone-400"
             />
@@ -189,14 +191,14 @@ export function QrOrderDemo() {
                 </span>
                 <span className="font-semibold">Đang chuẩn bị…</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-stone-400">
+              <div className="flex items-center gap-3 text-sm text-stone-500">
                 <span className="grid size-8 shrink-0 place-items-center rounded-full bg-stone-200">
                   <ShoppingBag className="size-4" aria-hidden="true" />
                 </span>
                 <span>Mang ra bàn</span>
               </div>
             </div>
-            <p className="mt-6 text-center text-[11px] text-stone-400">
+            <p className="mt-6 text-center text-[11px] text-stone-500">
               Trạng thái mô phỏng cho bản demo — ở bản thật, quầy bar và bếp thấy order ngay lập tức.
             </p>
             <button

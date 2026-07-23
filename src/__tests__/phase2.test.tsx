@@ -126,6 +126,23 @@ describe('phase 3 — gallery mẫu + demo sống', () => {
       expect(html, slug).not.toContain('0969436154')
     }
   })
+
+  it('demo a11y: nút chọn có aria-pressed, tab có aria-current, input có aria-label (WCAG 4.1.2)', async () => {
+    // Trạng thái "đang chọn" không được chỉ thể hiện bằng màu — screen reader phải nghe được.
+    // Demo spa mở ở tab Trang chủ nên HTML tĩnh chỉ có aria-current của bottom-nav;
+    // aria-pressed của picker dịch vụ/ngày/giờ nằm ở tab Đặt lịch (render sau tương tác).
+    const spa = (await prerender('/mau-tham-khao/spa-dat-lich/')).html
+    expect(spa).toContain('aria-current')
+
+    const qr = (await prerender('/mau-tham-khao/goi-mon-qr/')).html
+    expect(qr).toContain('aria-pressed')
+
+    const restaurant = (await prerender('/mau-tham-khao/website-nha-hang/')).html
+    expect(restaurant).toContain('aria-pressed')
+    // Input form đặt bàn không được chỉ có placeholder
+    expect(restaurant).toContain('aria-label="Tên của bạn"')
+    expect(restaurant).toContain('aria-label="Số điện thoại"')
+  })
 })
 
 describe('phase 2+3 — định vị công ty trên trang mới', () => {

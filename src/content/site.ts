@@ -265,7 +265,7 @@ export const SITE = {
     {
       name: 'Ciga.fr',
       tag: 'E-commerce (Pháp)',
-      desc: 'Storefront thương mại điện tử cho thị trường Pháp: giỏ hàng, thanh toán, quản lý đơn — vận hành ổn định nhiều năm.',
+      desc: 'Cửa hàng trực tuyến cho thị trường Pháp: giỏ hàng, thanh toán, quản lý đơn — vận hành ổn định nhiều năm.',
       stack: 'PrestaShop · Website bán hàng',
       slug: 'ciga-fr',
     },
@@ -862,15 +862,15 @@ export const SITE = {
       name: 'Ciga.fr',
       seoTitle: 'Ciga.fr — website bán hàng thị trường Pháp | LDK Tech',
       seoDesc:
-        'Storefront thương mại điện tử tiếng Pháp: giỏ hàng, thanh toán, quản lý đơn — LDK phát triển và duy trì vận hành ổn định trong nhiều năm liền.',
+        'Cửa hàng trực tuyến tiếng Pháp: giỏ hàng, thanh toán, quản lý đơn — LDK phát triển và duy trì vận hành ổn định trong nhiều năm liền.',
       h1: 'Ciga.fr — cửa hàng online bền bỉ tại thị trường Pháp',
       summary:
-        'Website bán hàng cho thị trường Pháp trên nền PrestaShop — minh chứng cho kiểu hợp tác LDK theo đuổi: làm xong không rời đi, mà đồng hành vận hành nhiều năm.',
+        'Website bán hàng cho thị trường Pháp — minh chứng cho kiểu hợp tác LDK theo đuổi: làm xong không rời đi, mà đồng hành vận hành nhiều năm.',
       context: [
         'Một cửa hàng online sống được nhiều năm cần hơn là code tốt lúc bàn giao: cập nhật bảo mật đều đặn, xử lý sự cố nhanh, và nâng cấp dần theo nhu cầu bán hàng thực tế. Ciga.fr là dự án LDK đảm nhận trọn vòng đời như vậy.',
       ],
       scope: [
-        'Phát triển storefront PrestaShop: danh mục, giỏ hàng, thanh toán, quản lý đơn',
+        'Phát triển cửa hàng trực tuyến trên nền PrestaShop: danh mục, giỏ hàng, thanh toán, quản lý đơn',
         'Tuỳ biến giao diện và tính năng theo nhu cầu bán hàng từng giai đoạn',
         'Bảo trì, cập nhật bảo mật và xử lý sự cố trong suốt quá trình vận hành',
       ],
@@ -1068,7 +1068,7 @@ export const SITE = {
       faqs: [
         {
           q: 'Tôi đang dùng phần mềm bán hàng ở quầy, có phải bỏ không?',
-          a: 'Không — các phần mềm quầy phổ biến ở Việt Nam đều nối được: web và mini app đọc chung tồn kho, đơn online tự trừ vào cùng hệ thống. Buổi tư vấn miễn phí sẽ kiểm tra phần mềm bạn đang dùng.',
+          a: 'Không — phần lớn phần mềm quầy phổ biến ở Việt Nam nối được: web và mini app đọc chung tồn kho, đơn online tự trừ vào cùng hệ thống. Buổi tư vấn miễn phí sẽ kiểm tra chính xác phần mềm bạn đang dùng trước khi báo giá.',
         },
         {
           q: 'Web bán hàng riêng liệu có ai vào mua không?',
