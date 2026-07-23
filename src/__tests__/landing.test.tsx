@@ -113,6 +113,14 @@ describe('audit fixes — a11y + copy + schema', () => {
     }
   })
 
+  it('đã gắn đo lường traffic (Cloudflare Web Analytics beacon) trên mọi trang', async () => {
+    const { readFileSync } = await import('node:fs')
+    const { resolve } = await import('node:path')
+    const indexHtml = readFileSync(resolve(import.meta.dirname, '../../index.html'), 'utf-8')
+    expect(indexHtml).toContain('static.cloudflareinsights.com/beacon.min.js')
+    expect(indexHtml).toContain('36afd9917d304cdeb7b00c04721368ce')
+  })
+
   it('JSON-LD trong index.html parse được và không dùng LocalBusiness thiếu address', async () => {
     const { readFileSync } = await import('node:fs')
     const { resolve } = await import('node:path')
