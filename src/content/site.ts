@@ -93,10 +93,10 @@ export const SITE = {
   // Đổi số: node -e "console.log(Buffer.from('SỐ_MỚI'.split('').reverse().join('')).toString('base64'))"
   phoneB64: 'NDUxNjM0OTY5MA==',
   phoneMask: '09•• ••• •••',
-  email: 'hello@ldktech.vn',
-  // URL API nhận lead (tự host, sẽ code sau). Để trống '' -> form ẩn,
-  // section liên hệ chỉ hiện kênh Zalo/gọi — không bao giờ dead-end.
-  leadApiUrl: '',
+  email: 'ldktech2017@gmail.com',
+  // Cloudflare Worker nhận lead (source: worker/ trong repo) -> gửi email về SITE.email.
+  // Để trống '' -> form ẩn, section liên hệ chỉ hiện kênh Zalo/gọi.
+  leadApiUrl: 'https://ldk-lead.ldktech.workers.dev/',
 
   nav: [
     { label: 'Dịch vụ', href: '/dich-vu/' },

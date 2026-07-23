@@ -156,7 +156,14 @@ describe('content/site.ts — tính toàn vẹn nội dung', () => {
     expect(info.telHref).toBe('tel:+84969436154')
     expect(info.zaloHref).toBe('https://zalo.me/0969436154')
     expect(SITE.siteUrl).toMatch(/^https:\/\//)
-    // Form gửi về API tự host; để trống -> form ẩn, chỉ hiện Zalo/gọi
-    expect(typeof SITE.leadApiUrl).toBe('string')
+    // Form lead nối Cloudflare Worker (worker/), email công ty nhận lead
+    expect(SITE.leadApiUrl).toBe('https://ldk-lead.ldktech.workers.dev/')
+    expect(SITE.email).toBe('ldktech2017@gmail.com')
+  })
+
+  it('form lead hiển thị trên trang chủ (leadApiUrl đã cấu hình)', async () => {
+    const { html } = await prerender('/')
+    expect(html).toContain('name="phone"')
+    expect(html).toContain('name="botcheck"')
   })
 })

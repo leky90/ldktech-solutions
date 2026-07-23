@@ -16,7 +16,7 @@ export function Contact() {
   const phone = usePhone()
   const { contact } = SITE
   // Chưa cấu hình API nhận lead -> ẩn form, chỉ hiện kênh Zalo/gọi (không bao giờ dead-end)
-  const formReady = SITE.leadApiUrl !== ''
+  const formReady = (SITE.leadApiUrl as string) !== ''
 
   // Thành công thì form unmount -> phải chủ động chuyển focus sang thông báo
   useEffect(() => {

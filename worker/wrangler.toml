@@ -1,0 +1,9 @@
+name = "ldk-lead"
+main = "worker.js"
+compatibility_date = "2026-07-01"
+account_id = "f882e5154caebc93e8f1be6298f152e7"
+workers_dev = true
+
+send_email = [
+  { name = "LEAD_EMAIL", destination_address = "ldktech2017@gmail.com" }
+]
