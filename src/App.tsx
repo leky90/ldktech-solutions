@@ -10,6 +10,7 @@ import { IndustryPage } from '@/pages/IndustryPage'
 import { GalleryPage } from '@/pages/GalleryPage'
 import { PricingPage } from '@/pages/PricingPage'
 import { DemoScreen } from '@/pages/demos/DemoScreen'
+import { QuyTrinhPage } from '@/pages/QuyTrinhPage'
 
 function App() {
   return (
@@ -27,8 +28,9 @@ function App() {
         {/* Path lạ (qua 404.html fallback) -> về trang chủ */}
         <Route path="*" element={<Home />} />
       </Route>
-      {/* Demo sống dùng shell riêng — không Header/Footer chính */}
+      {/* Demo sống + trang quy trình dùng shell riêng — không Header/Footer chính */}
       <Route path="mau-tham-khao/:slug" element={<DemoScreen />} />
+      <Route path="quy-trinh" element={<QuyTrinhPage />} />
     </Routes>
   )
 }

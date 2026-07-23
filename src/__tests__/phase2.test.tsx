@@ -145,6 +145,29 @@ describe('phase 3 — gallery mẫu + demo sống', () => {
   })
 })
 
+describe('trang quy trình /quy-trinh/ — scroll world', () => {
+  it('processPage: 5 chặng đủ copy, manifest có route', () => {
+    expect(SITE.processPage.sections).toHaveLength(5)
+    for (const section of SITE.processPage.sections) {
+      expect(section.id.length, section.id).toBeGreaterThan(0)
+      expect(section.title.length, section.id).toBeGreaterThan(0)
+      expect(section.body.length, section.id).toBeGreaterThan(20)
+    }
+    expect(ROUTES.map((r) => r.path)).toContain('/quy-trinh/')
+  })
+
+  it('prerender /quy-trinh/: 1 h1 + đủ 5 chặng trong HTML tĩnh (SEO)', async () => {
+    const { html } = await prerender('/quy-trinh/')
+    expect(html.match(/<h1/g)?.length).toBe(1)
+    for (const section of SITE.processPage.sections) {
+      expect(html, section.id).toContain(section.title)
+    }
+    // Anti-scrape giữ nguyên trên trang mới
+    expect(html).not.toContain('zalo.me')
+    expect(html).not.toContain('0969436154')
+  })
+})
+
 describe('phase 2+3 — định vị công ty trên trang mới', () => {
   it('không nhắc nền tảng freelancer/jargon cấm ở các trang mới', async () => {
     const newPaths = [

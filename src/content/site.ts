@@ -129,6 +129,14 @@ export interface IndustryPage {
   demoSlug?: string
 }
 
+export interface ProcessWorldSection {
+  id: string
+  eyebrow: string
+  title: string
+  body: string
+  tags: string[]
+}
+
 export interface DemoPage {
   slug: string
   kind: 'mini-app' | 'website' | 'web-app'
@@ -1119,6 +1127,53 @@ export const SITE = {
       from: 'từ 15 triệu',
     },
   ] satisfies DemoPage[],
+
+  // ── Trang /quy-trinh/ — scroll world "hành trình 5 chặng" (assets Google Flow dựng dần) ──
+  processPage: {
+    seoTitle: 'Quy trình làm việc tại LDK Tech — 5 chặng rõ ràng',
+    seoDesc:
+      'Hành trình từ buổi cà phê đầu tiên đến khi sản phẩm lên sóng và được chăm sóc dài hạn: tư vấn, chốt giá trước, demo mỗi tuần, bàn giao đúng hẹn.',
+    h1: 'Quy trình làm việc tại LDK Tech',
+    intro:
+      'Năm chặng, mọi thứ rõ ràng từ đầu: bạn luôn biết đang ở đâu, trả bao nhiêu, và nhận được gì tiếp theo.',
+    sections: [
+      {
+        id: 'lang-nghe',
+        eyebrow: '01 · Tư vấn miễn phí',
+        title: 'Bạn kể, LDK lắng nghe',
+        body: 'Một buổi cà phê hoặc cuộc gọi Zalo — bạn kể chuyện kinh doanh, LDK hỏi và ghi chép. Chưa cần cam kết gì.',
+        tags: ['30–45 phút', 'Miễn phí'],
+      },
+      {
+        id: 'ke-hoach',
+        eyebrow: '02 · Kế hoạch & báo giá',
+        title: 'Giá chốt trước khi làm',
+        body: 'Báo giá chi tiết từng hạng mục kèm mốc thời gian cụ thể — bạn duyệt thì mới bắt đầu, không phát sinh ẩn.',
+        tags: ['Chi tiết hạng mục', 'Không phí ẩn'],
+      },
+      {
+        id: 'xay-dung',
+        eyebrow: '03 · Thiết kế & phát triển',
+        title: 'Xem demo mỗi tuần',
+        body: 'Sản phẩm lớn dần trước mắt bạn — mỗi tuần một bản demo thật để góp ý trực tiếp, không đợi đến cuối.',
+        tags: ['Demo hằng tuần', 'Góp ý trực tiếp'],
+      },
+      {
+        id: 'ban-giao',
+        eyebrow: '04 · Bàn giao',
+        title: 'Lên sóng, hướng dẫn tận tay',
+        body: 'Website, app của bạn mở cửa đón khách — kèm tài liệu đầy đủ và buổi hướng dẫn để bạn tự chủ hoàn toàn.',
+        tags: ['Đúng hẹn', 'Tài liệu đầy đủ'],
+      },
+      {
+        id: 'dong-hanh',
+        eyebrow: '05 · Sau bàn giao',
+        title: 'LDK vẫn ở đây',
+        body: 'Bảo hành 6 tháng, chăm sóc định kỳ, nâng cấp khi bạn lớn lên — nhắn Zalo là có người trả lời.',
+        tags: ['Bảo hành 6 tháng', 'Phản hồi nhanh'],
+      },
+    ] satisfies ProcessWorldSection[],
+  },
 
   faqs: [
     {
