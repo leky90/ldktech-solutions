@@ -25,8 +25,8 @@ describe('prerender — HTML tĩnh cho SEO (trang chủ)', () => {
 })
 
 describe('multi-page — routes manifest & từng trang', () => {
-  it('manifest đủ 8 route, title/description hợp chuẩn SEO và duy nhất', () => {
-    expect(ROUTES.length).toBeGreaterThanOrEqual(8)
+  it('manifest đủ 11 route, title/description hợp chuẩn SEO và duy nhất', () => {
+    expect(ROUTES.length).toBeGreaterThanOrEqual(11)
     const paths = ROUTES.map((r) => r.path)
     const titles = ROUTES.map((r) => r.title)
     expect(new Set(paths).size).toBe(paths.length)
@@ -39,8 +39,8 @@ describe('multi-page — routes manifest & từng trang', () => {
     }
   })
 
-  it('4 trang dịch vụ: giá riêng ≥3 mức, FAQ riêng ≥3 câu', () => {
-    expect(SITE.servicePages).toHaveLength(4)
+  it('7 trang dịch vụ: giá riêng ≥3 mức, FAQ riêng ≥3 câu', () => {
+    expect(SITE.servicePages).toHaveLength(7)
     for (const page of SITE.servicePages) {
       expect(page.tiers.length, page.slug).toBeGreaterThanOrEqual(3)
       expect(page.faqs.length, page.slug).toBeGreaterThanOrEqual(3)
@@ -63,6 +63,15 @@ describe('multi-page — routes manifest & từng trang', () => {
     const { html } = await prerender('/dich-vu/thiet-ke-website/')
     expect(html).toContain('hay được đặt')
     expect(html).toContain('Website nhà hàng')
+  })
+
+  it('3 dịch vụ mới prerender đủ h1 + FAQPage + giá', async () => {
+    for (const slug of ['tro-ly-ai', 'tu-dong-hoa', 'cham-soc-website']) {
+      const { html } = await prerender(`/dich-vu/${slug}/`)
+      expect(html.match(/<h1/g)?.length, slug).toBe(1)
+      expect(html, slug).toContain('FAQPage')
+      expect(html, slug).toContain('triệu')
+    }
   })
 
   it('trang dự án prerender có portfolio + review', async () => {

@@ -17,9 +17,9 @@ export const ROUTES: RouteMeta[] = [
   },
   {
     path: '/dich-vu/',
-    title: 'Dịch vụ của LDK Tech — Website, Web App, App & Mini App',
+    title: 'Dịch vụ của LDK Tech — Website, App, AI & Tự động hoá',
     description:
-      'Bốn dịch vụ đưa việc kinh doanh lên online: thiết kế website, web app quản lý, mobile app và Zalo Mini App. Giá minh bạch, bàn giao đúng hẹn.',
+      'Bảy dịch vụ cho việc kinh doanh online: website, web app, mobile app, Zalo Mini App, trợ lý AI, tự động hoá quy trình và chăm sóc website. Giá minh bạch.',
   },
   ...SITE.servicePages.map((page) => ({
     path: `/dich-vu/${page.slug}/`,

@@ -10,8 +10,8 @@ export function ServicesIndex() {
     <>
       <PageHero
         eyebrow="[ Dịch vụ ]"
-        title="Bốn cách đưa việc kinh doanh của bạn lên online"
-        sub="Không bán gói cứng nhắc — LDK tư vấn đúng thứ bạn cần theo giai đoạn kinh doanh. Mỗi dịch vụ có trang riêng với bảng giá và câu hỏi thường gặp."
+        title="Từ dựng sản phẩm đến vận hành mỗi ngày"
+        sub="Bốn dịch vụ xây sản phẩm (website, web app, mobile app, Zalo Mini App) và ba dịch vụ đồng hành (trợ lý AI, tự động hoá, chăm sóc website). Mỗi dịch vụ có trang riêng với bảng giá và câu hỏi thường gặp."
       />
 
       <section className="py-14 md:py-20">

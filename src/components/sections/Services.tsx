@@ -75,6 +75,15 @@ export function Services() {
             </Reveal>
           ))}
         </div>
+
+        <p className="mt-8">
+          <Link
+            to="/dich-vu/"
+            className="font-mono text-sm font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
+          >
+            + Trợ lý AI · Tự động hoá · Chăm sóc website — xem cả 7 dịch vụ →
+          </Link>
+        </p>
       </div>
     </section>
   )

@@ -1,6 +1,6 @@
 # LDK Tech Solutions — Landing Page
 
-Landing page giới thiệu dịch vụ **Website / Web App / Mobile App / Zalo Mini App** cho hộ kinh doanh & SME.
+Landing page giới thiệu dịch vụ **Website / Web App / Mobile App / Zalo Mini App / Trợ lý AI / Tự động hoá / Chăm sóc website** cho hộ kinh doanh & SME.
 Phong cách: editorial-tech / Neo-Swiss + soft brutalism + creative coding. Tiếng Việt, chuẩn SEO, tối ưu lead qua **Zalo**.
 
 **Live:** https://ldktech.com/
@@ -48,7 +48,7 @@ www → `fe284192-c712-4932-aa4a-40390b843568.cfargotunnel.com` (Proxied).
 
 ## Cấu trúc (multi-page)
 
-8 trang tĩnh, mỗi trang có title/canonical/OG riêng: `/`, `/dich-vu/` + 4 trang dịch vụ
+11 trang tĩnh, mỗi trang có title/canonical/OG riêng: `/`, `/dich-vu/` + 7 trang dịch vụ
 (bảng giá + FAQ riêng từng dịch vụ), `/du-an/`, `/bang-gia/`. Sitemap generate tự động từ manifest.
 
 ```
