@@ -88,9 +88,11 @@ export const SITE = {
 
   // ── URL & liên hệ (1 chỗ duy nhất) ──
   siteUrl: 'https://ldktech.com/',
-  zaloUrl: 'https://zalo.me/0969436154',
-  phone: '0969 436 154',
-  phoneHref: 'tel:+84969436154',
+  // SĐT mã hoá base64-đảo-ngược, CHỈ giải mã phía client (src/lib/phone.ts)
+  // để số thật không xuất hiện trong HTML tĩnh — chống bot quét spam.
+  // Đổi số: node -e "console.log(Buffer.from('SỐ_MỚI'.split('').reverse().join('')).toString('base64'))"
+  phoneB64: 'NDUxNjM0OTY5MA==',
+  phoneMask: '09•• ••• •••',
   email: 'hello@ldktech.vn',
   // URL API nhận lead (tự host, sẽ code sau). Để trống '' -> form ẩn,
   // section liên hệ chỉ hiện kênh Zalo/gọi — không bao giờ dead-end.

@@ -4,8 +4,10 @@ import { PageHero } from '@/components/shared/PageHero'
 import { Reveal } from '@/components/shared/Reveal'
 import { CtaLink } from '@/components/shared/CtaLink'
 import { SITE } from '@/content/site'
+import { usePhone } from '@/lib/phone'
 
 export function ServicesIndex() {
+  const phone = usePhone()
   return (
     <>
       <PageHero
@@ -61,7 +63,7 @@ export function ServicesIndex() {
               Kể bài toán kinh doanh của bạn — LDK tư vấn miễn phí phương án vừa túi tiền, kể cả khi
               câu trả lời là "chưa cần làm gì cả".
             </p>
-            <CtaLink href={SITE.zaloUrl} target="_blank" rel="noopener noreferrer" className="mt-6">
+            <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer" className="mt-6">
               <MessageCircle className="size-4" aria-hidden="true" /> Chat Zalo tư vấn miễn phí
             </CtaLink>
           </div>

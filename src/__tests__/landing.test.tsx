@@ -18,9 +18,13 @@ describe('prerender — HTML tĩnh cho SEO (trang chủ)', () => {
       expect(html, `thiếu section #${id}`).toContain(`id="${id}"`)
     }
 
-    // CTA chuyển đổi: Zalo (primary) + gọi điện (tertiary)
-    expect(html).toContain('zalo.me')
-    expect(html).toContain('tel:')
+    // Chống bot quét: HTML tĩnh KHÔNG chứa số thật/tel:/zalo.me — chỉ có mặt nạ,
+    // số thật do client giải mã sau hydrate (src/lib/phone.ts)
+    expect(html).not.toContain('0969436154')
+    expect(html).not.toContain('0969 436 154')
+    expect(html).not.toContain('tel:+84')
+    expect(html).not.toContain('zalo.me')
+    expect(html).toContain('09••')
   })
 })
 
@@ -53,7 +57,9 @@ describe('multi-page — routes manifest & từng trang', () => {
     expect(html.match(/<h1/g)?.length).toBe(1)
     expect(html).toContain('FAQPage')
     expect(html).toContain('triệu')
-    expect(html).toContain('zalo.me')
+    // SĐT/Zalo không nằm trong HTML tĩnh — client giải mã sau hydrate
+    expect(html).not.toContain('zalo.me')
+    expect(html).toContain('09••')
   })
 
   it('mỗi trang dịch vụ có ≥6 mẫu thị trường hay đặt, render trên trang', async () => {
@@ -135,11 +141,14 @@ describe('content/site.ts — tính toàn vẹn nội dung', () => {
     expect(SITE.testimonials.length).toBeGreaterThanOrEqual(2)
   })
 
-  it('config liên hệ tập trung một chỗ', () => {
-    expect(SITE.zaloUrl).toBe('https://zalo.me/0969436154')
-    expect(SITE.phoneHref).toBe('tel:+84969436154')
+  it('config liên hệ tập trung một chỗ, SĐT mã hoá đúng', async () => {
+    const { decodePhone } = await import('../lib/phone')
+    const info = decodePhone()
+    expect(info.display).toBe('0969 436 154')
+    expect(info.telHref).toBe('tel:+84969436154')
+    expect(info.zaloHref).toBe('https://zalo.me/0969436154')
     expect(SITE.siteUrl).toMatch(/^https:\/\//)
-    // Form gửi về API tự host (không dùng Web3Forms); để trống -> form ẩn, chỉ hiện Zalo/gọi
+    // Form gửi về API tự host; để trống -> form ẩn, chỉ hiện Zalo/gọi
     expect(typeof SITE.leadApiUrl).toBe('string')
   })
 })

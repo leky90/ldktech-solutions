@@ -3,9 +3,11 @@ import { HeroCanvas } from '@/components/shared/HeroCanvas'
 import { CtaLink } from '@/components/shared/CtaLink'
 import { LogoMark } from '@/components/shared/Logo'
 import { SITE } from '@/content/site'
+import { usePhone } from '@/lib/phone'
 
 export function Hero() {
   const { hero } = SITE
+  const phone = usePhone()
 
   return (
     <section id="top" className="relative overflow-hidden border-b-2 border-ink bg-blueprint">
@@ -33,7 +35,7 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <CtaLink href={SITE.zaloUrl} target="_blank" rel="noopener noreferrer">
+              <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="size-4" aria-hidden="true" />
                 {hero.ctaPrimary}
               </CtaLink>

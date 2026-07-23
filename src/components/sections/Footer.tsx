@@ -1,8 +1,10 @@
 import { Link } from 'react-router'
 import { LogoMark } from '@/components/shared/Logo'
 import { SITE } from '@/content/site'
+import { usePhone } from '@/lib/phone'
 
 export function Footer() {
+  const phone = usePhone()
   return (
     <footer className="border-t-2 border-gold bg-brand-deep py-12 text-paper">
       <div className="mx-auto max-w-6xl px-4 md:px-6">
@@ -61,7 +63,7 @@ export function Footer() {
             <ul className="mt-4 flex flex-col gap-2.5 text-sm text-paper/80">
               <li>
                 <a
-                  href={SITE.zaloUrl}
+                  href={phone.zaloHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="decoration-gold decoration-2 underline-offset-4 hover:underline"
@@ -70,8 +72,8 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href={SITE.phoneHref} className="decoration-gold decoration-2 underline-offset-4 hover:underline">
-                  {SITE.phone}
+                <a href={phone.telHref} className="decoration-gold decoration-2 underline-offset-4 hover:underline">
+                  {phone.display}
                 </a>
               </li>
               <li>

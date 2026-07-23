@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { CtaLink } from '@/components/shared/CtaLink'
 import { SITE } from '@/content/site'
+import { usePhone } from '@/lib/phone'
 
 type FormStatus = 'idle' | 'sending' | 'success' | 'error'
 
@@ -12,6 +13,7 @@ const ERROR_TEXT = 'Gửi chưa được — bạn nhắn Zalo hoặc gọi tr�
 export function Contact() {
   const [status, setStatus] = useState<FormStatus>('idle')
   const successRef = useRef<HTMLParagraphElement>(null)
+  const phone = usePhone()
   const { contact } = SITE
   // Chưa cấu hình API nhận lead -> ẩn form, chỉ hiện kênh Zalo/gọi (không bao giờ dead-end)
   const formReady = SITE.leadApiUrl !== ''
@@ -77,11 +79,11 @@ export function Contact() {
               {contact.fallbackNote}
             </p>
             <div className="mt-4 flex flex-wrap gap-4">
-              <CtaLink href={SITE.zaloUrl} target="_blank" rel="noopener noreferrer">
+              <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="size-4" aria-hidden="true" /> Chat Zalo ngay
               </CtaLink>
-              <CtaLink variant="outline" href={SITE.phoneHref}>
-                <Phone className="size-4" aria-hidden="true" /> {SITE.phone}
+              <CtaLink variant="outline" href={phone.telHref}>
+                <Phone className="size-4" aria-hidden="true" /> {phone.display}
               </CtaLink>
             </div>
 
@@ -158,11 +160,11 @@ export function Contact() {
                     Form đang được thiết lập. Trong lúc đó, kênh nhanh nhất để nhận tư vấn + báo
                     giá là Zalo hoặc gọi trực tiếp:
                   </p>
-                  <CtaLink href={SITE.zaloUrl} target="_blank" rel="noopener noreferrer">
+                  <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="size-4" aria-hidden="true" /> Chat Zalo ngay
                   </CtaLink>
-                  <CtaLink variant="outline" href={SITE.phoneHref}>
-                    <Phone className="size-4" aria-hidden="true" /> Gọi {SITE.phone}
+                  <CtaLink variant="outline" href={phone.telHref}>
+                    <Phone className="size-4" aria-hidden="true" /> Gọi {phone.display}
                   </CtaLink>
                 </div>
               )}

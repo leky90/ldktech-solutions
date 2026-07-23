@@ -12,10 +12,12 @@ import { TierCard } from '@/components/shared/TierCard'
 import { ProjectCard } from '@/components/shared/ProjectCard'
 import { JsonLd } from '@/components/shared/JsonLd'
 import { SITE } from '@/content/site'
+import { usePhone } from '@/lib/phone'
 import { faqPageJsonLd } from '@/lib/jsonld'
 
 export function ServicePage() {
   const { slug } = useParams()
+  const phone = usePhone()
   const page = SITE.servicePages.find((s) => s.slug === slug)
   if (!page) return <Navigate to="/" replace />
 
@@ -40,7 +42,7 @@ export function ServicePage() {
           </h1>
           <p className="mt-5 max-w-2xl text-muted-foreground md:text-lg">{page.intro}</p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <CtaLink href={SITE.zaloUrl} target="_blank" rel="noopener noreferrer">
+            <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="size-4" aria-hidden="true" /> Tư vấn miễn phí qua Zalo
             </CtaLink>
             <CtaLink variant="outline" href="#gia">
@@ -118,7 +120,7 @@ export function ServicePage() {
                     {sample.desc}
                   </p>
                   <a
-                    href={SITE.zaloUrl}
+                    href={phone.zaloHref}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-4 border-t border-border pt-3 font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
@@ -235,11 +237,11 @@ export function ServicePage() {
             Tư vấn miễn phí, không ràng buộc. Giá chốt trước khi làm.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <CtaLink href={SITE.zaloUrl} target="_blank" rel="noopener noreferrer">
+            <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="size-4" aria-hidden="true" /> Chat Zalo ngay
             </CtaLink>
-            <CtaLink variant="outline" href={SITE.phoneHref}>
-              Gọi {SITE.phone}
+            <CtaLink variant="outline" href={phone.telHref}>
+              Gọi {phone.display}
             </CtaLink>
           </div>
         </div>

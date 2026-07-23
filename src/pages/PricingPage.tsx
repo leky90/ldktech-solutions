@@ -5,8 +5,10 @@ import { Reveal } from '@/components/shared/Reveal'
 import { TierCard } from '@/components/shared/TierCard'
 import { CtaLink } from '@/components/shared/CtaLink'
 import { SITE } from '@/content/site'
+import { usePhone } from '@/lib/phone'
 
 export function PricingPage() {
+  const phone = usePhone()
   return (
     <>
       <PageHero
@@ -53,11 +55,11 @@ export function PricingPage() {
             tiết từng hạng mục trong 24 giờ, miễn phí.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <CtaLink href={SITE.zaloUrl} target="_blank" rel="noopener noreferrer">
+            <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="size-4" aria-hidden="true" /> Chat Zalo ngay
             </CtaLink>
-            <CtaLink variant="outline" href={SITE.phoneHref}>
-              Gọi {SITE.phone}
+            <CtaLink variant="outline" href={phone.telHref}>
+              Gọi {phone.display}
             </CtaLink>
           </div>
         </div>

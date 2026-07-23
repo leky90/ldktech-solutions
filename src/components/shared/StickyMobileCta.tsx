@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { MessageCircle, Phone } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { SITE } from '@/content/site'
+import { usePhone } from '@/lib/phone'
 
 /** Thanh CTA dính đáy màn hình mobile; tự ẩn khi section Liên hệ đang trong viewport */
 export function StickyMobileCta() {
   const [hidden, setHidden] = useState(false)
+  const phone = usePhone()
 
   useEffect(() => {
     const contact = document.getElementById('lien-he')
@@ -26,7 +27,7 @@ export function StickyMobileCta() {
       )}
     >
       <a
-        href={SITE.zaloUrl}
+        href={phone.zaloHref}
         target="_blank"
         rel="noopener noreferrer"
         className="flex h-14 items-center justify-center gap-2 bg-gold text-sm font-bold uppercase tracking-wide text-ink"
@@ -34,7 +35,7 @@ export function StickyMobileCta() {
         <MessageCircle className="size-4" aria-hidden="true" /> Chat Zalo
       </a>
       <a
-        href={SITE.phoneHref}
+        href={phone.telHref}
         className="flex h-14 items-center justify-center gap-2 border-l-2 border-ink bg-paper text-sm font-bold uppercase tracking-wide text-ink"
       >
         <Phone className="size-4" aria-hidden="true" /> Gọi ngay

@@ -12,11 +12,13 @@ import {
 import { Logo } from '@/components/shared/Logo'
 import { CtaLink } from '@/components/shared/CtaLink'
 import { SITE } from '@/content/site'
+import { usePhone } from '@/lib/phone'
 import { cn } from '@/lib/utils'
 
 export function Header() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
+  const phone = usePhone()
 
   // Route đang mở -> gạch chân vàng cố định (item hash như /#faq không có active state)
   const isActive = (href: string) =>
@@ -43,7 +45,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <CtaLink href={SITE.zaloUrl} target="_blank" rel="noopener noreferrer" className="hidden h-10 px-4 text-xs sm:inline-flex">
+          <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer" className="hidden h-10 px-4 text-xs sm:inline-flex">
             Nhận báo giá
           </CtaLink>
 
@@ -77,7 +79,7 @@ export function Header() {
               </nav>
               <div className="mt-auto px-4 pb-8">
                 <CtaLink
-                  href={SITE.zaloUrl}
+                  href={phone.zaloHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setOpen(false)}

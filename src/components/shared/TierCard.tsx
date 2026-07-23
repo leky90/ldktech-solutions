@@ -1,10 +1,12 @@
 import { Check } from 'lucide-react'
 import { CtaLink } from '@/components/shared/CtaLink'
 import { cn } from '@/lib/utils'
-import { SITE, type ServiceTier } from '@/content/site'
+import type { ServiceTier } from '@/content/site'
+import { usePhone } from '@/lib/phone'
 
 /** Card một mức giá của trang dịch vụ — dùng ở ServicePage và trang Bảng giá */
 export function TierCard({ tier }: { tier: ServiceTier }) {
+  const phone = usePhone()
   return (
     <article
       className={cn(
@@ -51,7 +53,7 @@ export function TierCard({ tier }: { tier: ServiceTier }) {
       </ul>
 
       <CtaLink
-        href={SITE.zaloUrl}
+        href={phone.zaloHref}
         target="_blank"
         rel="noopener noreferrer"
         variant={tier.highlight ? 'gold' : 'outline'}
