@@ -93,7 +93,8 @@ export const SITE = {
   // Đổi số: node -e "console.log(Buffer.from('SỐ_MỚI'.split('').reverse().join('')).toString('base64'))"
   phoneB64: 'NDUxNjM0OTY5MA==',
   phoneMask: '09•• ••• •••',
-  email: 'ldktech2017@gmail.com',
+  // Email domain riêng — Cloudflare Email Routing forward về gmail công ty
+  email: 'support@ldktech.com',
   // Cloudflare Worker nhận lead (source: worker/ trong repo) -> gửi email về SITE.email.
   // Để trống '' -> form ẩn, section liên hệ chỉ hiện kênh Zalo/gọi.
   leadApiUrl: 'https://ldk-lead.ldktech.workers.dev/',

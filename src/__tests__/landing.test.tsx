@@ -158,7 +158,8 @@ describe('content/site.ts — tính toàn vẹn nội dung', () => {
     expect(SITE.siteUrl).toMatch(/^https:\/\//)
     // Form lead nối Cloudflare Worker (worker/), email công ty nhận lead
     expect(SITE.leadApiUrl).toBe('https://ldk-lead.ldktech.workers.dev/')
-    expect(SITE.email).toBe('ldktech2017@gmail.com')
+    // Email chuyên nghiệp trên domain — Cloudflare Email Routing forward về gmail
+    expect(SITE.email).toBe('support@ldktech.com')
   })
 
   it('form lead hiển thị trên trang chủ (leadApiUrl đã cấu hình)', async () => {
