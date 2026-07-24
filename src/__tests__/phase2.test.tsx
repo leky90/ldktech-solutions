@@ -145,6 +145,22 @@ describe('phase 3 — gallery mẫu + demo sống', () => {
   })
 })
 
+describe('footer — tách nhóm liên kết, không dồn hết vào một cột', () => {
+  it('có 3 nhóm liên kết riêng: Dịch vụ · Khám phá · Liên hệ', async () => {
+    const { html } = await prerender('/')
+    for (const heading of ['Dịch vụ', 'Khám phá', 'Liên hệ']) {
+      expect(html, heading).toContain(heading)
+    }
+  })
+
+  it('cột Khám phá dẫn tới cả các trang phụ, gồm /quy-trinh/', async () => {
+    const { html } = await prerender('/')
+    for (const path of ['/quy-trinh/', '/giai-phap/', '/du-an/', '/mau-tham-khao/', '/bang-gia/', '/khoa-hoc/workshop-ai/']) {
+      expect(html, path).toContain(path)
+    }
+  })
+})
+
 describe('nút gọi — đồng nhất chỉ hiện số kèm mã quốc gia', () => {
   const PAGES = ['/', '/bang-gia/', '/dich-vu/zalo-mini-app/', '/giai-phap/spa-lam-dep/']
 
