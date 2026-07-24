@@ -1,4 +1,4 @@
-import { ArrowDown, MessageCircle } from 'lucide-react'
+import { ArrowDown, Check, MessageCircle } from 'lucide-react'
 import { HeroCanvas } from '@/components/shared/HeroCanvas'
 import { CtaLink } from '@/components/shared/CtaLink'
 import { LogoMark } from '@/components/shared/Logo'
@@ -44,6 +44,15 @@ export function Hero() {
                 {hero.ctaSecondary}
               </CtaLink>
             </div>
+
+            {/* Cam kết chống rủi ro ngay dưới CTA — chặn do dự phút chót */}
+            <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+              {hero.commitments.map((item) => (
+                <li key={item} className="flex items-center gap-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-muted-foreground">
+                  <Check className="size-3.5 text-brand" aria-hidden="true" /> {item}
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Khối logo trang trí — chỉ desktop */}

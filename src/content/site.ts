@@ -205,6 +205,8 @@ export const SITE = {
     ctaSecondary: 'Xem bảng giá',
     // Số liệu năng lực có kiểm chứng nội bộ — KHÔNG nêu tên nền tảng freelancer trên website
     trust: ['12+ năm phát triển phần mềm', '180+ dự án · khách hàng 4 quốc gia', '99% đúng hẹn · 100% đúng ngân sách'],
+    // Cam kết chống rủi ro đặt ngay dưới nút CTA — hạ nỗi sợ "ôm tiền, phát sinh phí" của chủ SME
+    commitments: ['Báo giá cố định', 'Không phát sinh', 'Bàn giao đúng hẹn'],
   },
 
   marquee: [

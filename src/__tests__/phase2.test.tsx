@@ -145,6 +145,19 @@ describe('phase 3 — gallery mẫu + demo sống', () => {
   })
 })
 
+describe('conversion quick-win — cam kết chống rủi ro dưới CTA hero', () => {
+  it('site.ts có hero.commitments đúng 3 cam kết', () => {
+    expect(SITE.hero.commitments).toHaveLength(3)
+  })
+
+  it('prerender / hiển thị 3 cam kết ngay khu hero', async () => {
+    const { html } = await prerender('/')
+    for (const c of ['Báo giá cố định', 'Không phát sinh', 'Bàn giao đúng hẹn']) {
+      expect(html, c).toContain(c)
+    }
+  })
+})
+
 describe('header — logo điều hướng', () => {
   it('logo trỏ về trang chủ "/" thay vì anchor #top (trang con phải về được home)', async () => {
     for (const path of ['/du-an/', '/dich-vu/zalo-mini-app/']) {
