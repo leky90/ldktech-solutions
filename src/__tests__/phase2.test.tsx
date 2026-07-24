@@ -149,11 +149,13 @@ describe('lớp grain không được phá layout', () => {
   it('KHÔNG có rule ép position lên mọi con của .grain', async () => {
     const { readFileSync } = await import('node:fs')
     const { resolve } = await import('node:path')
-    const css = readFileSync(resolve(import.meta.dirname, '../index.css'), 'utf-8')
-    // `.grain > * { position: relative }` từng ghi đè `absolute` của HeroCanvas,
-    // đẩy canvas vào luồng thường và làm nội dung hero tụt xuống đáy section.
+    const raw = readFileSync(resolve(import.meta.dirname, '../index.css'), 'utf-8')
+    // Bỏ comment trước khi so khớp — phần ghi chú có nhắc lại chính rule nguy hiểm này.
+    const css = raw.replace(/\/\*[\s\S]*?\*\//g, '')
+    // Rule đó từng ghi đè `absolute` của HeroCanvas, đẩy canvas vào luồng thường
+    // và làm nội dung hero tụt xuống đáy section.
     const harmful = /\.grain\s*>\s*\*\s*\{[^}]*position\s*:/
-    expect(css, 'rule .grain > * { position: ... } làm vỡ hero').not.toMatch(harmful)
+    expect(css, 'rule ép position lên mọi con của .grain làm vỡ hero').not.toMatch(harmful)
   })
 
   it('hero vẫn render đủ H1 + CTA + dải số trong HTML tĩnh', async () => {
