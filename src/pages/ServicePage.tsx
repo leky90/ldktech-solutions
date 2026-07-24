@@ -9,6 +9,7 @@ import {
 import { CtaLink } from '@/components/shared/CtaLink'
 import { CallCta } from '@/components/shared/CallCta'
 import { Reveal } from '@/components/shared/Reveal'
+import { EditorialSection } from '@/components/shared/EditorialSection'
 import { TierCard } from '@/components/shared/TierCard'
 import { ProjectCard } from '@/components/shared/ProjectCard'
 import { JsonLd } from '@/components/shared/JsonLd'
@@ -54,60 +55,59 @@ export function ServicePage() {
       </section>
 
       {/* Pain points */}
-      <section className="py-14 md:py-20">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <h2 className="max-w-2xl font-display text-2xl font-black uppercase leading-[1.15] tracking-tight font-expanded md:text-3xl">
-            Nghe quen không?
-          </h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {page.painPoints.map((point, i) => (
-              <Reveal key={point} delay={(i % 2) * 80}>
-                <p className="flex h-full items-start gap-3 rounded-lg border-2 border-ink bg-paper p-4 shadow-brutal-sm">
-                  <X className="mt-0.5 size-5 shrink-0 text-destructive" aria-hidden="true" />
-                  <span className="text-sm leading-relaxed md:text-base">{point}</span>
-                </p>
-              </Reveal>
-            ))}
-          </div>
-          <p className="mt-6 max-w-2xl text-muted-foreground">
-            Nếu gật đầu với ít nhất một điều ở trên — phần dưới đây là dành cho bạn.
-          </p>
+      <EditorialSection
+        label="Vấn đề"
+        title="Nghe quen không?"
+        intro="Gật đầu với ít nhất một điều thì phần còn lại của trang là dành cho bạn."
+        className="border-t-0"
+      >
+        <div className="grid gap-4 sm:grid-cols-2">
+          {page.painPoints.map((point, i) => (
+            <Reveal key={point} delay={(i % 2) * 80}>
+              <p className="flex h-full items-start gap-3 rounded-lg border-2 border-ink bg-paper p-4 shadow-brutal-sm">
+                <X className="mt-0.5 size-5 shrink-0 text-destructive" aria-hidden="true" />
+                <span className="text-sm leading-relaxed md:text-base">{point}</span>
+              </p>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </EditorialSection>
 
       {/* Features */}
-      <section className="border-t-2 border-ink bg-secondary py-14 md:py-20">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <h2 className="max-w-2xl font-display text-2xl font-black uppercase leading-[1.15] tracking-tight font-expanded md:text-3xl">
-            Bạn nhận được gì
-          </h2>
-          <div className="mt-8 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-            {page.features.map((feature, i) => (
-              <Reveal key={feature.title} delay={(i % 3) * 80}>
-                <div className="border-t-2 border-ink pt-4">
-                  <h3 className="font-display text-base font-black uppercase leading-[1.2] tracking-tight font-expanded md:text-lg">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{feature.desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+      <EditorialSection
+        label="Phạm vi"
+        title="Bạn nhận được gì"
+        intro={`Trọn gói ${page.nav} — chốt phạm vi trước, không phát sinh giữa chừng.`}
+      >
+        <div className="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+          {page.features.map((feature, i) => (
+            <Reveal key={feature.title} delay={(i % 3) * 80}>
+              <div className="border-t-2 border-ink pt-4">
+                <h3 className="font-display text-base font-black uppercase leading-[1.2] tracking-tight font-expanded md:text-lg">
+                  {feature.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{feature.desc}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </EditorialSection>
 
-      {/* Mẫu thị trường hay đặt — demo sẽ dựng dần (Phase 3) */}
-      <section className="border-t-2 border-ink py-14 md:py-20">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <h2 className="max-w-3xl font-display text-2xl font-black uppercase leading-[1.15] tracking-tight font-expanded md:text-3xl">
-            Mẫu {page.nav} hay được đặt
-          </h2>
-          <p className="mt-4 max-w-2xl text-muted-foreground">
+      {/* Mẫu thị trường hay đặt. Tên dịch vụ đặt sau gạch ngang chứ không ghép vào cụm
+          danh từ: "Những kiểu Chăm sóc Website..." sai nghĩa vì có dịch vụ không phải
+          một loại sản phẩm. */}
+      <EditorialSection
+        label="Mẫu"
+        title="Mẫu hay được đặt"
+        intro={`Mẫu thị trường hay đặt — ${page.nav}.`}
+      >
+        <div>
+          <p className="max-w-2xl text-muted-foreground">
             Chọn mẫu gần với việc kinh doanh của bạn — LDK làm y hệt hoặc chỉnh theo thương hiệu
             riêng. Bản demo từng mẫu đang được dựng; nhắn Zalo để xem trước và nhận báo giá theo
             mẫu.
           </p>
-          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {page.samples.map((sample, i) => (
               <Reveal key={sample.name} delay={(i % 3) * 70} className="h-full">
                 <article className="flex h-full flex-col rounded-lg border-2 border-ink bg-paper p-5 shadow-brutal-sm transition-transform hover:-translate-y-1">
@@ -142,99 +142,93 @@ export function ServicePage() {
             ))}
           </div>
         </div>
-      </section>
+      </EditorialSection>
 
-      {/* Bảng giá riêng */}
-      <section id="gia" className="scroll-mt-20 border-t-2 border-ink bg-blueprint py-14 md:py-20">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <h2 className="max-w-2xl font-display text-2xl font-black uppercase leading-[1.15] tracking-tight font-expanded md:text-3xl">
-            Bảng giá {page.nav}
-          </h2>
-          <div className="mt-10 grid gap-6 lg:grid-cols-3">
-            {page.tiers.map((tier, i) => (
-              <Reveal key={tier.name} delay={i * 90} className="h-full">
-                <TierCard tier={tier} />
-              </Reveal>
-            ))}
-          </div>
-          <p className="mx-auto mt-8 max-w-2xl text-center font-mono text-xs leading-relaxed text-muted-foreground">
-            {SITE.pricingNote}
-          </p>
+      {/* Bảng giá riêng — dải màu duy nhất giữa các mục, cũng là đích của neo #gia.
+          Số mức đếm từ dữ liệu, không viết cứng "Ba mức": thêm/bớt tier là copy nói sai ngay. */}
+      <EditorialSection
+        id="gia"
+        label="Giá"
+        title="Bảng giá"
+        intro={`${page.tiers.length} mức cho ${page.nav} — chốt giá trước khi làm.`}
+        className="bg-secondary"
+      >
+        <div className="grid gap-5 lg:grid-cols-3">
+          {page.tiers.map((tier, i) => (
+            <Reveal key={tier.name} delay={i * 90} className="h-full">
+              <TierCard tier={tier} />
+            </Reveal>
+          ))}
         </div>
-      </section>
+        <p className="mt-8 font-mono text-xs leading-relaxed text-muted-foreground">
+          {SITE.pricingNote}
+        </p>
+      </EditorialSection>
 
       {/* Quy trình rút gọn */}
-      <section className="border-t-2 border-ink py-14 md:py-20">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <h2 className="font-display text-2xl font-black uppercase leading-[1.15] tracking-tight font-expanded md:text-3xl">
-            Bốn bước là xong
-          </h2>
-          <ol className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {SITE.process.map((step) => (
-              <li key={step.num} className="border-t-2 border-ink pt-4">
-                <p className="font-mono text-xs font-medium tracking-[0.2em] text-brand">{step.num} /</p>
-                <h3 className="mt-2 font-display text-base font-black uppercase tracking-tight font-expanded">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.desc}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <EditorialSection label="Cách làm" title="Bốn bước là xong">
+        <ol className="grid gap-6 sm:grid-cols-2">
+          {SITE.process.map((step) => (
+            <li key={step.num} className="border-t-2 border-ink pt-4">
+              <p className="font-mono text-xs font-medium tracking-[0.2em] text-brand">{step.num} /</p>
+              <h3 className="mt-2 font-display text-base font-black uppercase tracking-tight font-expanded">
+                {step.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.desc}</p>
+            </li>
+          ))}
+        </ol>
+      </EditorialSection>
 
       {/* FAQ riêng */}
-      <section className="border-t-2 border-ink bg-secondary py-14 md:py-20">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <h2 className="font-display text-2xl font-black uppercase leading-[1.15] tracking-tight font-expanded md:text-3xl">
-            Câu hỏi thường gặp về {page.nav}
-          </h2>
-          <div className="mt-8 max-w-3xl">
-            <Accordion type="single" collapsible className="flex flex-col gap-3">
-              {page.faqs.map((faq, i) => (
-                <AccordionItem
-                  key={faq.q}
-                  value={`faq-${i}`}
-                  className="rounded-md border-2 border-ink bg-paper px-5 shadow-brutal-sm last:border-b-2 data-[state=open]:bg-gold-soft/30"
-                >
-                  <AccordionTrigger className="gap-4 py-4 text-left text-base font-bold hover:no-underline">
-                    <span>
-                      <span className="mr-2 font-mono text-xs font-medium text-brand">0{i + 1}.</span>
-                      {faq.q}
-                    </span>
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground md:text-base">
-                    {faq.a}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </div>
-      </section>
+      <EditorialSection
+        label="Hỏi & đáp"
+        title="Câu hỏi thường gặp"
+        intro={`Những thắc mắc khách hay hỏi trước khi làm ${page.nav}.`}
+      >
+        <Accordion type="single" collapsible className="flex max-w-3xl flex-col gap-3">
+          {page.faqs.map((faq, i) => (
+            <AccordionItem
+              key={faq.q}
+              value={`faq-${i}`}
+              className="rounded-md border-2 border-ink bg-paper px-5 shadow-brutal-sm last:border-b-2 data-[state=open]:bg-gold-soft/30"
+            >
+              <AccordionTrigger className="gap-4 py-4 text-left text-base font-bold hover:no-underline">
+                <span>
+                  <span className="mr-2 font-mono text-xs font-medium text-brand">0{i + 1}.</span>
+                  {faq.q}
+                </span>
+              </AccordionTrigger>
+              <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+                {faq.a}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </EditorialSection>
 
       {/* Dự án liên quan */}
       {relatedProjects.length > 0 ? (
-        <section className="border-t-2 border-ink py-14 md:py-20">
-          <div className="mx-auto max-w-6xl px-4 md:px-6">
-            <h2 className="font-display text-2xl font-black uppercase leading-[1.15] tracking-tight font-expanded md:text-3xl">
-              Dự án LDK đã làm tương tự
-            </h2>
-            <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {relatedProjects.map((project) => (
-                <ProjectCard key={project.name} project={project} />
-              ))}
-            </div>
-            <p className="mt-6">
-              <Link
-                to="/du-an/"
-                className="font-mono text-sm font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
-              >
-                Xem tất cả dự án →
-              </Link>
-            </p>
+        <EditorialSection
+          label="Bằng chứng"
+          title="Dự án đã làm tương tự"
+          aside={
+            <Link
+              to="/du-an/"
+              className="mt-5 inline-block font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
+            >
+              Xem tất cả dự án →
+            </Link>
+          }
+        >
+          {/* md chứ không phải sm: ở 640-767px card chia đôi chỉ còn 248px, tên dự án
+              một từ dài như "Controllermodz" tràn ra khỏi hộp */}
+          <div className="grid gap-6 md:grid-cols-2">
+            {relatedProjects.map((project) => (
+              <ProjectCard key={project.name} project={project} />
+            ))}
           </div>
-        </section>
+        </EditorialSection>
       ) : null}
 
       {/* Cầu nối workshop AI — chỉ trên 2 dịch vụ AI, dẫn khách chưa sẵn sàng làm cả hệ thống */}

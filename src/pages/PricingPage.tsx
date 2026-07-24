@@ -5,6 +5,7 @@ import { Reveal } from '@/components/shared/Reveal'
 import { TierCard } from '@/components/shared/TierCard'
 import { CtaLink } from '@/components/shared/CtaLink'
 import { CallCta } from '@/components/shared/CallCta'
+import { EditorialSection } from '@/components/shared/EditorialSection'
 import { QuoteEstimator } from '@/components/sections/QuoteEstimator'
 import { SITE } from '@/content/site'
 import { usePhone } from '@/lib/phone'
@@ -26,42 +27,36 @@ export function PricingPage() {
         </div>
       </section>
 
-      {/* Editorial "thở": mục lục đánh số, hairline chia mục thay nền xen kẽ, nhiều khoảng trắng */}
+      {/* Editorial "thở": mục lục đánh số, hairline chia mục thay nền xen kẽ, nhiều khoảng trắng.
+          Số 01–07 ở đây đánh dấu một danh sách 7 dịch vụ CÓ THẬT nên mang thông tin.
+          Bỏ kẻ mảnh của mục đầu bằng index chứ không bằng `first:`: PricingPage trả về
+          fragment nên các section là con trực tiếp của <main>, mục 01 là con thứ 3 chứ
+          không phải :first-child — `first:` sẽ không bao giờ khớp và kẻ mảnh vẽ chồng
+          lên viền 2px của khối ước tính ngay trên. */}
       {SITE.servicePages.map((page, index) => (
-        <section key={page.slug} className="border-t border-ink/20 py-16 first:border-t-0 md:py-24">
-          <div className="mx-auto max-w-6xl px-4 md:px-6">
-            <div className="grid gap-8 lg:grid-cols-12">
-              {/* Cột nhãn kiểu mục lục tạp chí — giữ hẹp để 3 card giá còn đủ bề ngang */}
-              <div className="lg:col-span-3">
-                <div className="flex items-baseline gap-4">
-                  <span className="font-mono text-sm font-bold tracking-[0.1em] text-brand">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <h2 className="font-display text-2xl font-black uppercase leading-[1.12] tracking-tight font-expanded md:text-3xl">
-                    {page.nav}
-                  </h2>
-                </div>
-                <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                  {page.intro}
-                </p>
-                <Link
-                  to={`/dich-vu/${page.slug}/`}
-                  className="mt-5 inline-block font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
-                >
-                  Xem trang dịch vụ →
-                </Link>
-              </div>
-
-              <div className="grid gap-5 lg:col-span-9 lg:grid-cols-3">
-                {page.tiers.map((tier, i) => (
-                  <Reveal key={tier.name} delay={i * 80} className="h-full">
-                    <TierCard tier={tier} />
-                  </Reveal>
-                ))}
-              </div>
-            </div>
+        <EditorialSection
+          key={page.slug}
+          label={String(index + 1).padStart(2, '0')}
+          title={page.nav}
+          intro={page.intro}
+          aside={
+            <Link
+              to={`/dich-vu/${page.slug}/`}
+              className="mt-5 inline-block font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
+            >
+              Xem trang dịch vụ →
+            </Link>
+          }
+          className={index === 0 ? 'border-t-0' : undefined}
+        >
+          <div className="grid gap-5 lg:grid-cols-3">
+            {page.tiers.map((tier, i) => (
+              <Reveal key={tier.name} delay={i * 80} className="h-full">
+                <TierCard tier={tier} />
+              </Reveal>
+            ))}
           </div>
-        </section>
+        </EditorialSection>
       ))}
 
       <section className="border-t-2 border-ink bg-ink py-14 text-paper md:py-20">
