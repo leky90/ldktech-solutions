@@ -17,7 +17,8 @@ export interface PhoneInfo {
 export function decodePhone(): PhoneInfo {
   const digits = atob(SITE.phoneB64).split('').reverse().join('')
   return {
-    display: digits.replace(/^(\d{4})(\d{3})(\d{3})$/, '$1 $2 $3'),
+    // Hiển thị kèm mã quốc gia; giữ ĐÚNG số ký tự với phoneMask để đổi chuỗi không xê dịch layout
+    display: `(+84) ${digits.replace(/^(\d{4})(\d{3})(\d{3})$/, '$1 $2 $3')}`,
     telHref: `tel:+84${digits.slice(1)}`,
     zaloHref: `https://zalo.me/${digits}`,
     ready: true,

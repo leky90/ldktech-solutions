@@ -31,8 +31,8 @@ export function PricingPage() {
         <section key={page.slug} className="border-t border-ink/20 py-16 first:border-t-0 md:py-24">
           <div className="mx-auto max-w-6xl px-4 md:px-6">
             <div className="grid gap-8 lg:grid-cols-12">
-              {/* Cột nhãn kiểu mục lục tạp chí */}
-              <div className="lg:col-span-4">
+              {/* Cột nhãn kiểu mục lục tạp chí — giữ hẹp để 3 card giá còn đủ bề ngang */}
+              <div className="lg:col-span-3">
                 <div className="flex items-baseline gap-4">
                   <span className="font-mono text-sm font-bold tracking-[0.1em] text-brand">
                     {String(index + 1).padStart(2, '0')}
@@ -52,7 +52,7 @@ export function PricingPage() {
                 </Link>
               </div>
 
-              <div className="grid gap-6 lg:col-span-8 lg:grid-cols-3">
+              <div className="grid gap-5 lg:col-span-9 lg:grid-cols-3">
                 {page.tiers.map((tier, i) => (
                   <Reveal key={tier.name} delay={i * 80} className="h-full">
                     <TierCard tier={tier} />

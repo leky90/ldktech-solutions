@@ -8,29 +8,18 @@ interface CallCtaProps {
   className?: string
 }
 
-/** Nút gọi chuẩn của site: nhãn HÀNH ĐỘNG "Gọi ngay" + số thật cỡ nhỏ bên dưới.
+/** Nút gọi chuẩn của site: hiện SỐ ĐIỆN THOẠI kèm mã quốc gia, đồng nhất mọi nơi.
  *
- *  Vì SĐT chỉ giải mã sau hydrate (chống bot quét), dòng số dùng font mono và
- *  render sẵn mặt nạ ở trạng thái trong suốt để GIỮ CHỖ — mặt nạ và số thật đều
- *  12 ký tự nên khi đổi sang số thật không hề xê dịch layout, cũng không ai kịp
- *  thấy "09•• ••• •••" nhấp nháy. */
+ *  SĐT chỉ giải mã sau hydrate (chống bot quét), nên số hiển thị dùng font mono và
+ *  mặt nạ được đặt ĐÚNG 18 ký tự như số thật — chuỗi đổi sau hydrate mà bề ngang
+ *  nút không nhảy một pixel nào. */
 export function CallCta({ variant = 'outline', className }: CallCtaProps) {
   const phone = usePhone()
 
   return (
-    <span className={cn('inline-flex flex-col items-center gap-1.5', className)}>
-      <CtaLink variant={variant} href={phone.telHref}>
-        <Phone className="size-4" aria-hidden="true" /> Gọi ngay
-      </CtaLink>
-      <span
-        aria-hidden={!phone.ready}
-        className={cn(
-          'font-mono text-[11px] tracking-[0.08em] opacity-60 transition-opacity duration-200',
-          !phone.ready && 'opacity-0',
-        )}
-      >
-        {phone.display}
-      </span>
-    </span>
+    <CtaLink variant={variant} href={phone.telHref} className={cn('font-mono', className)}>
+      <Phone className="size-4 shrink-0" aria-hidden="true" />
+      <span className="tracking-tight">{phone.display}</span>
+    </CtaLink>
   )
 }

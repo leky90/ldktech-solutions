@@ -181,7 +181,9 @@ export const SITE = {
   // để số thật không xuất hiện trong HTML tĩnh — chống bot quét spam.
   // Đổi số: node -e "console.log(Buffer.from('SỐ_MỚI'.split('').reverse().join('')).toString('base64'))"
   phoneB64: 'NDUxNjM0OTY5MA==',
-  phoneMask: '09•• ••• •••',
+  // Mặt nạ PHẢI cùng số ký tự với display thật "(+84) 0969 436 154" (18 ký tự)
+  // để khi client giải mã xong, chuỗi đổi mà layout không nhảy.
+  phoneMask: '(+84) 09•• ••• •••',
   // Email domain riêng — Cloudflare Email Routing forward về gmail công ty
   email: 'support@ldktech.com',
   // Cloudflare Worker nhận lead (source: worker/ trong repo) -> gửi email về SITE.email.

@@ -34,11 +34,12 @@ export function StickyMobileCta() {
       >
         <MessageCircle className="size-4" aria-hidden="true" /> Chat Zalo
       </a>
+      {/* Cũng hiện số như mọi nút gọi khác; text-xs + mono để chuỗi 18 ký tự vừa nửa màn 375px */}
       <a
         href={phone.telHref}
-        className="flex h-14 items-center justify-center gap-2 border-l-2 border-ink bg-paper text-sm font-bold uppercase tracking-wide text-ink"
+        className="flex h-14 items-center justify-center gap-1.5 border-l-2 border-ink bg-paper font-mono text-xs font-bold tracking-tight text-ink"
       >
-        <Phone className="size-4" aria-hidden="true" /> Gọi ngay
+        <Phone className="size-4 shrink-0" aria-hidden="true" /> {phone.display}
       </a>
     </nav>
   )

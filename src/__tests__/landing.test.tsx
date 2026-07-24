@@ -152,7 +152,8 @@ describe('content/site.ts — tính toàn vẹn nội dung', () => {
   it('config liên hệ tập trung một chỗ, SĐT mã hoá đúng', async () => {
     const { decodePhone } = await import('../lib/phone')
     const info = decodePhone()
-    expect(info.display).toBe('0969 436 154')
+    // Hiển thị kèm mã quốc gia, đồng nhất mọi nút gọi trên site
+    expect(info.display).toBe('(+84) 0969 436 154')
     expect(info.telHref).toBe('tel:+84969436154')
     expect(info.zaloHref).toBe('https://zalo.me/0969436154')
     expect(SITE.siteUrl).toMatch(/^https:\/\//)

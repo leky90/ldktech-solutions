@@ -7,6 +7,9 @@ import { usePhone } from '@/lib/phone'
 /** Card một mức giá của trang dịch vụ — dùng ở ServicePage và trang Bảng giá */
 export function TierCard({ tier }: { tier: ServiceTier }) {
   const phone = usePhone()
+  // "1 triệu/tháng" -> số lớn + kỳ hạn nhỏ. Nếu để nguyên, token "triệu/tháng" không có
+  // khoảng trắng nên trong card hẹp sẽ bị bẻ dòng xấu (hoặc tràn ra ngoài).
+  const [priceMain, pricePer] = tier.price.split('/')
   return (
     <article
       className={cn(
@@ -28,8 +31,20 @@ export function TierCard({ tier }: { tier: ServiceTier }) {
       >
         {tier.name}
       </p>
-      <p className="mt-3 font-display text-3xl font-black uppercase tracking-tight font-expanded">
-        {tier.price}
+      {/* Cỡ chữ chọn theo chuỗi giá DÀI NHẤT ("từ 45 triệu") để luôn gọn 1 dòng trong card
+          hẹp nhất của trang Bảng giá; tracking-tighter mua thêm vài px. */}
+      <p className="mt-3 flex flex-wrap items-baseline gap-x-1.5 font-display text-[clamp(1.35rem,1.1vw+0.95rem,1.6rem)] font-black uppercase leading-[1.15] tracking-tighter font-expanded [overflow-wrap:anywhere]">
+        {priceMain}
+        {pricePer ? (
+          <span
+            className={cn(
+              'font-mono text-xs font-medium lowercase tracking-normal',
+              tier.highlight ? 'text-paper/70' : 'text-muted-foreground',
+            )}
+          >
+            /{pricePer}
+          </span>
+        ) : null}
       </p>
       <p
         className={cn(

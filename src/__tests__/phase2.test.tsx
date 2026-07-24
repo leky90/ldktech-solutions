@@ -145,20 +145,25 @@ describe('phase 3 — gallery mẫu + demo sống', () => {
   })
 })
 
-describe('nút gọi — nhãn "Gọi ngay", số nhỏ bên dưới, không lộ số trong HTML tĩnh', () => {
+describe('nút gọi — đồng nhất chỉ hiện số kèm mã quốc gia', () => {
   const PAGES = ['/', '/bang-gia/', '/dich-vu/zalo-mini-app/', '/giai-phap/spa-lam-dep/']
 
-  it('mọi trang chính dùng nhãn hành động "Gọi ngay" thay vì lấy số làm nhãn', async () => {
+  it('mặt nạ và số thật cùng độ dài -> đổi chuỗi sau hydrate không xê dịch layout', async () => {
+    const { decodePhone } = await import('../lib/phone')
+    expect(decodePhone().display).toBe('(+84) 0969 436 154')
+    expect(SITE.phoneMask).toHaveLength(decodePhone().display.length)
+  })
+
+  it('mọi trang chính hiển thị mặt nạ có mã quốc gia', async () => {
     for (const path of PAGES) {
       const { html } = await prerender(path)
-      expect(html, path).toContain('Gọi ngay')
+      expect(html, path).toContain('(+84) 09••')
     }
   })
 
-  it('vẫn giữ nguyên cơ chế chống bot: HTML tĩnh chỉ có mặt nạ, không có số thật', async () => {
+  it('vẫn giữ nguyên cơ chế chống bot: HTML tĩnh không có số thật', async () => {
     for (const path of PAGES) {
       const { html } = await prerender(path)
-      expect(html, path).toContain('09••')
       expect(html, path).not.toContain('0969436154')
       expect(html, path).not.toContain('0969 436 154')
       expect(html, path).not.toContain('tel:+84')
