@@ -12,6 +12,7 @@ import { PricingPage } from '@/pages/PricingPage'
 import { DemoScreen } from '@/pages/demos/DemoScreen'
 import { QuyTrinhPage } from '@/pages/QuyTrinhPage'
 import { WorkshopPage } from '@/pages/WorkshopPage'
+import { NotFoundPage } from '@/pages/NotFoundPage'
 
 function App() {
   return (
@@ -27,8 +28,9 @@ function App() {
         <Route path="mau-tham-khao" element={<GalleryPage />} />
         <Route path="khoa-hoc/workshop-ai" element={<WorkshopPage />} />
         <Route path="bang-gia" element={<PricingPage />} />
-        {/* Path lạ (qua 404.html fallback) -> về trang chủ */}
-        <Route path="*" element={<Home />} />
+        {/* Path lạ (qua 404.html fallback) -> trang 404 riêng, KHÔNG phải trang chủ:
+            hiện trang chủ ở URL sai khiến khách tưởng mình vào đúng chỗ */}
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
       {/* Demo sống + trang quy trình dùng shell riêng — không Header/Footer chính */}
       <Route path="mau-tham-khao/:slug" element={<DemoScreen />} />

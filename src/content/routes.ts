@@ -1,4 +1,5 @@
 import { SITE } from './site'
+import { ogImagePath } from '@/lib/og'
 
 // Single source of truth cho: prerender loop, sitemap generator, canonical/OG per page,
 // và document.title khi điều hướng client-side (Layout).
@@ -6,9 +7,11 @@ export interface RouteMeta {
   path: string
   title: string
   description: string
+  /** Ảnh chia sẻ riêng của trang — suy ra từ path nên không thể quên khi thêm route */
+  ogImage: string
 }
 
-export const ROUTES: RouteMeta[] = [
+const RAW_ROUTES: Omit<RouteMeta, 'ogImage'>[] = [
   {
     path: '/',
     title: 'LDK Tech — Thiết kế Website, App & Zalo Mini App cho SME',
@@ -76,3 +79,18 @@ export const ROUTES: RouteMeta[] = [
       'Bảng giá chi tiết từng dịch vụ: website từ 5 triệu, Zalo Mini App từ 15 triệu, web app từ 25 triệu, mobile app từ 40 triệu. Chốt giá trước khi làm.',
   },
 ]
+
+export const ROUTES: RouteMeta[] = RAW_ROUTES.map((route) => ({
+  ...route,
+  ogImage: ogImagePath(route.path),
+}))
+
+/** Trang 404 — CỐ Ý đứng ngoài ROUTES: có mặt trong sitemap là mời Google index rác.
+ *  path '/404' chỉ để prerender ra dist/404.html, không phải một địa chỉ để đi tới. */
+export const NOT_FOUND_META: RouteMeta = {
+  path: '/404',
+  title: 'Không tìm thấy trang — LDK Tech',
+  description:
+    'Đường dẫn này không tồn tại hoặc đã đổi địa chỉ. Xem lại dịch vụ, bảng giá, mẫu tham khảo và dự án đã làm của LDK Tech, hoặc nhắn Zalo để được chỉ đúng trang.',
+  ogImage: ogImagePath('/404'),
+}

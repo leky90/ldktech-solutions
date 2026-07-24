@@ -20,7 +20,7 @@ const escapeHtml = (s) =>
 
 try {
   const { prerender } = await server.ssrLoadModule('/src/prerender-entry.tsx')
-  const { ROUTES } = await server.ssrLoadModule('/src/content/routes.ts')
+  const { ROUTES, NOT_FOUND_META } = await server.ssrLoadModule('/src/content/routes.ts')
   const { SITE } = await server.ssrLoadModule('/src/content/site.ts')
 
   const template = readFileSync(distIndex, 'utf-8')
@@ -30,11 +30,12 @@ try {
   }
   const origin = SITE.siteUrl.replace(/\/$/, '')
 
-  for (const route of ROUTES) {
+  const renderPage = (route, { noindex = false } = {}) => {
     const { html } = prerender(route.path)
     const url = origin + route.path
     const title = escapeHtml(route.title)
     const desc = escapeHtml(route.description)
+    const image = origin + route.ogImage
 
     const page = template
       .replace(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`)
@@ -43,14 +44,28 @@ try {
       .replace(/(property="og:url" content=")[^"]*(")/, `$1${url}$2`)
       .replace(/(property="og:title" content=")[^"]*(")/, `$1${title}$2`)
       .replace(/(property="og:description"[\s\S]*?content=")[^"]*(")/, `$1${desc}$2`)
+      .replace(/(property="og:image" content=")[^"]*(")/, `$1${image}$2`)
       .replace(/(name="twitter:title" content=")[^"]*(")/, `$1${title}$2`)
       .replace(/(name="twitter:description"[\s\S]*?content=")[^"]*(")/, `$1${desc}$2`)
+      .replace(/(name="twitter:image" content=")[^"]*(")/, `$1${image}$2`)
       .replace(marker, marker + html)
 
+    if (!noindex) return page
+    // 404.html được phục vụ ở MỌI url sai nên canonical sẽ luôn trỏ sai -> bỏ hẳn,
+    // và chặn index để trang lỗi không lọt vào kết quả tìm kiếm.
+    return page
+      .replace(/[ \t]*<link rel="canonical"[^>]*>\n?/, '')
+      .replace('</head>', '  <meta name="robots" content="noindex" />\n  </head>')
+  }
+
+  for (const route of ROUTES) {
     const dir = resolve(root, `dist${route.path}`)
     mkdirSync(dir, { recursive: true })
-    writeFileSync(resolve(dir, 'index.html'), page)
+    writeFileSync(resolve(dir, 'index.html'), renderPage(route))
   }
+
+  // Trang 404 thật thay cho bản copy của index.html — trước đây url sai hiện nguyên trang chủ
+  writeFileSync(resolve(root, 'dist/404.html'), renderPage(NOT_FOUND_META, { noindex: true }))
 
   // Sitemap từ cùng manifest — không bao giờ lệch với các trang thật
   const today = new Date().toISOString().slice(0, 10)

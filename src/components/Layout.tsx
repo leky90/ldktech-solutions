@@ -4,7 +4,7 @@ import { Header } from '@/components/sections/Header'
 import { Footer } from '@/components/sections/Footer'
 import { StickyMobileCta } from '@/components/shared/StickyMobileCta'
 import { FloatingZalo } from '@/components/shared/FloatingZalo'
-import { ROUTES } from '@/content/routes'
+import { NOT_FOUND_META, ROUTES } from '@/content/routes'
 
 /** Khi đổi trang client-side: cuộn đúng chỗ + cập nhật title/description theo manifest.
  *  Export để DemoScreen (shell riêng, ngoài Layout) dùng lại. */
@@ -21,11 +21,10 @@ export function RouteEffects() {
 
   useEffect(() => {
     const normalized = pathname.endsWith('/') ? pathname : `${pathname}/`
-    const route = ROUTES.find((r) => r.path === normalized)
-    if (route) {
-      document.title = route.title
-      document.querySelector('meta[name="description"]')?.setAttribute('content', route.description)
-    }
+    // Path lạ -> meta của trang 404, nếu không title sẽ kẹt lại ở trang trước đó
+    const route = ROUTES.find((r) => r.path === normalized) ?? NOT_FOUND_META
+    document.title = route.title
+    document.querySelector('meta[name="description"]')?.setAttribute('content', route.description)
   }, [pathname])
 
   return null
