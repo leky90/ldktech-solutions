@@ -145,6 +145,16 @@ describe('phase 3 — gallery mẫu + demo sống', () => {
   })
 })
 
+describe('phong cách B — editorial "thở" cho trang bảng giá', () => {
+  it('bảng giá có mục lục đánh số 01–07 cho 7 dịch vụ', async () => {
+    const { html } = await prerender('/bang-gia/')
+    for (let i = 1; i <= SITE.servicePages.length; i++) {
+      const num = String(i).padStart(2, '0')
+      expect(html, `thiếu số thứ tự ${num}`).toContain(`>${num}<`)
+    }
+  })
+})
+
 describe('định tuyến theo ngành trên trang chủ', () => {
   it('trang chủ dẫn thẳng tới cả 3 landing ngành (hết mồ côi internal link)', async () => {
     const { html } = await prerender('/')

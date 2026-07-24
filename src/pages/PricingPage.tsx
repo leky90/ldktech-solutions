@@ -25,29 +25,39 @@ export function PricingPage() {
         </div>
       </section>
 
+      {/* Editorial "thở": mục lục đánh số, hairline chia mục thay nền xen kẽ, nhiều khoảng trắng */}
       {SITE.servicePages.map((page, index) => (
-        <section
-          key={page.slug}
-          className={index % 2 === 1 ? 'border-t-2 border-ink bg-secondary py-14 md:py-20' : 'border-t-2 border-ink py-14 md:py-20 first:border-t-0'}
-        >
+        <section key={page.slug} className="border-t border-ink/20 py-16 first:border-t-0 md:py-24">
           <div className="mx-auto max-w-6xl px-4 md:px-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-3">
-              <h2 className="font-display text-2xl font-black uppercase leading-[1.15] tracking-tight font-expanded md:text-3xl">
-                {page.nav}
-              </h2>
-              <Link
-                to={`/dich-vu/${page.slug}/`}
-                className="font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
-              >
-                Xem trang dịch vụ →
-              </Link>
-            </div>
-            <div className="mt-8 grid gap-6 lg:grid-cols-3">
-              {page.tiers.map((tier, i) => (
-                <Reveal key={tier.name} delay={i * 80} className="h-full">
-                  <TierCard tier={tier} />
-                </Reveal>
-              ))}
+            <div className="grid gap-8 lg:grid-cols-12">
+              {/* Cột nhãn kiểu mục lục tạp chí */}
+              <div className="lg:col-span-4">
+                <div className="flex items-baseline gap-4">
+                  <span className="font-mono text-sm font-bold tracking-[0.1em] text-brand">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <h2 className="font-display text-2xl font-black uppercase leading-[1.12] tracking-tight font-expanded md:text-3xl">
+                    {page.nav}
+                  </h2>
+                </div>
+                <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                  {page.intro}
+                </p>
+                <Link
+                  to={`/dich-vu/${page.slug}/`}
+                  className="mt-5 inline-block font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand decoration-gold decoration-2 underline-offset-4 hover:underline"
+                >
+                  Xem trang dịch vụ →
+                </Link>
+              </div>
+
+              <div className="grid gap-6 lg:col-span-8 lg:grid-cols-3">
+                {page.tiers.map((tier, i) => (
+                  <Reveal key={tier.name} delay={i * 80} className="h-full">
+                    <TierCard tier={tier} />
+                  </Reveal>
+                ))}
+              </div>
             </div>
           </div>
         </section>
