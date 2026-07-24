@@ -2,6 +2,7 @@ import { ArrowDown, Check, MessageCircle } from 'lucide-react'
 import { HeroCanvas } from '@/components/shared/HeroCanvas'
 import { CtaLink } from '@/components/shared/CtaLink'
 import { LogoMark } from '@/components/shared/Logo'
+import { StatBand } from '@/components/shared/StatBand'
 import { SITE } from '@/content/site'
 import { usePhone } from '@/lib/phone'
 
@@ -10,7 +11,7 @@ export function Hero() {
   const phone = usePhone()
 
   return (
-    <section id="top" className="relative overflow-hidden border-b-2 border-ink bg-blueprint">
+    <section id="top" className="grain relative overflow-hidden border-b-2 border-ink bg-blueprint">
       <HeroCanvas />
 
       <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-12 md:px-6 md:pb-20 md:pt-16">
@@ -68,17 +69,8 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Trust strip — hairline Neo-Swiss */}
-        <div className="mt-12 grid gap-px overflow-hidden rounded-md border-2 border-ink bg-ink shadow-brutal sm:grid-cols-3">
-          {hero.trust.map((item, i) => (
-            <p
-              key={item}
-              className="flex items-center gap-2.5 bg-paper px-4 py-3 font-mono text-xs uppercase tracking-wide"
-            >
-              <span className="font-bold text-brand">0{i + 1}</span> {item}
-            </p>
-          ))}
-        </div>
+        {/* Dải "số biết nói" — số lớn editorial, đếm lên khi cuộn tới */}
+        <StatBand stats={hero.stats} />
       </div>
     </section>
   )

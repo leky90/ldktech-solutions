@@ -145,6 +145,24 @@ describe('phase 3 — gallery mẫu + demo sống', () => {
   })
 })
 
+describe('hero stat band — "một con số biết nói" (kinetic + editorial)', () => {
+  it('site.ts có heroStats: 3 chỉ số tách value/label', () => {
+    expect(SITE.hero.stats).toHaveLength(3)
+    for (const s of SITE.hero.stats) {
+      expect(s.value.length, 'value không rỗng').toBeGreaterThan(0)
+      expect(s.label.length, 'label không rỗng').toBeGreaterThan(0)
+    }
+  })
+
+  it('prerender / hiện số lớn ở HTML tĩnh (SEO thấy giá trị thật, không phải 0)', async () => {
+    const { html } = await prerender('/')
+    for (const s of SITE.hero.stats) {
+      expect(html, s.value).toContain(s.value)
+      expect(html, s.label).toContain(s.label)
+    }
+  })
+})
+
 describe('conversion quick-win — cam kết chống rủi ro dưới CTA hero', () => {
   it('site.ts có hero.commitments đúng 3 cam kết', () => {
     expect(SITE.hero.commitments).toHaveLength(3)
