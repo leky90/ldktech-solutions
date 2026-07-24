@@ -145,6 +145,25 @@ describe('phase 3 — gallery mẫu + demo sống', () => {
   })
 })
 
+describe('lớp grain không được phá layout', () => {
+  it('KHÔNG có rule ép position lên mọi con của .grain', async () => {
+    const { readFileSync } = await import('node:fs')
+    const { resolve } = await import('node:path')
+    const css = readFileSync(resolve(import.meta.dirname, '../index.css'), 'utf-8')
+    // `.grain > * { position: relative }` từng ghi đè `absolute` của HeroCanvas,
+    // đẩy canvas vào luồng thường và làm nội dung hero tụt xuống đáy section.
+    const harmful = /\.grain\s*>\s*\*\s*\{[^}]*position\s*:/
+    expect(css, 'rule .grain > * { position: ... } làm vỡ hero').not.toMatch(harmful)
+  })
+
+  it('hero vẫn render đủ H1 + CTA + dải số trong HTML tĩnh', async () => {
+    const { html } = await prerender('/')
+    expect(html.match(/<h1/g)?.length).toBe(1)
+    expect(html).toContain(SITE.hero.ctaPrimary)
+    for (const s of SITE.hero.stats) expect(html, s.value).toContain(s.value)
+  })
+})
+
 describe('footer — tách nhóm liên kết, không dồn hết vào một cột', () => {
   it('có 3 nhóm liên kết riêng: Dịch vụ · Khám phá · Liên hệ', async () => {
     const { html } = await prerender('/')

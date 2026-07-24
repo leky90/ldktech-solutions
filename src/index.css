@@ -152,10 +152,9 @@
   opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-.grain > * {
-  position: relative;
-  z-index: 1;
-}
+/* KHÔNG đặt `.grain > * { position: relative }` — nó ghi đè `absolute` của các lớp nền
+   (vd HeroCanvas), đẩy chúng vào luồng thường và làm vỡ layout. Lớp grain là ::after
+   phủ trên cùng với pointer-events:none nên không cần đụng tới con. */
 
 /* ─── Creative coding: marquee + scroll reveal ─── */
 @keyframes marquee {
