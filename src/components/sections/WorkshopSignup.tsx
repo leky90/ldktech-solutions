@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { MessageCircle, Phone } from 'lucide-react'
+import { MessageCircle } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { CtaLink } from '@/components/shared/CtaLink'
+import { CallCta } from '@/components/shared/CallCta'
 import { SITE } from '@/content/site'
 import { usePhone } from '@/lib/phone'
 
@@ -153,9 +154,7 @@ export function WorkshopSignup() {
           <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer" className="h-11 text-xs">
             <MessageCircle className="size-4" aria-hidden="true" /> Chat Zalo
           </CtaLink>
-          <CtaLink variant="outline" href={phone.telHref} className="h-11 text-xs">
-            <Phone className="size-4" aria-hidden="true" /> {phone.display}
-          </CtaLink>
+          <CallCta />
         </div>
       </div>
     </div>

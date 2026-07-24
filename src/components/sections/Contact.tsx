@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { Mail, MessageCircle, Phone } from 'lucide-react'
+import { Mail, MessageCircle } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { CtaLink } from '@/components/shared/CtaLink'
+import { CallCta } from '@/components/shared/CallCta'
 import { SITE } from '@/content/site'
 import { usePhone } from '@/lib/phone'
 
@@ -82,9 +83,7 @@ export function Contact() {
               <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="size-4" aria-hidden="true" /> Chat Zalo ngay
               </CtaLink>
-              <CtaLink variant="outline" href={phone.telHref}>
-                <Phone className="size-4" aria-hidden="true" /> {phone.display}
-              </CtaLink>
+              <CallCta />
             </div>
 
             <a
@@ -163,9 +162,7 @@ export function Contact() {
                   <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="size-4" aria-hidden="true" /> Chat Zalo ngay
                   </CtaLink>
-                  <CtaLink variant="outline" href={phone.telHref}>
-                    <Phone className="size-4" aria-hidden="true" /> Gọi {phone.display}
-                  </CtaLink>
+                  <CallCta />
                 </div>
               )}
             </div>

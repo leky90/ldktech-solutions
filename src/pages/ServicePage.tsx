@@ -7,6 +7,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { CtaLink } from '@/components/shared/CtaLink'
+import { CallCta } from '@/components/shared/CallCta'
 import { Reveal } from '@/components/shared/Reveal'
 import { TierCard } from '@/components/shared/TierCard'
 import { ProjectCard } from '@/components/shared/ProjectCard'
@@ -274,9 +275,7 @@ export function ServicePage() {
             <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="size-4" aria-hidden="true" /> Chat Zalo ngay
             </CtaLink>
-            <CtaLink variant="outline" href={phone.telHref}>
-              Gọi {phone.display}
-            </CtaLink>
+            <CallCta />
           </div>
         </div>
       </section>

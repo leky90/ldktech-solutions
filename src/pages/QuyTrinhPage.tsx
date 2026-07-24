@@ -4,6 +4,7 @@ import { ArrowLeft, MessageCircle } from 'lucide-react'
 import { RouteEffects } from '@/components/Layout'
 import { LogoMark } from '@/components/shared/Logo'
 import { CtaLink } from '@/components/shared/CtaLink'
+import { CallCta } from '@/components/shared/CallCta'
 import { Reveal } from '@/components/shared/Reveal'
 import { SITE } from '@/content/site'
 import { usePhone } from '@/lib/phone'
@@ -135,9 +136,7 @@ export function QuyTrinhPage() {
                 <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="size-4" aria-hidden="true" /> Chat Zalo ngay
                 </CtaLink>
-                <CtaLink variant="outline" href={phone.telHref}>
-                  Gọi {phone.display}
-                </CtaLink>
+                <CallCta />
               </div>
             </div>
           </div>

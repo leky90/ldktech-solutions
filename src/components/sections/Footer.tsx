@@ -87,7 +87,13 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href={phone.telHref} className="decoration-gold decoration-2 underline-offset-4 hover:underline">
+                {/* Giữ số thật ở footer (chỗ khách chủ động tìm để lưu) — ẩn tới khi giải mã xong
+                    để không ai thấy mặt nạ nhấp nháy; mono nên đổi chuỗi không xê dịch layout */}
+                <a
+                  href={phone.telHref}
+                  aria-hidden={!phone.ready}
+                  className={`font-mono decoration-gold decoration-2 underline-offset-4 transition-opacity duration-200 hover:underline${phone.ready ? '' : ' opacity-0'}`}
+                >
                   {phone.display}
                 </a>
               </li>

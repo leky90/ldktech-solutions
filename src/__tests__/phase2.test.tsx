@@ -145,6 +145,27 @@ describe('phase 3 — gallery mẫu + demo sống', () => {
   })
 })
 
+describe('nút gọi — nhãn "Gọi ngay", số nhỏ bên dưới, không lộ số trong HTML tĩnh', () => {
+  const PAGES = ['/', '/bang-gia/', '/dich-vu/zalo-mini-app/', '/giai-phap/spa-lam-dep/']
+
+  it('mọi trang chính dùng nhãn hành động "Gọi ngay" thay vì lấy số làm nhãn', async () => {
+    for (const path of PAGES) {
+      const { html } = await prerender(path)
+      expect(html, path).toContain('Gọi ngay')
+    }
+  })
+
+  it('vẫn giữ nguyên cơ chế chống bot: HTML tĩnh chỉ có mặt nạ, không có số thật', async () => {
+    for (const path of PAGES) {
+      const { html } = await prerender(path)
+      expect(html, path).toContain('09••')
+      expect(html, path).not.toContain('0969436154')
+      expect(html, path).not.toContain('0969 436 154')
+      expect(html, path).not.toContain('tel:+84')
+    }
+  })
+})
+
 describe('phong cách B — editorial "thở" cho trang bảng giá', () => {
   it('bảng giá có mục lục đánh số 01–07 cho 7 dịch vụ', async () => {
     const { html } = await prerender('/bang-gia/')

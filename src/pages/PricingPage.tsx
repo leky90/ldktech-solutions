@@ -4,6 +4,7 @@ import { PageHero } from '@/components/shared/PageHero'
 import { Reveal } from '@/components/shared/Reveal'
 import { TierCard } from '@/components/shared/TierCard'
 import { CtaLink } from '@/components/shared/CtaLink'
+import { CallCta } from '@/components/shared/CallCta'
 import { QuoteEstimator } from '@/components/sections/QuoteEstimator'
 import { SITE } from '@/content/site'
 import { usePhone } from '@/lib/phone'
@@ -76,9 +77,7 @@ export function PricingPage() {
             <CtaLink href={phone.zaloHref} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="size-4" aria-hidden="true" /> Chat Zalo ngay
             </CtaLink>
-            <CtaLink variant="outline" href={phone.telHref}>
-              Gọi {phone.display}
-            </CtaLink>
+            <CallCta />
           </div>
         </div>
       </section>
