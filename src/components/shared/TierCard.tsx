@@ -67,14 +67,16 @@ export function TierCard({ tier }: { tier: ServiceTier }) {
         ))}
       </ul>
 
+      {/* Nhãn ngắn + nowrap: "Nhận báo giá chi tiết" (21 ký tự) vỡ 2 dòng trong card hẹp của
+          trang Bảng giá. w-full để 3 nút trong một hàng bằng nhau, nhìn thẳng hàng. */}
       <CtaLink
         href={phone.zaloHref}
         target="_blank"
         rel="noopener noreferrer"
         variant={tier.highlight ? 'gold' : 'outline'}
-        className="mt-6"
+        className="mt-6 w-full whitespace-nowrap px-4"
       >
-        Nhận báo giá chi tiết
+        Nhận báo giá
       </CtaLink>
     </article>
   )
