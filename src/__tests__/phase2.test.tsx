@@ -145,6 +145,18 @@ describe('phase 3 — gallery mẫu + demo sống', () => {
   })
 })
 
+describe('định tuyến theo ngành trên trang chủ', () => {
+  it('trang chủ dẫn thẳng tới cả 3 landing ngành (hết mồ côi internal link)', async () => {
+    const { html } = await prerender('/')
+    // React escape & -> &amp; nên phải so sánh trên chuỗi đã escape
+    const escape = (s: string) => s.replace(/&/g, '&amp;')
+    for (const page of SITE.industryPages) {
+      expect(html, page.nav).toContain(escape(page.nav))
+      expect(html, page.slug).toContain(`/giai-phap/${page.slug}/`)
+    }
+  })
+})
+
 describe('công cụ báo giá tức thì — dịch nhu cầu ra đúng gói', () => {
   it('mọi tier đều có desc làm nhãn lựa chọn + price để hiện kết quả', () => {
     for (const page of SITE.servicePages) {
