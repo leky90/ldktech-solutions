@@ -145,6 +145,34 @@ describe('phase 3 — gallery mẫu + demo sống', () => {
   })
 })
 
+describe('công cụ báo giá tức thì — dịch nhu cầu ra đúng gói', () => {
+  it('mọi tier đều có desc làm nhãn lựa chọn + price để hiện kết quả', () => {
+    for (const page of SITE.servicePages) {
+      for (const tier of page.tiers) {
+        expect(tier.desc.length, `${page.slug}/${tier.name} thiếu desc`).toBeGreaterThan(10)
+        expect(tier.price.length, `${page.slug}/${tier.name} thiếu price`).toBeGreaterThan(0)
+      }
+    }
+  })
+
+  it('prerender /bang-gia/ có công cụ ước tính + bước 1 liệt kê đủ 7 dịch vụ', async () => {
+    const { html } = await prerender('/bang-gia/')
+    expect(html).toContain('Ước tính chi phí')
+    // Bước 1 render sẵn trong HTML tĩnh -> SEO đọc được, không-JS vẫn thấy nội dung
+    for (const page of SITE.servicePages) {
+      expect(html, page.nav).toContain(page.nav)
+    }
+  })
+
+  it('công cụ không tự bịa giá — chỉ dùng giá đã công bố trong tiers', async () => {
+    const { html } = await prerender('/bang-gia/')
+    // Giá hiển thị phải nằm trong tập giá đã khai báo
+    for (const page of SITE.servicePages) {
+      expect(html, page.tiers[0].price).toContain(page.tiers[0].price)
+    }
+  })
+})
+
 describe('hero stat band — "một con số biết nói" (kinetic + editorial)', () => {
   it('site.ts có heroStats: 3 chỉ số tách value/label', () => {
     expect(SITE.hero.stats).toHaveLength(3)

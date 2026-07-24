@@ -4,6 +4,7 @@ import { PageHero } from '@/components/shared/PageHero'
 import { Reveal } from '@/components/shared/Reveal'
 import { TierCard } from '@/components/shared/TierCard'
 import { CtaLink } from '@/components/shared/CtaLink'
+import { QuoteEstimator } from '@/components/sections/QuoteEstimator'
 import { SITE } from '@/content/site'
 import { usePhone } from '@/lib/phone'
 
@@ -16,6 +17,13 @@ export function PricingPage() {
         title="Giá rõ ràng cho từng dịch vụ"
         sub="Không cần gọi điện mới biết giá. Mức dưới đây là tham khảo — con số chính xác chốt sau buổi tư vấn miễn phí, và không đổi giữa chừng."
       />
+
+      {/* Công cụ ước tính đặt ngay đầu trang — người tìm giá thấy đường đi ngắn nhất */}
+      <section className="border-b-2 border-ink bg-secondary py-12 md:py-16">
+        <div className="mx-auto max-w-4xl px-4 md:px-6">
+          <QuoteEstimator />
+        </div>
+      </section>
 
       {SITE.servicePages.map((page, index) => (
         <section
