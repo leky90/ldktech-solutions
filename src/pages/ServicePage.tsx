@@ -236,6 +236,31 @@ export function ServicePage() {
         </section>
       ) : null}
 
+      {/* Cầu nối workshop AI — chỉ trên 2 dịch vụ AI, dẫn khách chưa sẵn sàng làm cả hệ thống */}
+      {(page.slug === 'tro-ly-ai' || page.slug === 'tu-dong-hoa') ? (
+        <section className="border-t-2 border-ink bg-gold-soft/40 py-12 md:py-16">
+          <div className="mx-auto flex max-w-5xl flex-col items-start gap-5 px-4 md:flex-row md:items-center md:justify-between md:px-6">
+            <div>
+              <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-brand">
+                LDK Academy · Workshop
+              </p>
+              <h2 className="mt-2 max-w-xl font-display text-xl font-black uppercase leading-tight tracking-tight font-expanded md:text-2xl">
+                Chưa sẵn sàng làm cả hệ thống? Học dùng AI cho quán/shop trước
+              </h2>
+              <p className="mt-2 max-w-xl text-sm text-muted-foreground">
+                Nửa buổi cầm tay chỉ việc, tự làm được ngay. Việc khó thì để LDK setup giùm sau.
+              </p>
+            </div>
+            <Link
+              to="/khoa-hoc/workshop-ai/"
+              className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-md border-2 border-ink bg-paper px-6 text-sm font-bold uppercase tracking-wider shadow-brutal-sm transition-transform hover:-translate-y-0.5"
+            >
+              Xem workshop <ArrowDown className="size-4 -rotate-90" aria-hidden="true" />
+            </Link>
+          </div>
+        </section>
+      ) : null}
+
       {/* CTA chốt */}
       <section className="border-t-2 border-ink bg-ink py-14 text-paper md:py-20">
         <div className="mx-auto max-w-6xl px-4 text-center md:px-6">

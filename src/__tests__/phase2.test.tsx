@@ -156,6 +156,43 @@ describe('header — logo điều hướng', () => {
   })
 })
 
+describe('LDK Academy — landing workshop AI (test nhu cầu, không dựng cả học viện)', () => {
+  it('manifest có route /khoa-hoc/workshop-ai/', () => {
+    expect(ROUTES.map((r) => r.path)).toContain('/khoa-hoc/workshop-ai/')
+  })
+
+  it('workshop content trong site.ts đủ agenda/takeaways/faqs', () => {
+    const w = SITE.workshop
+    expect(w.slug).toBe('workshop-ai')
+    expect(w.agenda.length).toBeGreaterThanOrEqual(4)
+    expect(w.takeaways.length).toBeGreaterThanOrEqual(3)
+    expect(w.faqs.length).toBeGreaterThanOrEqual(3)
+    expect(w.fears.length).toBeGreaterThanOrEqual(3)
+  })
+
+  it('prerender: 1 h1 + form giữ chỗ + không lộ SĐT/zalo tĩnh', async () => {
+    const { html } = await prerender('/khoa-hoc/workshop-ai/')
+    expect(html.match(/<h1/g)?.length).toBe(1)
+    expect(html).toContain('AI cho quán')
+    expect(html).toContain('name="phone"')
+    expect(html).toContain('name="botcheck"')
+    expect(html).not.toContain('zalo.me')
+    expect(html).not.toContain('0969436154')
+    expect(html).toContain('09••')
+  })
+
+  it('không lộ jargon / nền tảng freelancer trên landing workshop', async () => {
+    const { html } = await prerender('/khoa-hoc/workshop-ai/')
+    const lower = html.toLowerCase()
+    for (const banned of ['freelancer', 'vlance', 'upwork', 'studio']) {
+      expect(lower, banned).not.toContain(banned)
+    }
+    for (const jargon of ['Lighthouse', 'React Native', 'TypeScript', 'React + Vite']) {
+      expect(html, jargon).not.toContain(jargon)
+    }
+  })
+})
+
 describe('trang quy trình /quy-trinh/ — scroll world', () => {
   it('processPage: 5 chặng đủ copy, manifest có route', () => {
     expect(SITE.processPage.sections).toHaveLength(5)

@@ -150,6 +150,26 @@ export interface DemoPage {
   from: string
 }
 
+// LDK Academy — 1 workshop landing để TEST nhu cầu (không dựng cả học viện).
+export interface WorkshopData {
+  slug: string
+  seoTitle: string
+  seoDesc: string
+  eyebrow: string
+  h1: string
+  intro: string
+  /** "nghe quen không?" — gỡ nỗi sợ trước khi bán */
+  fears: { fear: string; answer: string }[]
+  /** buổi học có gì */
+  agenda: string[]
+  /** học viên mang về gì */
+  takeaways: string[]
+  /** thông tin buổi học: thời lượng, hình thức, sĩ số, chi phí… */
+  details: { label: string; value: string }[]
+  whoTeaches: string
+  faqs: Faq[]
+}
+
 export const SITE = {
   name: 'LDK Tech Solutions',
   brand: 'LDK Tech',
@@ -1174,6 +1194,75 @@ export const SITE = {
       },
     ] satisfies ProcessWorldSection[],
   },
+
+  // ── LDK Academy — landing workshop AI (bản test nhu cầu, dưới sub-brand riêng) ──
+  workshop: {
+    slug: 'workshop-ai',
+    seoTitle: 'Workshop AI cho chủ quán & cửa hàng — LDK Academy',
+    seoDesc:
+      'Workshop nửa buổi dạy chủ quán, spa, cửa hàng dùng AI viết bài bán hàng, tạo ảnh sản phẩm, chăm khách — thực hành ngay trên điện thoại. Giữ chỗ miễn phí.',
+    eyebrow: 'LDK Academy · Workshop thực hành',
+    h1: 'AI cho quán, cho shop của bạn',
+    intro:
+      'Nửa buổi cầm tay chỉ việc — bạn mang điện thoại tới, làm ra sản phẩm thật ngay tại lớp: caption bán hàng, ảnh món/sản phẩm "lên đời", và biết chính xác 3–4 việc giao cho AI ngay tuần này. Không thuật ngữ, không cần biết công nghệ.',
+    fears: [
+      {
+        fear: '"AI là của mấy công ty lớn, nhiều tiền"',
+        answer:
+          'Phần lớn việc của quán, của shop dùng bản miễn phí là đủ. Buổi học chỉ cho bạn đúng công cụ hợp túi tiền, không vẽ vời.',
+      },
+      {
+        fear: '"Học rồi cũng chẳng dùng, lại tốn tiền vô ích"',
+        answer:
+          'Nên buổi này bạn làm luôn trên chính quán/shop của mình, mang sản phẩm về đăng — không ngồi nghe lý thuyết suông.',
+      },
+      {
+        fear: '"AI làm hết thì nhân viên mình để đâu"',
+        answer:
+          'AI gánh việc lặp (soạn bài, trả tin, nhập đơn) để bạn và nhân viên tập trung phục vụ và bán hàng — không thay ai cả.',
+      },
+    ],
+    agenda: [
+      'Gỡ 3 nỗi sợ + hiểu rõ AI làm được gì và không làm được gì cho việc kinh doanh nhỏ',
+      'Ba trợ lý AI phổ thông (ChatGPT, Gemini, Claude) — cái nào cho việc gì, khi nào bản miễn phí là đủ dùng',
+      'Viết 5 caption bán hàng cho chính quán/shop của bạn — làm tại lớp, mang về đăng luôn',
+      'Biến ảnh chụp điện thoại thành ảnh menu/sản phẩm chuyên nghiệp, chèn được chữ tiếng Việt',
+      '10 việc nên giao cho AI ngay tuần này & 5 việc tuyệt đối không nên giao (chốt giá, tư vấn chuyên môn, chốt hợp đồng)',
+    ],
+    takeaways: [
+      '5 caption bán hàng viết sẵn cho shop của bạn, dùng được ngay',
+      'Vài ảnh sản phẩm/menu đã "lên đời" bằng AI',
+      'Danh sách 3–4 việc áp dụng ngay trong tuần',
+      'Bản đồ công cụ AI theo túi tiền — hết sợ chi sai tiền',
+    ],
+    details: [
+      { label: 'Thời lượng', value: '1 buổi, 3–4 giờ' },
+      { label: 'Hình thức', value: 'Trực tiếp tại LDK hoặc online qua Zoom (cho khách ở tỉnh)' },
+      { label: 'Sĩ số', value: 'Nhóm nhỏ — để ai cũng làm ra sản phẩm' },
+      { label: 'Bạn cần mang', value: 'Điện thoại + vài hình ảnh quán/sản phẩm của bạn' },
+      { label: 'Chi phí', value: 'Giữ chỗ miễn phí cho nhóm đăng ký sớm; nếu có phí sẽ hoàn vào hợp đồng dịch vụ' },
+    ],
+    whoTeaches:
+      'Người đứng lớp là chính đội ngũ trực tiếp làm chatbot AI và tự động hoá cho hộ kinh doanh & doanh nghiệp tại LDK — bạn học từ người làm thật mỗi ngày, không phải lý thuyết đi mượn.',
+    faqs: [
+      {
+        q: 'Tôi chưa từng dùng ChatGPT, tham gia được không?',
+        a: 'Được — buổi học thiết kế cho người bắt đầu từ số 0. Chỉ cần biết dùng điện thoại và Zalo là theo kịp, có người kèm tận tay trong lúc thực hành.',
+      },
+      {
+        q: 'Học xong tôi có phải mua gì của LDK không?',
+        a: 'Không bắt buộc gì cả. Buổi học để bạn tự làm được việc nhỏ hằng ngày. Khi nào cần hệ thống chạy tự động ổn định (chatbot, tự động hoá) thì mới tính tới dịch vụ — hoàn toàn tùy bạn.',
+      },
+      {
+        q: 'Học online có theo kịp không?',
+        a: 'Kịp — bản online vẫn thực hành trực tiếp, có người hỗ trợ trong lúc làm, và nhóm Zalo hỏi đáp sau buổi.',
+      },
+      {
+        q: 'Bao giờ có lịch khai giảng?',
+        a: 'LDK mở theo đợt, nhóm nhỏ. Bạn để lại số Zalo, LDK báo lịch đợt gần nhất và giữ chỗ cho bạn.',
+      },
+    ],
+  } satisfies WorkshopData,
 
   faqs: [
     {

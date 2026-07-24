@@ -59,6 +59,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/khoa-hoc/workshop-ai/" className="text-paper/80 decoration-gold decoration-2 underline-offset-4 hover:underline">
+                  Workshop AI cho chủ tiệm
+                </Link>
+              </li>
+              <li>
                 <Link to="/bang-gia/" className="text-paper/80 decoration-gold decoration-2 underline-offset-4 hover:underline">
                   Bảng giá
                 </Link>

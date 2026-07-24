@@ -11,6 +11,7 @@ import { GalleryPage } from '@/pages/GalleryPage'
 import { PricingPage } from '@/pages/PricingPage'
 import { DemoScreen } from '@/pages/demos/DemoScreen'
 import { QuyTrinhPage } from '@/pages/QuyTrinhPage'
+import { WorkshopPage } from '@/pages/WorkshopPage'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="du-an" element={<ProjectsPage />} />
         <Route path="du-an/:slug" element={<ProjectDetailPage />} />
         <Route path="mau-tham-khao" element={<GalleryPage />} />
+        <Route path="khoa-hoc/workshop-ai" element={<WorkshopPage />} />
         <Route path="bang-gia" element={<PricingPage />} />
         {/* Path lạ (qua 404.html fallback) -> về trang chủ */}
         <Route path="*" element={<Home />} />

@@ -65,6 +65,11 @@ export const ROUTES: RouteMeta[] = [
     description: SITE.processPage.seoDesc,
   },
   {
+    path: `/khoa-hoc/${SITE.workshop.slug}/`,
+    title: SITE.workshop.seoTitle,
+    description: SITE.workshop.seoDesc,
+  },
+  {
     path: '/bang-gia/',
     title: 'Bảng giá thiết kế website, app, Zalo Mini App 2026',
     description:
